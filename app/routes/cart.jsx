@@ -37,7 +37,7 @@ export async function action({request, context}) {
     case CartForm.ACTIONS.LinesAdd:
       if (acceleratedCheckout) {
         result = await cart.addLines(inputs.lines);
-        const buyer = await customerAccount.UNSTABLE_getBuyer();
+        const buyer = await customerAccount.getBuyer();
         await cart.updateBuyerIdentity({
           customerAccessToken: buyer.customerAccessToken,
         });

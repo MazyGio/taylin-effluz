@@ -1,410 +1,10 @@
-import { useState } from 'react';
-
-// Define brand colors
-const brandColors = {
-  primary: '#4f0839',
-  secondary: '#a66d72',
-  accent1: '#c69399',
-  accent2: '#e0c6cb',
-  lightGray1: '#f2f2f2',
-  lightGray2: '#f2ece7',
-  lightGray3: '#e7dcd0',
-  blue1: '#a9c0d9',
-  blue2: '#5b8098',
-  darkBlue: '#1e374f',
-  green1: '#b1b599',
-  green2: '#787a64',
-  darkGreen: '#3a3d30',
-  white: '#FFFFFF',
-};
+import { useState, useEffect } from 'react';
+import brandColors from '../theme/brandColors';
+import { LanguageSelector } from './LanguageSelector';
+import { InputField } from './InputField';
 
 // Translations object
-const translations = {
-  es: {
-    mainTitle: "Calculadora para Negocios",
-    subtitle1: "Desarrollado por Taylin Luzcando",
-    subtitle2: "Calculadora para costo, precio, margen y markup para tu negocio (USD$)",
-    languageToggle: "English",
-    tab0: { // New Tab for Product Cost
-      title: "Cálculo de Costo de Producto",
-      inputs: {
-        directMaterials: "Costo de Materiales Directos",
-        directLabor: "Costo de Mano de Obra Directa",
-        manufacturingOverhead: "Costos Indirectos de Fabricación",
-        otherCosts: "Otros Costos",
-        transportation: "Transporte",
-        quantity: "Cantidad de productos que fabrique",
-      },
-      outputs: {
-        directMaterials: "Costo de Materiales Directos",
-        directLabor: "Costo de Mano de Obra Directa",
-        manufacturingOverhead: "Costos Indirectos de Fabricación",
-        otherCosts: "Otros Costos",
-        transportation: "Transporte",
-        totalProductCost: "Costo total del producto (por unidad)", // Adjusted capitalization
-        overallTotalCost: "Costo total general", // Adjusted capitalization
-      },
-      inputGuidance: "Si algún dato no aplica, coloca 0."
-    },
-    tab1: {
-      title: "Cálculo de Precio en base a costo",
-      inputs: {
-        cost: "Costo",
-        desiredMargin: "Margen Deseado (%)",
-        taxRate: "Impuesto (%)", // New input
-      },
-      outputs: {
-        cost: "Costo",
-        profitMargin: "Margen de utilidad", // Adjusted capitalization
-        suggestedSellingPrice: "Precio de venta sugerido (sin impuesto)", // Adjusted capitalization
-        taxAmount: "Monto de impuesto", // Adjusted capitalization
-        suggestedSellingPriceWithTax: "Precio de venta sugerido (con impuesto)", // Adjusted capitalization
-        markup: "Markup",
-        profitPerUnit: "Utilidad por unidad", // Adjusted capitalization
-      },
-      inputGuidance: "Si algún dato no aplica, coloca 0."
-    },
-    tab2: {
-      title: "Cálculo de Margen y Markup",
-      inputs: {
-        cost: "Costo",
-        desiredSellingPrice: "Precio de Venta Deseado",
-        taxRate: "Impuesto (%)", // Added tax rate to tab2 inputs
-        taxIncludedQuestion: "¿El precio de venta deseado incluye impuesto?", // New
-        taxIncludedYes: "Sí, incluye impuesto", // New
-        taxIncludedNo: "No, no incluye impuesto", // New
-      },
-      outputs: {
-        cost: "Costo",
-        desiredSellingPricePreTax: "Precio de venta deseado (sin impuesto)", // New output
-        taxAmount: "Monto de impuesto", // Adjusted capitalization
-        desiredSellingPriceWithTax: "Precio de venta deseado (con impuesto)", // New output
-        profitMargin: "Margen de utilidad (%)", // Adjusted capitalization
-        markup: "Markup (%)",
-        profitPerUnit: "Utilidad por unidad", // Adjusted capitalization
-      },
-      inputGuidance: "Si algún dato no aplica, coloca 0.",
-      mandatoryChoiceGuidance: "Selecciona una opción para el impuesto." // New guidance
-    },
-    tab3: { // Old tab4, now tab3
-      title: "Cálculo de Precio con Doble Margen", // Updated title
-      section1: {
-        title: "MARGEN AJUSTADO",
-        inputs: { // Inputs specific to this section
-          cost: "Costo",
-          suggestedRetailPrice: "Precio de Venta al Público",
-          wholesalerDesiredMargin: "Margen del Mayorista Deseado (%)",
-          taxRate: "Impuesto (%)", // New input for section1
-          taxIncludedQuestion: "¿El precio de venta al público incluye impuesto?", // New
-          taxIncludedYes: "Sí, incluye impuesto", // New
-          taxIncludedNo: "No, no incluye impuesto", // New
-        },
-        outputs: { // Outputs specific to this section
-          directSales: "Ventas directas", // Adjusted capitalization
-          suggestedRetailPrice: "Precio de venta al público (sin impuesto)", // Adjusted capitalization
-          taxAmount: "Monto de impuesto", // Adjusted capitalization
-          suggestedRetailPriceWithTax: "Precio de venta al público (con impuesto)", // Adjusted capitalization
-          cost: "Costo",
-          grossMargin: "Margen bruto (%)", // Adjusted capitalization
-          profit: "Utilidad",
-          adjustedWholesaleSales: "Ventas ajustado a mayorista", // Adjusted capitalization
-          priceToWholesaler: "Precio al mayorista", // Adjusted capitalization
-          wholesalerMargin: "Margen del mayorista (%)", // Adjusted capitalization
-          sellerAdjustedMargin: "Margen de mi negocio ajustado (%)", // Adjusted capitalization
-          sellerProfit: "Utilidad de mi negocio", // Adjusted capitalization
-        },
-        inputGuidance: "Si algún dato no aplica, coloca 0.",
-        mandatoryChoiceGuidance: "Selecciona una opción para el impuesto." // New guidance
-      },
-      section2: {
-        title: "MARGEN DESEADO",
-        inputs: { // Inputs specific to this section
-          cost: "Costo",
-          desiredMargin: "Margen Deseado (Mi negocio) (%)",
-          wholesalerDesiredMargin: "Margen Deseado del Mayorista (%)",
-          taxRate: "Impuesto (%)", // New input for section2
-          taxIncludedQuestion: "¿El precio de venta al público sugerido incluye impuesto?", // New
-          taxIncludedYes: "Sí, incluye impuesto", // New
-          taxIncludedNo: "No, no incluye impuesto", // New
-        },
-        outputs: { // Outputs specific to this section
-          cost: "Costo",
-          desiredMargin: "Margen deseado (Mi negocio)", // Adjusted capitalization
-          wholesalerDesiredMargin: "Margen deseado del mayorista", // Adjusted capitalization
-          priceToWholesaler: "Precio al mayorista", // Adjusted capitalization
-          suggestedPublicSellingPrice: "Precio de venta al público sugerido (sin impuesto)", // Adjusted capitalization
-          taxAmount: "Monto de impuesto", // Adjusted capitalization
-          suggestedPublicSellingPriceWithTax: "Precio de venta al público sugerido (con impuesto)", // Adjusted capitalization
-          yourProfit: "Utilidad de mi negocio", // Adjusted capitalization
-          wholesalerProfit: "Utilidad del mayorista", // Adjusted capitalization
-        },
-        inputGuidance: "Si algún dato no aplica, coloca 0.",
-        mandatoryChoiceGuidance: "Selecciona una opción para el impuesto." // New guidance
-      }
-    },
-    footer: {
-      disclaimer: "El desarrollo de esta calculadora y su código son propiedad de Effluz S.A. Está prohibida su reproducción total o parcial.", // Combined disclaimer with accent
-      allConcepts: { // Consolidated concepts
-        cost: "Costo: El valor monetario de los recursos utilizados para producir algo o adquirir un producto.",
-        directMaterials: "Costo de materiales directos: El costo de las materias primas que se convierten directamente en el producto final (ej. madera para un mueble).", // Adjusted capitalization
-        directLabor: "Costo de mano de obra directa: El costo de la mano de obra directamente involucrada en la fabricación del producto (ej. salario de un ensamblador).", // Adjusted capitalization
-        manufacturingOverhead: "Costos indirectos de fabricación: Todos los costos de fabricación que no son materiales directos ni mano de obra directa (ej. alquiler de fábrica, servicios públicos, depreciación de maquinaria).", // Adjusted capitalization
-        otherCosts: "Otros costos: Cualquier otro costo asociado directamente con la producción o adquisición del producto que no encaja en las categorías anteriores (ej. empaque especial, licencias por unidad).", // Adjusted capitalization
-        transportation: "Transporte: Costos incurridos para mover materiales o productos, ya sea para recibir insumos (flete de entrada) o para enviar productos terminados (flete de salida).",
-        totalProductCost: "Costo total del producto (por unidad): La suma de todos los costos directos e indirectos asociados con la producción de una unidad de producto. Representa el costo completo de fabricar un artículo.", // Adjusted capitalization
-        overallTotalCost: "Costo total general: El costo total de un número específico de unidades del producto. Se calcula multiplicando el Costo Total del Producto (por unidad) por la Cantidad.", // Adjusted capitalization
-        profitMargin: "Margen de utilidad (Margen): Es el porcentaje de utilidad que se obtiene sobre el precio de venta. Indica cuánto beneficio se genera por cada dólar de venta. Se calcula como (Utilidad / Precio de Venta) * 100.", // Adjusted capitalization
-        markup: "Markup: Es el porcentaje que se le añade al costo de un producto para determinar su precio de venta. Indica cuánto se incrementa el costo para llegar al precio de venta. Se calcula como ((Precio de Venta - Costo) / Costo) * 100.",
-        profit: "Utilidad (Ganancia): Es la ganancia monetaria *bruta por unidad* obtenida de una venta o transacción, antes de considerar gastos operativos generales. Se calcula como Precio de Venta - Costo.",
-        suggestedSellingPrice: "Precio de venta sugerido (sin impuesto): El precio recomendado al que se debería vender un producto para alcanzar un margen deseado, antes de aplicar impuestos. Se deriva del costo y el margen objetivo.", // Adjusted capitalization
-        taxRate: "Impuesto (%): El porcentaje de impuesto que se aplica al precio de venta del producto en un país o región específica.",
-        taxAmount: "Monto de impuesto: La cantidad monetaria del impuesto calculado sobre el precio de venta. Se calcula como Precio de Venta Sugerido * (Impuesto / 100).", // Adjusted capitalization
-        suggestedSellingPriceWithTax: "Precio de venta sugerido (con impuesto): El precio final recomendado al que se debería vender un producto, incluyendo el impuesto aplicable. Se calcula como Precio de Venta Sugerido (sin impuesto) + Monto de Impuesto.", // Adjusted capitalization
-        priceToWholesaler: "Precio mayorista: El precio al que mi negocio vende sus productos a un distribuidor o mayorista. Es el ingreso para mi negocio y el costo para el mayorista.", // Adjusted capitalization
-        wholesalerCost: "Costo mayorista: El costo de adquisición del producto para el mayorista, que es igual al Precio Mayorista fijado por mi negocio.", // Adjusted capitalization
-        wholesalerMargin: "Margen mayorista: El porcentaje de ganancia que el mayorista busca obtener sobre su precio de venta al público. Es su propio margen de beneficio.", // Adjusted capitalization
-        suggestedFinalSellingPrice: "Precio de venta sugerido final (Precio de Venta al Público): El precio recomendado al que el mayorista debería vender el producto al consumidor final, considerando su propio margen deseado.", // Adjusted capitalization
-        directSales: "Ventas directas: Se refiere a los cálculos de margen y utilidad cuando mi negocio vende directamente al consumidor final, sin intermediarios.", // Adjusted capitalization
-        adjustedWholesaleSales: "Ventas ajustado a mayorista: Cálculos de margen y utilidad que reflejan cómo se ajustan los beneficios de mi negocio cuando se vende a un mayorista, manteniendo un precio de venta al público fijo.", // Adjusted capitalization
-        grossMargin: "Margen bruto: La diferencia entre los ingresos por ventas y el costo de los bienes vendidos (Costo del Producto), expresada como porcentaje. Es una medida de la rentabilidad de las ventas antes de los gastos operativos.", // Adjusted capitalization
-        sellerAdjustedMargin: "Margen de mi negocio ajustado: Tu margen de ganancia después de considerar el margen que el mayorista necesita o desea obtener. Es tu margen real cuando vendes a través de un mayorista.", // Adjusted capitalization
-      },
-      allFormulas: { // Consolidated formulas
-        tab0: {
-          title: "Fórmulas para Cálculo de Costo de Producto",
-          formula: "<strong>Costo Total del Producto (por unidad)</strong> = Costo de Materiales Directos + Costo de Mano de Obra Directa + Costos Indirectos de Fabricación + Otros Costos + Transporte",
-          overallTotalCostFormula: "<strong>Costo Total General</strong> = Costo Total del Producto (por unidad) * Cantidad"
-        },
-        tab1: {
-          title: "Fórmulas para Cálculo de Precio en base a Costo",
-          profit: "<strong>Utilidad</strong> = Precio de Venta Sugerido (sin impuesto) - Costo",
-          suggestedSellingPrice: "<strong>Precio de Venta Sugerido (sin impuesto)</strong> = Costo / (1 - (Margen Deseado / 100))",
-          taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta Sugerido (sin impuesto) * (Impuesto / 100)",
-          suggestedSellingPriceWithTax: "<strong>Precio de Venta Sugerido (con impuesto)</strong> = Precio de Venta Sugerido (sin impuesto) + Monto de Impuesto",
-          markup: "<strong>Markup</strong> = ((Precio de Venta Sugerido (sin impuesto) - Costo) / Costo) * 100",
-          profitMargin: "<strong>Margen de Utilidad</strong> = ((Precio de Venta Sugerido (sin impuesto) - Costo) / Precio de Venta Sugerido (sin impuesto)) * 100"
-        },
-        tab2: {
-          title: "Fórmulas para Cálculo de Margen y Markup",
-          profit: "<strong>Utilidad</strong> = Precio de Venta Deseado (sin impuesto) - Costo", // Clarified
-          profitMargin: "<strong>Margen de Utilidad (%)</strong> = ((Precio de Venta Deseado (sin impuesto) - Costo) / Precio de Venta Deseado (sin impuesto)) * 100", // Clarified
-          markup: "<strong>Markup (%)</strong> = ((Precio de Venta Deseado (sin impuesto) - Costo) / Costo) * 100", // Clarified
-          taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta Deseado (sin impuesto) * (Impuesto / 100)", // New formula
-          suggestedSellingPriceWithTax: "<strong>Precio de Venta Deseado (con impuesto)</strong> = Precio de Venta Deseado (sin impuesto) + Monto de Impuesto", // New formula
-          derivedPreTaxPrice: "<em>Si el precio de venta deseado incluye impuesto:</em> <strong>Precio de Venta Deseado (sin impuesto)</strong> = Precio de Venta Deseado (ingresado) / (1 + Impuesto / 100)", // New formula explanation
-          derivedPreTaxPriceNoTax: "<em>Si el precio de venta deseado NO incluye impuesto:</em> <strong>Precio de Venta Deseado (sin impuesto)</strong> = Precio de Venta Deseado (ingresado)", // New formula explanation
-        },
-        tab3_section1: { // Formulas for Adjusted Margin part of tab4 (now tab3)
-          title: "Fórmulas para Margen Ajustado (Cálculo de Doble Márgenes)",
-          derivedPreTaxPrice: "<em>Si el precio de venta al público incluye impuesto:</em> <strong>Precio de Venta al Público (sin impuesto)</strong> = Precio de Venta al Público (ingresado) / (1 + Impuesto / 100)", // New formula explanation
-          derivedPreTaxPriceNoTax: "<em>Si el precio de venta al público NO incluye impuesto:</em> <strong>Precio de Venta al Público (sin impuesto)</strong> = Precio de Venta al Público (ingresado)", // New formula explanation
-          priceToWholesaler: "<strong>Precio al Mayorista</strong> = Precio de Venta al Público (sin impuesto) * (1 - (Margen del Mayorista Deseado / 100))", // Clarified
-          sellerAdjustedMargin: "<strong>Margen de mi Negocio Ajustado</strong> = ((Precio al Mayorista - Costo) / Precio al Mayorista) * 100",
-          sellerProfit: "<strong>Utilidad de mi Negocio</strong> = Precio al Mayorista - Costo",
-          taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta al Público (sin impuesto) * (Impuesto / 100)", // New formula
-          suggestedRetailPriceWithTax: "<strong>Precio de Venta al Público (con impuesto)</strong> = Precio de Venta al Público (sin impuesto) + Monto de Impuesto", // New formula
-        },
-        tab3_section2: { // Formulas for Desired Margin part of tab4 (now tab3)
-          title: "Fórmulas para Margen Deseado (Cálculo de Doble Márgenes)",
-          priceToWholesaler: "<strong>Precio al Mayorista</strong> = Costo / (1 - (Margen Deseado (Mi negocio) / 100))",
-          suggestedPublicSellingPrice: "<strong>Precio de Venta al Público Sugerido (sin impuesto)</strong> = Precio al Mayorista / (1 - (Margen Deseado del Mayorista / 100))", // Clarified
-          taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta al Público Sugerido (sin impuesto) * (Impuesto / 100)", // New formula
-          suggestedPublicSellingPriceWithTax: "<strong>Precio de Venta al Público Sugerido (con impuesto)</strong> = Precio de Venta al Público Sugerido (sin impuesto) + Monto de Impuesto", // New formula
-          yourProfit: "<strong>Utilidad de mi Negocio</strong> = Precio al Mayorista - Costo",
-          wholesalerProfit: "<strong>Utilidad del Mayorista</strong> = Precio de Venta al Público Sugerido (sin impuesto) - Precio al Mayorista" // Clarified
-        }
-      }
-    }
-  },
-  en: {
-    mainTitle: "Business Calculator",
-    subtitle1: "Developed by Taylin Luzcando",
-    subtitle2: "Calculator for Cost, Price, Margin, and Markup for your business (USD$)",
-    languageToggle: "Español",
-    tab0: { // New Tab for Product Cost
-      title: "Product Cost Calculation",
-      inputs: {
-        directMaterials: "Direct Materials Cost",
-        directLabor: "Direct Labor Cost",
-        manufacturingOverhead: "Manufacturing Overhead Costs",
-        otherCosts: "Other Costs",
-        transportation: "Transportation",
-        quantity: "Quantity of products manufactured",
-      },
-      outputs: {
-        directMaterials: "Direct Materials Cost",
-        directLabor: "Direct Labor Cost",
-        manufacturingOverhead: "Manufacturing Overhead Costs",
-        otherCosts: "Other Costs",
-        transportation: "Transportation",
-        totalProductCost: "Total Product Cost (per unit)",
-        overallTotalCost: "Overall Total Cost",
-      },
-      inputGuidance: "If a value doesn't apply, enter 0."
-    },
-    tab1: {
-      title: "Calculate Price based on Cost",
-      inputs: {
-        cost: "Cost",
-        desiredMargin: "Desired Margin (%)",
-        taxRate: "Tax Rate (%)", // New input
-      },
-      outputs: {
-        cost: "Cost",
-        profitMargin: "Profit Margin",
-        suggestedSellingPrice: "Suggested Selling Price (pre-tax)", // Clarified
-        taxAmount: "Tax Amount", // New output
-        suggestedSellingPriceWithTax: "Suggested Selling Price (with tax)", // New output
-        markup: "Markup",
-        profitPerUnit: "Profit per Unit",
-      },
-      inputGuidance: "If a value doesn't apply, enter 0."
-    },
-    tab2: {
-      title: "Calculate Margin and Markup",
-      inputs: {
-        cost: "Cost",
-        desiredSellingPrice: "Desired Selling Price",
-        taxRate: "Tax Rate (%)", // Added tax rate to tab2 inputs
-        taxIncludedQuestion: "Does desired selling price include tax?", // New
-        taxIncludedYes: "Yes, includes tax", // New
-        taxIncludedNo: "No, does not include tax", // New
-      },
-      outputs: {
-        cost: "Cost",
-        desiredSellingPricePreTax: "Desired Selling Price (pre-tax)", // New output
-        taxAmount: "Tax Amount", // Adjusted capitalization
-        desiredSellingPriceWithTax: "Desired Selling Price (with tax)", // New output
-        profitMargin: "Profit Margin (%)",
-        markup: "Markup (%)",
-        profitPerUnit: "Profit per Unit",
-      },
-      inputGuidance: "If a value doesn't apply, enter 0.",
-      mandatoryChoiceGuidance: "Select a tax option." // New guidance
-    },
-    tab3: { // Old tab4, now tab3
-      title: "Price Calculation with Double Margin", // Updated title
-      section1: {
-        title: "ADJUSTED MARGIN",
-        inputs: {
-          cost: "Cost",
-          suggestedRetailPrice: "Suggested Retail Price",
-          wholesalerDesiredMargin: "Wholesaler's Desired Margin (%)",
-          taxRate: "Tax Rate (%)", // New input for section1
-        },
-        outputs: {
-          directSales: "Direct Sales",
-          suggestedRetailPrice: "Suggested Retail Price (pre-tax)", // Clarified
-          taxAmount: "Tax Amount", // New output
-          suggestedRetailPriceWithTax: "Suggested Retail Price (with tax)", // New output
-          cost: "Cost",
-          grossMargin: "Gross Margin (%)",
-          profit: "Profit",
-          adjustedWholesaleSales: "Sales Adjusted for Wholesaler",
-          priceToWholesaler: "Price to Wholesaler",
-          wholesalerMargin: "Wholesaler's Margin (%)",
-          sellerAdjustedMargin: "Seller's Adjusted Margin (%)",
-          sellerProfit: "Seller's Profit",
-        },
-        inputGuidance: "If a value doesn't apply, enter 0."
-      },
-      section2: {
-        title: "DESIRED MARGIN",
-        inputs: {
-          cost: "Cost",
-          desiredMargin: "Desired Margin (Seller) (%)",
-          wholesalerDesiredMargin: "Wholesaler's Desired Margin (%)",
-          taxRate: "Tax Rate (%)", // New input for section2
-        },
-        outputs: {
-          cost: "Cost",
-          desiredMargin: "Desired Margin (Seller)",
-          wholesalerDesiredMargin: "Wholesaler's Desired Margin",
-          priceToWholesaler: "Price to Wholesaler",
-          suggestedPublicSellingPrice: "Suggested Public Selling Price (pre-tax)", // Clarified
-          taxAmount: "Tax Amount", // New output
-          suggestedPublicSellingPriceWithTax: "Suggested Public Selling Price (with tax)", // New output
-          yourProfit: "Your Profit",
-          wholesalerProfit: "Wholesaler's Profit",
-        },
-        inputGuidance: "If a value doesn't apply, enter 0."
-      }
-    },
-    footer: {
-      disclaimer: "The development of this calculator and its code are property of Effluz S.A. Total or partial reproduction is prohibited.", // Combined disclaimer
-      allConcepts: { // Consolidated concepts
-        cost: "Cost: The monetary value of resources used to produce something or acquire a product.",
-        directMaterials: "Direct Materials Cost: The cost of raw materials that are directly converted into the final product (e.g., wood for furniture).", // Adjusted capitalization
-        directLabor: "Direct Labor Cost: The cost of labor directly involved in manufacturing the product (e.g., assembler's salary).", // Adjusted capitalization
-        manufacturingOverhead: "Manufacturing Overhead Costs: All manufacturing costs that are not direct materials or direct labor (e.g., factory rent, utilities, machinery depreciation).", // Adjusted capitalization
-        otherCosts: "Other Costs: Any other costs directly associated with product production or acquisition not fitting previous categories (e.g., special packaging, per-unit licenses).", // Adjusted capitalization
-        transportation: "Transportation: Costs incurred to move materials or products, either for receiving inputs (inbound freight) or for shipping finished products (outbound freight).",
-        totalProductCost: "Total Product Cost (per unit): The sum of all direct and indirect costs associated with producing one unit of product. It represents the complete cost to manufacture an item.", // Adjusted capitalization
-        overallTotalCost: "Overall Total Cost: The total cost for a specific number of product units. It is calculated by multiplying the Total Product Cost (per unit) by the Quantity.", // Adjusted capitalization
-        profitMargin: "Profit Margin (Margin): It's the percentage of profit obtained over the selling price. It indicates how much profit is generated for every dollar of sale. Calculated as (Profit / Selling Price) * 100.", // Adjusted capitalization
-        markup: "Markup: It's the percentage added to the cost of a product to determine its selling price. It indicates how much the cost is increased to reach the selling price. Calculated as ((Selling Price - Cost) / Cost) * 100.",
-        profit: "Profit (Gain): The *gross monetary gain per unit* obtained from a sale or transaction, before considering general operating expenses. Calculated as Selling Price - Cost.",
-        suggestedSellingPrice: "Suggested Selling Price (pre-tax): The recommended price at which a product should be sold to achieve a desired margin, before applying taxes. It is derived from the cost and the target margin.", // Adjusted capitalization
-        taxRate: "Tax Rate (%): The percentage of tax applied to the product's selling price in a specific country or region.",
-        taxAmount: "Tax Amount: The monetary amount of tax calculated on the selling price. Calculated as Suggested Selling Price * (Tax Rate / 100).", // Adjusted capitalization
-        suggestedSellingPriceWithTax: "Suggested Selling Price (with tax): The final recommended price at which a product should be sold, including the applicable tax. Calculated as Suggested Selling Price (pre-tax) + Tax Amount.", // Adjusted capitalization
-        priceToWholesaler: "Wholesale Price: The price at which my business sells its products to a distributor or wholesaler. It is the revenue for my business and the cost for the wholesaler.", // Adjusted capitalization
-        wholesalerCost: "Wholesaler Cost: The acquisition cost of the product for the wholesaler, which is equal to the Wholesale Price set by my business.", // Adjusted capitalization
-        wholesalerMargin: "Wholesaler Margin: The percentage of profit the wholesaler seeks to obtain over their retail selling price. It is their own profit margin.", // Adjusted capitalization
-        suggestedFinalSellingPrice: "Suggested Final Selling Price (Public Selling Price): The recommended price at which the wholesaler should sell the product to the end consumer, considering their own desired margin.", // Adjusted capitalization
-        directSales: "Direct Sales: Refers to margin and profit calculations when my business sells directly to the end consumer, without intermediaries.", // Adjusted capitalization
-        adjustedWholesaleSales: "Sales adjusted for wholesaler: Margin and profit calculations that reflect how my business's profits are adjusted when selling to a wholesaler, while maintaining a fixed public selling price.", // Adjusted capitalization
-        grossMargin: "Gross Margin: The difference between sales revenue and the cost of goods sold (Product Cost), expressed as a percentage. It is a measure of sales profitability before operating expenses.", // Adjusted capitalization
-        sellerAdjustedMargin: "My Business's Adjusted Margin: Your profit margin after considering the margin the wholesaler needs or wants to obtain. It is your actual margin when selling through a wholesaler.", // Adjusted capitalization
-      },
-      allFormulas: { // Consolidated formulas
-        tab0: {
-          title: "Formulas for Product Cost Calculation",
-          formula: "<strong>Total Product Cost (per unit)</strong> = Direct Materials Cost + Direct Labor Cost + Manufacturing Overhead Costs + Other Costs + Transportation",
-          overallTotalCostFormula: "<strong>Overall Total Cost</strong> = Total Product Cost (per unit) * Quantity"
-        },
-        tab1: {
-          title: "Formulas for Price Calculation based on Cost",
-          profit: "<strong>Profit</strong> = Suggested Selling Price (pre-tax) - Cost",
-          suggestedSellingPrice: "<strong>Suggested Selling Price (pre-tax)</strong> = Cost / (1 - (Desired Margin / 100))",
-          taxAmount: "<strong>Tax Amount</strong> = Suggested Selling Price (pre-tax) * (Tax Rate / 100)",
-          suggestedSellingPriceWithTax: "<strong>Suggested Selling Price (with tax)</strong> = Suggested Selling Price (pre-tax) + Tax Amount",
-          markup: "<strong>Markup</strong> = ((Suggested Selling Price (pre-tax) - Cost) / Cost) * 100",
-          profitMargin: "<strong>Profit Margin</strong> = ((Suggested Selling Price (pre-tax) - Cost) / Suggested Selling Price (pre-tax)) * 100"
-        },
-        tab2: {
-          title: "Fórmulas para Cálculo de Margen y Markup",
-          profit: "<strong>Utilidad</strong> = Precio de Venta Deseado (sin impuesto) - Costo", // Clarified
-          profitMargin: "<strong>Margen de Utilidad (%)</strong> = ((Precio de Venta Deseado (sin impuesto) - Costo) / Precio de Venta Deseado (sin impuesto)) * 100", // Clarified
-          markup: "<strong>Markup (%)</strong> = ((Precio de Venta Deseado (sin impuesto) - Costo) / Costo) * 100", // Clarified
-          taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta Deseado (sin impuesto) * (Impuesto / 100)", // New formula
-          suggestedSellingPriceWithTax: "<strong>Precio de Venta Deseado (con impuesto)</strong> = Precio de Venta Deseado (sin impuesto) + Monto de Impuesto", // New formula
-          derivedPreTaxPrice: "<em>Si el precio de venta deseado incluye impuesto:</em> <strong>Precio de Venta Deseado (sin impuesto)</strong> = Precio de Venta Deseado (ingresado) / (1 + Impuesto / 100)", // New formula explanation
-          derivedPreTaxPriceNoTax: "<em>Si el precio de venta deseado NO incluye impuesto:</em> <strong>Precio de Venta Deseado (sin impuesto)</strong> = Precio de Venta Deseado (ingresado)", // New formula explanation
-        },
-        tab3_section1: { // Formulas for Adjusted Margin part of tab4 (now tab3)
-          title: "Fórmulas para Margen Ajustado (Cálculo de Doble Márgenes)",
-          derivedPreTaxPrice: "<em>Si el precio de venta al público incluye impuesto:</em> <strong>Precio de Venta al Público (sin impuesto)</strong> = Precio de Venta al Público (ingresado) / (1 + Impuesto / 100)", // New formula explanation
-          derivedPreTaxPriceNoTax: "<em>Si el precio de venta al público NO incluye impuesto:</em> <strong>Precio de Venta al Público (sin impuesto)</strong> = Precio de Venta al Público (ingresado)", // New formula explanation
-          priceToWholesaler: "<strong>Precio al Mayorista</strong> = Precio de Venta al Público (sin impuesto) * (1 - (Margen del Mayorista Deseado / 100))", // Clarified
-          sellerAdjustedMargin: "<strong>Margen de mi Negocio Ajustado</strong> = ((Precio al Mayorista - Costo) / Precio al Mayorista) * 100",
-          sellerProfit: "<strong>Utilidad de mi Negocio</strong> = Precio al Mayorista - Costo",
-          taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta al Público (sin impuesto) * (Impuesto / 100)", // New formula
-          suggestedRetailPriceWithTax: "<strong>Precio de Venta al Público (con impuesto)</strong> = Precio de Venta al Público (sin impuesto) + Monto de Impuesto", // New formula
-        },
-        tab3_section2: { // Formulas for Desired Margin part of tab4 (now tab3)
-          title: "Fórmulas para Margen Deseado (Cálculo de Doble Márgenes)",
-          priceToWholesaler: "<strong>Precio al Mayorista</strong> = Costo / (1 - (Margen Deseado (Mi negocio) / 100))",
-          suggestedPublicSellingPrice: "<strong>Precio de Venta al Público Sugerido (sin impuesto)</strong> = Precio al Mayorista / (1 - (Margen Deseado del Mayorista / 100))", // Clarified
-          taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta al Público Sugerido (sin impuesto) * (Impuesto / 100)", // New formula
-          suggestedPublicSellingPriceWithTax: "<strong>Precio de Venta al Público Sugerido (con impuesto)</strong> = Precio de Venta al Público Sugerido (sin impuesto) + Monto de Impuesto", // New formula
-          yourProfit: "<strong>Utilidad de mi Negocio</strong> = Precio al Mayorista - Costo",
-          wholesalerProfit: "<strong>Utilidad del Mayorista</strong> = Precio de Venta al Público Sugerido (sin impuesto) - Precio al Mayorista" // Clarified
-        }
-      }
-    }
-  }
-};
+import { translations } from '../assets/localization/translations';
 
 // Helper function to format numbers to 2 decimal places
 const formatCurrency = (value) => {
@@ -420,25 +20,6 @@ const formatPercentage = (value) => {
   }
   return `${value.toFixed(2)}%`;
 };
-
-// Reusable Input Field Component
-const InputField = ({ label, value, onChange, type = 'number', min = '0', step = '0.01', placeholder = '0' }) => (
-  <div className="mb-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2" style={{ color: brandColors.darkBlue }}>
-      {label}:
-    </label>
-    <input
-      type={type}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      min={min}
-      step={step}
-      placeholder={placeholder}
-      style={{ borderColor: brandColors.accent1 }}
-    />
-  </div>
-);
 
 // Reusable Result Display Component
 const ResultDisplay = ({ label, value, isHighlighted = false }) => (
@@ -456,7 +37,16 @@ const ProductCostCalculator = ({ language, t }) => {
   const [otherCosts, setOtherCosts] = useState('');
   const [transportation, setTransportation] = useState('');
   const [quantity, setQuantity] = useState('1'); // Default quantity to 1
+  const [costType, setCostType] = useState('total_order'); // 'per_unit' or 'total_order'
   const [results, setResults] = useState(null);
+
+  // Effect to handle quantity input based on costType
+  useEffect(() => {
+    if (costType === 'per_unit') {
+      setQuantity('1'); // Force quantity to 1 if per unit
+    }
+  }, [costType]);
+
 
   const handleCalculate = () => {
     const dm = parseFloat(directMaterials || 0);
@@ -464,15 +54,23 @@ const ProductCostCalculator = ({ language, t }) => {
     const mo = parseFloat(manufacturingOverhead || 0);
     const oc = parseFloat(otherCosts || 0);
     const tr = parseFloat(transportation || 0);
-    const qty = parseFloat(quantity || 1); // Default quantity to 1 if empty
+    const qty = parseFloat(quantity || 1);
 
-    if (isNaN(dm) || isNaN(dl) || isNaN(mo) || isNaN(oc) || isNaN(tr) || isNaN(qty) || dm < 0 || dl < 0 || mo < 0 || oc < 0 || tr < 0 || qty <= 0) {
+    if (isNaN(dm) || isNaN(dl) || isNaN(mo) || isNaN(oc) || isNaN(tr) || isNaN(qty) || dm < 0 || dl < 0 || mo < 0 || oc < 0 || tr < 0 || qty <= 0 || costType === null) {
       setResults(null);
       return;
     }
 
-    const totalProductCost = dm + dl + mo + oc + tr; // This is per unit
-    const overallTotalCost = totalProductCost * qty; // Total for the given quantity
+    let totalProductCost; // Per unit cost
+    let overallTotalCost; // Total for the given quantity
+
+    if (costType === 'per_unit') {
+      totalProductCost = dm + dl + mo + oc + tr;
+      overallTotalCost = totalProductCost * qty;
+    } else { // costType === 'total_order'
+      overallTotalCost = dm + dl + mo + oc + tr; // Sum of inputs is the overall total
+      totalProductCost = overallTotalCost / qty; // Calculate per unit from total
+    }
 
     setResults({
       directMaterials: dm,
@@ -480,8 +78,8 @@ const ProductCostCalculator = ({ language, t }) => {
       manufacturingOverhead: mo,
       otherCosts: oc,
       transportation: tr,
-      totalProductCost: totalProductCost, // Per unit cost
-      overallTotalCost: overallTotalCost, // Overall total cost
+      totalProductCost: totalProductCost,
+      overallTotalCost: overallTotalCost,
     });
   };
 
@@ -490,12 +88,49 @@ const ProductCostCalculator = ({ language, t }) => {
       {/* Input Section */}
       <div className="md:w-1/2 p-4">
         <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab0.title}</h3> {/* Use single title */}
-        <InputField label={t.tab0.inputs.directMaterials} value={directMaterials} onChange={setDirectMaterials} />
-        <InputField label={t.tab0.inputs.directLabor} value={directLabor} onChange={setDirectLabor} />
-        <InputField label={t.tab0.inputs.manufacturingOverhead} value={manufacturingOverhead} onChange={setManufacturingOverhead} />
-        <InputField label={t.tab0.inputs.otherCosts} value={otherCosts} onChange={setOtherCosts} />
-        <InputField label={t.tab0.inputs.transportation} value={transportation} onChange={setTransportation} />
+        <InputField label={t.tab0.inputs.directMaterials} value={directMaterials} onChange={setDirectMaterials} hasPrefix={true} prefix="$"/>
+        <InputField label={t.tab0.inputs.directLabor} value={directLabor} onChange={setDirectLabor} hasPrefix={true} prefix="$"/>
+        <InputField label={t.tab0.inputs.manufacturingOverhead} value={manufacturingOverhead} onChange={setManufacturingOverhead} hasPrefix={true} prefix="$"/>
+        <InputField label={t.tab0.inputs.otherCosts} value={otherCosts} onChange={setOtherCosts} hasPrefix={true} prefix="$"/>
+        <InputField label={t.tab0.inputs.transportation} value={transportation} onChange={setTransportation} hasPrefix={true} prefix="$"/>
         <InputField label={t.tab0.inputs.quantity} value={quantity} onChange={setQuantity} min="1" placeholder="1" /> {/* New quantity input */}
+
+        {/* Cost Type Choice */}
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" style={{ color: brandColors.darkBlue }}>
+            {t.tab0.inputs.costTypeQuestion}
+          </label>
+          <div className="flex space-x-4">
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="cost_type"
+                value="per_unit"
+                checked={costType === 'per_unit'}
+                onChange={() => setCostType('per_unit')}
+                className="form-radio h-4 w-4"
+                style={{ color: brandColors.blue2 }}
+              />
+              <span className="ml-2 text-sm font-semibold pl-1" style={{ color: brandColors.darkBlue }}>{t.tab0.inputs.costTypePerUnit}</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="cost_type"
+                value="total_order"
+                checked={costType === 'total_order'}
+                onChange={() => setCostType('total_order')}
+                className="form-radio h-4 w-4"
+                style={{ color: brandColors.blue2 }}
+              />
+              <span className="ml-2 text-sm font-semibold pl-1" style={{ color: brandColors.darkBlue }}>{t.tab0.inputs.costTypeTotalOrder}</span>
+            </label>
+          </div>
+          {costType === null && (
+            <p className="text-red-500 text-xs italic mt-1">{t.tab0.mandatoryChoiceGuidance}</p>
+          )}
+        </div>
+
         <button
           onClick={handleCalculate}
           className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105"
@@ -568,9 +203,9 @@ const CostToPriceCalculator = ({ language, t }) => {
       {/* Input Section */}
       <div className="md:w-1/3 p-4">
         <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab1.title}</h3> {/* Use single title */}
-        <InputField label={t.tab1.inputs.cost} value={cost} onChange={setCost} />
-        <InputField label={t.tab1.inputs.desiredMargin} value={desiredMargin} onChange={setDesiredMargin} />
-        <InputField label={t.tab1.inputs.taxRate} value={taxRate} onChange={setTaxRate} /> {/* New tax rate input */}
+        <InputField label={t.tab1.inputs.cost} value={cost} onChange={setCost} hasPrefix={true} prefix="$"/>
+        <InputField label={t.tab1.inputs.desiredMargin} value={desiredMargin} onChange={setDesiredMargin} hasSuffix={true} suffix="%"/>
+        <InputField label={t.tab1.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" /> {/* New tax rate input */}
         <button
           onClick={handleCalculate}
           className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105"
@@ -607,7 +242,7 @@ const MarginMarkupCalculator = ({ language, t }) => {
   const [cost, setCost] = useState('');
   const [desiredSellingPrice, setDesiredSellingPrice] = useState('');
   const [taxRate, setTaxRate] = useState(''); // New state for tax rate
-  const [isTaxIncluded, setIsTaxIncluded] = useState(null); // State for tax inclusion choice
+  const [isTaxIncluded, setIsTaxIncluded] = useState(true); // State for tax inclusion choice
   const [results, setResults] = useState(null);
 
   const handleCalculate = () => {
@@ -654,9 +289,9 @@ const MarginMarkupCalculator = ({ language, t }) => {
       {/* Input Section */}
       <div className="md:w-1/3 p-4">
         <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab2.title}</h3> {/* Use single title */}
-        <InputField label={t.tab2.inputs.cost} value={cost} onChange={setCost} />
-        <InputField label={t.tab2.inputs.desiredSellingPrice} value={desiredSellingPrice} onChange={setDesiredSellingPrice} />
-        <InputField label={t.tab2.inputs.taxRate} value={taxRate} onChange={setTaxRate} /> {/* New tax rate input */}
+        <InputField label={t.tab2.inputs.cost} value={cost} onChange={setCost} hasPrefix={true} prefix="$"/>
+        <InputField label={t.tab2.inputs.desiredSellingPrice} value={desiredSellingPrice} onChange={setDesiredSellingPrice} hasPrefix={true} prefix="$"/>
+        <InputField label={t.tab2.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" /> {/* New tax rate input */}
 
         {/* Tax Inclusion Choice */}
         <div className="mb-4">
@@ -1012,10 +647,10 @@ const DoubleMarginCalculator = ({ language, t }) => {
 
 
 // Main App Component
-const CalculadoraDePrecios = () => {
+function CalculadoraDePrecios() {
   const [language, setLanguage] = useState('es'); // Default to Spanish
   const [activeTab, setActiveTab] = useState('tab0'); // Start with the new Product Cost tab
-  const t = translations[language]; // Get current translations
+  const t = translations[language].precios; // Get current translations
 
   // State for collapsible footer sections
   const [showConcepts, setShowConcepts] = useState(false);
@@ -1038,31 +673,18 @@ const CalculadoraDePrecios = () => {
 
   return (
     <div className="min-h-screen p-4" style={{ fontFamily: 'Albert Sans' }}>
-      {/* Header */}
-      <header className="text-center mb-8 pt-8"> {/* Added pt-8 for top margin */}
-        <h1 className="text-4xl font-bold mb-2" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
-        <p className="text-lg mb-1" style={{ color: brandColors.darkBlue }}>{t.subtitle1}</p>
-        <p className="text-xl font-semibold" style={{ color: brandColors.secondary }}>{t.subtitle2}</p>
-        {/* Language Toggle */}
-        <div className="absolute top-4 right-4 flex items-center bg-gray-200 rounded-full p-1" style={{ backgroundColor: brandColors.blue1 }}>
-          <button
-            onClick={() => setLanguage('es')}
-            className={`py-1 px-3 rounded-full text-sm font-bold transition-all duration-300 whitespace-nowrap ${
-              language === 'es' ? 'text-white' : 'text-gray-700'
-            }`}
-            style={{ backgroundColor: language === 'es' ? brandColors.blue2 : 'transparent', color: language === 'es' ? brandColors.white : brandColors.darkBlue }}
-          >
-            ES
-          </button>
-          <button
-            onClick={() => setLanguage('en')}
-            className={`py-1 px-3 rounded-full text-sm font-bold transition-all duration-300 whitespace-nowrap ${
-              language === 'en' ? 'text-white' : 'text-gray-700'
-            }`}
-            style={{ backgroundColor: language === 'en' ? brandColors.blue2 : 'transparent', color: language === 'en' ? brandColors.white : brandColors.darkBlue }}
-          >
-            EN
-          </button>
+
+      <header className="text-center mb-8 pt-8 relative">
+        <div className="flex justify-between items-center">
+          <div className="flex-1"></div>
+          <div className="flex-4">
+            <h1 className="text-4xl font-extrabold whitespace-nowrap" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
+            <p className="text-lg mb-2" style={{ color: brandColors.darkBlue }}>{t.subtitle1}</p>
+            <p className="text-lg font-semibold max-w-xl mx-auto" style={{ color: brandColors.secondary }}>{t.subtitle2}</p>
+          </div>
+          <div className="flex-1 flex justify-end">
+            <LanguageSelector language={language} setLanguage={setLanguage} />
+          </div>
         </div>
       </header>
 
@@ -1078,9 +700,8 @@ const CalculadoraDePrecios = () => {
             <li key={tab.id} className="flex-1 flex-shrink-0 mb-2">
               <button
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-2 px-2 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 w-full h-full flex items-center justify-center text-center ${
-                  activeTab === tab.id ? 'bg-opacity-100' : 'bg-opacity-70'
-                }`}
+                className={`py-2 px-2 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 w-full h-full flex items-center justify-center text-center ${activeTab === tab.id ? 'bg-opacity-100' : 'bg-opacity-70'
+                  }`}
                 style={{ backgroundColor: activeTab === tab.id ? brandColors.primary : brandColors.secondary }}
               >
                 <span className="block text-base leading-tight">{tab.title}</span>

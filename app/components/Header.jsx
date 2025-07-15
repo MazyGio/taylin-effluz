@@ -74,6 +74,16 @@ export function HeaderMenu({
       >
         Calculadora de servicios
       </NavLink>
+      <NavLink
+        className="header-menu-item rounded-lg px-2 py-1"
+        end
+        onClick={close}
+        prefetch="intent"
+        style={activeLinkStyle}
+        to="/calculadora-utilidad"
+      >
+        Calculadora de utilidad
+      </NavLink>
       {/* {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 
