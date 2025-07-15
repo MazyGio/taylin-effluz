@@ -1,4 +1,4 @@
-import brandColors from '../theme/brandColors';
+import brandColors from '../styles/brandColors';
 
 export function InputField({ label, value, onChange, type = 'number', min = '0', step = '0.01', placeholder = '0', hasPrefix = false, prefix = '', hasSuffix = false, suffix = '' }) {
     return (

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import brandColors from '../theme/brandColors';
+import brandColors from '../styles/brandColors';
 import { LanguageSelector } from './LanguageSelector';
 import { InputField } from './InputField';
 

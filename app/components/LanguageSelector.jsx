@@ -1,4 +1,4 @@
-import brandColors from '../theme/brandColors';
+import brandColors from '../styles/brandColors';
 
 export function LanguageSelector({ language, setLanguage }) {
     return (
