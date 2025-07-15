@@ -1,7 +1,7 @@
 import CalculadoraDePrecios from '~/components/CalculadoraDePrecios';
 import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery';
 import { useLoaderData } from 'react-router';
-import '../theme/globals.css';
+import '../styles/globals.css';
 import { RestrictedContentByTags } from '~/components/RestrictedContentByTags';
 
 /**

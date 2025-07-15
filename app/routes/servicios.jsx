@@ -1,4 +1,4 @@
-import '../theme/servicios.css';
+import '../styles/servicios.css';
 
 /**
  * @type {MetaFunction<typeof loader>}

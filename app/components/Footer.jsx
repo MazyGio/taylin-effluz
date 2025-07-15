@@ -1,6 +1,6 @@
 import {Suspense} from 'react';
 import {Await, NavLink} from 'react-router';
-import '../theme/footer.css';
+import '../styles/footer.css';
 
 /**
  * @param {FooterProps}
