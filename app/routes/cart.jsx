@@ -32,6 +32,7 @@ export async function action({request, context}) {
   let status = 200;
   let result;
   const acceleratedCheckout = formData.get('acceleratedCheckout');
+  const storeDomain = context.env.PUBLIC_STORE_DOMAIN;
 
   switch (action) {
     case CartForm.ACTIONS.LinesAdd:
@@ -89,7 +90,24 @@ export async function action({request, context}) {
   const headers = cartId ? cart.setCartId(result.cart.id) : new Headers();
   const {cart: cartResult, errors, warnings} = result;
 
-  const redirectTo = acceleratedCheckout ? cartResult.checkoutUrl : (formData.get('redirectTo') ?? null);
+  // https://<shop-domain>/checkouts/<checkout_id>
+  // https://effluz.com/checkouts/<checkout_id>?logged_in=true
+  // https://effluz.com/cart/c/Z2NwLXVzLWVhc3QxOjAxSzA1UjYyTUgyUlRUUkJEV1EzNFQ5VDJW?key=SWHA42Kp0QJnWEzLuHVMMgQGYHYPkM6go6ABHrKSBJy0vyXGd-jWGJKsbHscCmoikVz51r4cvzgKmZqQG9QLOb47FH3OXa-zgwGoezAE_AK1vio4qOoHs80Go9g-HYIiVCQ33BtuGAp231K1j6h5GQ%3D%3D?logged_in=true&cartId=gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSzA1UjYyTUgyUlRUUkJEV1EzNFQ5VDJW?key=414f0b6eda35317c8b4fb3f81803636f
+  // cartId: gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSzA1UjYyTUgyUlRUUkJEV1EzNFQ5VDJW?key=414f0b6eda35317c8b4fb3f81803636f
+  // https://effluz.com/checkouts/cn/Z2NwLXVzLWVhc3QxOjAxSzA1UjYyTUgyUlRUUkJEV1EzNFQ5VDJW?key=414f0b6eda35317c8b4fb3f81803636f?logged_in=true didn't work, redirected to login
+  // https://effluz.com/cart/c/Z2NwLXVzLWVhc3QxOjAxSzA1UjYyTUgyUlRUUkJEV1EzNFQ5VDJW?key=eG5DgfKD4lxoA3YwoN6ySdb1U9RmHtJSyAItSwVWTtDj2qGNJekKiR3_j1sfsPI_uITPCGkzjB_X-ovY_i3G2ZoajSfPKgCJJP157YgtG8r7BvWp-3fhR4CoC-M2Xn8isU95xoQKSdoUzFhto69Qbw%3D%3D
+
+  let checkoutUrl = '';
+  // if (acceleratedCheckout) {
+  //   if (cartResult.checkoutUrl.includes("checkouts")) {
+  //     checkoutUrl = cartResult.checkoutUrl;
+  //   } else if (cartResult.checkoutUrl.includes("cart")) {
+  //     const checkoutId = cartId.split("/").pop().split("?")[0];
+  //     checkoutUrl = `https://${storeDomain}/checkouts/cn/${checkoutId}?logged_in=true`;
+  //   }
+  // }
+  checkoutUrl = cartResult.checkoutUrl;
+  const redirectTo = acceleratedCheckout ? checkoutUrl : (formData.get('redirectTo') ?? null);
   // const redirectTo = formData.get('redirectTo') ?? null;
   if (typeof redirectTo === 'string') {
     status = 303;

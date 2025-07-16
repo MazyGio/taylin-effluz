@@ -11,6 +11,7 @@ import {
 } from 'react-router';
 import favicon from '~/assets/favicon.png';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
+import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import globalsStyles from '~/styles/globals.css?url';
@@ -96,7 +97,7 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context}) {
-  const {storefront} = context;
+  const {storefront, customerAccount} = context;
 
   const [header] = await Promise.all([
     storefront.query(HEADER_QUERY, {
@@ -106,9 +107,12 @@ async function loadCriticalData({context}) {
       },
     }),
     // Add other queries here, so that they are loaded in parallel
+    customerAccount.query(CUSTOMER_DETAILS_QUERY),
   ]);
 
-  return {header};
+  return {
+    header,
+  };
 }
 
 /**
@@ -149,7 +153,7 @@ export function Layout({children}) {
   const data = useRouteLoaderData('root');
 
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

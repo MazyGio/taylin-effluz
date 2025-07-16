@@ -50,24 +50,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         </p>
                 </div>
                 <div className="w-full max-w-md flex flex-col gap-6">
-                    <button
-                        onClick={() => navigate('/calculadora-precios')}
-                        className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-                        style={{ backgroundColor: brandColors.primary, boxShadow: '0 6px 15px -3px rgba(79, 8, 57, 0.5)' }}
-                    >
-                        Calculadora para Negocios
-                        <span className="block text-sm font-normal mt-1 opacity-90">(Costos, Precios, Margen de Productos)</span>
-                    </button>
-
-                    <button
-                        onClick={() => navigate('/calculadora-servicios')}
-                        className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-                        style={{ backgroundColor: brandColors.blue2, boxShadow: '0 6px 15px -3px rgba(91, 128, 152, 0.5)' }}
-                    >
-                        Calculadora para Servicios
-                        <span className="block text-sm font-normal mt-1 opacity-90">(Precios por hora)</span>
-                    </button>
-                    <div className="w-full text-center bg-purple py-2 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+                    <div className="w-full text-center bg-purple py-2 px-4 mb-8 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
                         <CartForm route="/cart" inputs={{lines: [{
                             merchandiseId: selectedVariant.id,
                             quantity: 1,
@@ -92,6 +75,23 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                             )}
                         </CartForm>
                     </div>
+                    <button
+                        onClick={() => navigate('/calculadora-precios')}
+                        className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                        style={{ backgroundColor: brandColors.primary, boxShadow: '0 6px 15px -3px rgba(79, 8, 57, 0.5)' }}
+                    >
+                        Calculadora para Negocios
+                        <span className="block text-sm font-normal mt-1 opacity-90">(Costos, Precios, Margen de Productos)</span>
+                    </button>
+
+                    <button
+                        onClick={() => navigate('/calculadora-servicios')}
+                        className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                        style={{ backgroundColor: brandColors.blue2, boxShadow: '0 6px 15px -3px rgba(91, 128, 152, 0.5)' }}
+                    >
+                        Calculadora para Servicios
+                        <span className="block text-sm font-normal mt-1 opacity-90">(Precios por hora)</span>
+                    </button>
                 </div>
                 <div className="text-center mt-12">
                     <p className="text-sm" style={{ color: brandColors.darkBlue }}>
