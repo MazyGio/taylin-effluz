@@ -75,7 +75,7 @@ export default function SelectorCalculadoras() {
 }
 
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
-  fragment ProductVariant on ProductVariant {
+  fragment CalculadoraProductVariant on ProductVariant {
     availableForSale
     compareAtPrice {
       amount
@@ -112,7 +112,7 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
 `;
 
 const PRODUCT_FRAGMENT = `#graphql
-  fragment Product on Product {
+  fragment CalculadoraProduct on Product {
     id
     title
     vendor
@@ -126,7 +126,7 @@ const PRODUCT_FRAGMENT = `#graphql
       optionValues {
         name
         firstSelectableVariant {
-          ...ProductVariant
+          ...CalculadoraProductVariant
         }
         swatch {
           color
@@ -139,10 +139,10 @@ const PRODUCT_FRAGMENT = `#graphql
       }
     }
     selectedOrFirstAvailableVariant(ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
-      ...ProductVariant
+      ...CalculadoraProductVariant
     }
     adjacentVariants {
-      ...ProductVariant
+      ...CalculadoraProductVariant
     }
     seo {
       description
@@ -155,7 +155,7 @@ const PRODUCT_FRAGMENT = `#graphql
 const CALCULADORA_QUERY = `#graphql
   query {
     product(id: "gid://shopify/Product/10115186000164") {
-      ...Product
+      ...CalculadoraProduct
     }
   }
   ${PRODUCT_FRAGMENT}

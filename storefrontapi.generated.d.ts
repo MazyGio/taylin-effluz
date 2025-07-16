@@ -362,6 +362,130 @@ export type RecommendedProductsQuery = {
   };
 };
 
+export type CalculadoraProductVariantFragment = Pick<
+  StorefrontAPI.ProductVariant,
+  'availableForSale' | 'id' | 'sku' | 'title'
+> & {
+  compareAtPrice?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+  >;
+  image?: StorefrontAPI.Maybe<
+    {__typename: 'Image'} & Pick<
+      StorefrontAPI.Image,
+      'id' | 'url' | 'altText' | 'width' | 'height'
+    >
+  >;
+  price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+  product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
+  selectedOptions: Array<Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>>;
+  unitPrice?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+  >;
+};
+
+export type CalculadoraProductFragment = Pick<
+  StorefrontAPI.Product,
+  | 'id'
+  | 'title'
+  | 'vendor'
+  | 'handle'
+  | 'descriptionHtml'
+  | 'description'
+  | 'encodedVariantExistence'
+  | 'encodedVariantAvailability'
+> & {
+  options: Array<
+    Pick<StorefrontAPI.ProductOption, 'name'> & {
+      optionValues: Array<
+        Pick<StorefrontAPI.ProductOptionValue, 'name'> & {
+          firstSelectableVariant?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.ProductVariant,
+              'availableForSale' | 'id' | 'sku' | 'title'
+            > & {
+              compareAtPrice?: StorefrontAPI.Maybe<
+                Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+              >;
+              image?: StorefrontAPI.Maybe<
+                {__typename: 'Image'} & Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
+              >;
+              price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+              product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
+              selectedOptions: Array<
+                Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+              >;
+              unitPrice?: StorefrontAPI.Maybe<
+                Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+              >;
+            }
+          >;
+          swatch?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.ProductOptionValueSwatch, 'color'> & {
+              image?: StorefrontAPI.Maybe<{
+                previewImage?: StorefrontAPI.Maybe<
+                  Pick<StorefrontAPI.Image, 'url'>
+                >;
+              }>;
+            }
+          >;
+        }
+      >;
+    }
+  >;
+  selectedOrFirstAvailableVariant?: StorefrontAPI.Maybe<
+    Pick<
+      StorefrontAPI.ProductVariant,
+      'availableForSale' | 'id' | 'sku' | 'title'
+    > & {
+      compareAtPrice?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+      >;
+      image?: StorefrontAPI.Maybe<
+        {__typename: 'Image'} & Pick<
+          StorefrontAPI.Image,
+          'id' | 'url' | 'altText' | 'width' | 'height'
+        >
+      >;
+      price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+      product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
+      selectedOptions: Array<
+        Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+      >;
+      unitPrice?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+      >;
+    }
+  >;
+  adjacentVariants: Array<
+    Pick<
+      StorefrontAPI.ProductVariant,
+      'availableForSale' | 'id' | 'sku' | 'title'
+    > & {
+      compareAtPrice?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+      >;
+      image?: StorefrontAPI.Maybe<
+        {__typename: 'Image'} & Pick<
+          StorefrontAPI.Image,
+          'id' | 'url' | 'altText' | 'width' | 'height'
+        >
+      >;
+      price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+      product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
+      selectedOptions: Array<
+        Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+      >;
+      unitPrice?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+      >;
+    }
+  >;
+  seo: Pick<StorefrontAPI.Seo, 'description' | 'title'>;
+};
+
 export type ArticleQueryVariables = StorefrontAPI.Exact<{
   articleHandle: StorefrontAPI.Scalars['String']['input'];
   blogHandle: StorefrontAPI.Scalars['String']['input'];
