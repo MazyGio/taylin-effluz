@@ -16,6 +16,7 @@ import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import globalsStyles from '~/styles/globals.css?url';
 import {PageLayout} from './components/PageLayout';
+import {redirect} from '@shopify/remix-oxygen';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -56,7 +57,7 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    {rel: 'icon', type: 'image/png', href: favicon},
   ];
 }
 
@@ -107,11 +108,13 @@ async function loadCriticalData({context}) {
       },
     }),
     // Add other queries here, so that they are loaded in parallel
-    customerAccount.query(CUSTOMER_DETAILS_QUERY),
+    // customerAccount.query(CUSTOMER_DETAILS_QUERY),
+    customerAccount.isLoggedIn()
   ]);
 
   return {
     header,
+    // isLoggedIn: customerAccount.isLoggedIn(), n
   };
 }
 
@@ -139,7 +142,7 @@ function loadDeferredData({context}) {
     });
   return {
     cart: cart.get(),
-    isLoggedIn: customerAccount.isLoggedIn(),
+    // isLoggedIn: customerAccount.isLoggedIn(),
     footer,
   };
 }
@@ -152,6 +155,8 @@ export function Layout({children}) {
   /** @type {RootLoader} */
   const data = useRouteLoaderData('root');
 
+  console.log(data);
+
   return (
     <html lang="es">
       <head>
@@ -160,8 +165,8 @@ export function Layout({children}) {
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
         <link rel="stylesheet" href={globalsStyles}></link>
-        {/* <Meta />
-        <Links /> */}
+        <Meta />
+        <Links />
       </head>
       <body>
         {data ? (

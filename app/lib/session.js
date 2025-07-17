@@ -37,6 +37,9 @@ export class AppSession {
         path: '/',
         sameSite: 'lax',
         secrets,
+        domain: process.env.NODE_ENV === 'production'
+          ? '.effluz.com'
+          : undefined,
       },
     });
 

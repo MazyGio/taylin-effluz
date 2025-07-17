@@ -2,6 +2,7 @@ import {useLoaderData} from 'react-router';
 import {CartForm} from '@shopify/hydrogen';
 import {data} from '@shopify/remix-oxygen';
 import {CartMain} from '~/components/CartMain';
+import {redirect} from '@shopify/remix-oxygen';
 
 /**
  * @type {MetaFunction}
@@ -37,6 +38,10 @@ export async function action({request, context}) {
   switch (action) {
     case CartForm.ACTIONS.LinesAdd:
       if (acceleratedCheckout) {
+        const isLoggedIn = await customerAccount.isLoggedIn();
+        if (!isLoggedIn) {
+          return redirect('/account/login');
+        }
         result = await cart.addLines(inputs.lines);
         const buyer = await customerAccount.getBuyer();
         await cart.updateBuyerIdentity({
