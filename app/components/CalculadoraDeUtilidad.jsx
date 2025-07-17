@@ -249,7 +249,7 @@ function CalculadoraDeUtilidad() {
             <header className="text-center mb-8 pt-8 relative">
                 <div className="flex justify-between items-center">
                     <div className="flex-1"></div>
-                    <div className="flex-1">
+                    <div className="flex-4">
                         <h1 className="text-4xl font-extrabold whitespace-nowrap" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
                         <p className="text-lg mb-2" style={{ color: brandColors.darkBlue }}>{t.subtitle1}</p>
                         <p className="text-lg font-semibold max-w-xl mx-auto" style={{ color: brandColors.secondary }}>{t.subtitle2_line1}</p>

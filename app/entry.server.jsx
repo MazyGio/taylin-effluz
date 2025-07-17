@@ -24,7 +24,8 @@ export default async function handleRequest(
     },
     connectSrc: [
       "wss://improved-koi-normal.ngrok-free.app:*",
-      "https://improved-koi-normal.ngrok-free.app:*"
+      "https://improved-koi-normal.ngrok-free.app:*",
+      "https://calculadora.effluz.com:*"
     ],
   });
 
