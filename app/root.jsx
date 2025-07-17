@@ -155,7 +155,7 @@ export function Layout({children}) {
   /** @type {RootLoader} */
   const data = useRouteLoaderData('root');
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <html lang="es">
