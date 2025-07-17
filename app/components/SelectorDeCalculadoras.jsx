@@ -1,29 +1,10 @@
 import { useNavigate } from 'react-router';
 import { CartForm } from '@shopify/hydrogen';
+import brandColors from '../styles/brandColors';
 
 // ====================================================================================
 // SHARED CONFIGURATION AND HELPERS
 // ====================================================================================
-
-// Define brand colors used across the entire application
-const brandColors = {
-    primary: '#4f0839',
-    secondary: '#a66d72',
-    accent1: '#c69399',
-    accent2: '#e0c6cb',
-    lightGray1: '#f2f2f2',
-    lightGray2: '#f2ece7',
-    lightGray3: '#e7dcd0',
-    blue1: '#a9c0d9',
-    blue2: '#5b8098',
-    darkBlue: '#1e374f', // Used for text
-    darkText: '#1e374f', // Alias for Service Calculator
-    green1: '#b1b599',
-    green2: '#787a64',
-    darkGreen: '#3a3d30',
-    white: '#FFFFFF',
-    lightText: '#FFFFFF', // Alias for Service Calculator
-};
 
 export default function SelectorDeCalculadoras({product, selectedVariant}) {
     const navigate = useNavigate();
@@ -91,6 +72,15 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                     >
                         Calculadora para Servicios
                         <span className="block text-sm font-normal mt-1 opacity-90">(Precios por hora)</span>
+                    </button>
+
+                    <button
+                        onClick={() => navigate('/calculadora-utilidad')}
+                        className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                        style={{ backgroundColor: brandColors.green2, boxShadow: '0 6px 15px -3px rgba(91, 128, 152, 0.5)' }}
+                    >
+                        Calculadora de Utilidad
+                        <span className="block text-sm font-normal mt-1 opacity-90">(Incluyendo comisiones)</span>
                     </button>
                 </div>
                 <div className="text-center mt-12">

@@ -9,12 +9,12 @@ const brandColors = {
     blue1: '#a9c0d9',
     blue2: '#5b8098',
     darkBlue: '#1e374f',
+    darkText: '#1e374f',
     green1: '#b1b599',
     green2: '#787a64',
     darkGreen: '#3a3d30',
     white: '#FFFFFF',
     lightText: '#FFFFFF',
-    darkText: '#000000',
 };
 
 export default brandColors;
