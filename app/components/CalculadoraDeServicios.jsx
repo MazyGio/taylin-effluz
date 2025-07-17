@@ -245,11 +245,11 @@ function CalculadoraDeServicios() {
     <>
       <div className="min-h-screen p-4 sm:p-6 md:p-8" style={{ backgroundColor: brandColors.lightGray2, fontFamily: 'Albert Sans, sans-serif' }}>
         {/* Header */}
-        <header className="text-center mb-8 relative">
-          <div className="flex justify-between items-center">
+        <header className="text-center mb-8 pt-8 mx-auto relative">
+          <div className="flex flex-col-reverse md:flex-row justify-between items-center">
             <div className="flex-1"></div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-extrabold whitespace-nowrap" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
+            <div className="flex-4 mt-2 md:mt-0">
+              <h1 className="text-3xl font-extrabold" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
               <p className="text-md" style={{ color: brandColors.darkText }}>{t.subtitle}</p>
             </div>
             <div className="flex-1 flex justify-end">

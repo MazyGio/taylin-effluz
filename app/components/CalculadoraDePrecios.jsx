@@ -677,10 +677,10 @@ function CalculadoraDePrecios() {
       <header className="text-center mb-8 pt-8 relative">
         <div className="flex flex-col-reverse md:flex-row justify-between items-center">
           <div className="flex-1"></div>
-          <div className="flex-4">
+          <div className="flex-4 mt-2 md:mt-0">
             <h1 className="text-3xl md:text-4xl font-extrabold whitespace-nowrap" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
-            <p className="text-lg md:text-lg mb-2" style={{ color: brandColors.darkBlue }}>{t.subtitle1}</p>
-            <p className="text-lg md:text-lg font-semibold max-w-xl mx-auto" style={{ color: brandColors.secondary }}>{t.subtitle2}</p>
+            <p className="text-md md:text-lg mb-2" style={{ color: brandColors.darkBlue }}>{t.subtitle1}</p>
+            <p className="text-md md:text-lg font-semibold max-w-xl mx-auto" style={{ color: brandColors.secondary }}>{t.subtitle2}</p>
           </div>
           <div className="flex-1 flex justify-end">
             <LanguageSelector language={language} setLanguage={setLanguage} />
