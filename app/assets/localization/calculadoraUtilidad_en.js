@@ -21,6 +21,16 @@ const calculadoraUtilidad_en = {
             taxIncludedYes: "Yes",
             taxIncludedNo: "No",
         },
+        tooltips: {
+            productCost: "The total cost to acquire or manufacture one unit of your product.",
+            sellingPrice: "The final price the customer pays for the product.",
+            paymentCommissionPercentage: "The percentage charged by the payment gateway (e.g., 3.5%) on the total transaction.",
+            paymentCommissionFixed: "The fixed fee charged by the payment gateway per transaction (e.g., $0.30).",
+            websiteCommissionPercentage: "The percentage charged by the e-commerce platform (e.g., Shopify, Amazon) on the sale.",
+            sellerCommissionPercentage: "The percentage of the sale (pre-tax) paid to the salesperson.",
+            otherCommissions: "Any other fixed or variable cost associated with the sale not already considered in another field (e.g., special shipping).",
+            taxRate: "The sales tax percentage (e.g., VAT, ITBMS).",
+        },
         outputs: {
             resultsTitle: "Results",
             sellingPricePreTax: "Selling Price (pre-tax)",

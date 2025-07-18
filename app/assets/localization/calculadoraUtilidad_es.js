@@ -21,6 +21,16 @@ const calculadoraUtilidad_es = {
             taxIncludedYes: "Sí",
             taxIncludedNo: "No",
         },
+        tooltips: {
+            productCost: "El costo total para adquirir o fabricar una unidad de tu producto.",
+            sellingPrice: "El precio final que paga el cliente por el producto.",
+            paymentCommissionPercentage: "El porcentaje que cobra la pasarela de pago (ej. 3.5%) sobre el total de la transacción.",
+            paymentCommissionFixed: "La tarifa fija que cobra la pasarela de pago por cada transacción (ej. $0.30).",
+            websiteCommissionPercentage: "El porcentaje que cobra la plataforma de e-commerce (ej. Shopify, Amazon) sobre la venta.",
+            sellerCommissionPercentage: "El porcentaje de la venta (sin impuesto) que se paga al vendedor.",
+            otherCommissions: "Cualquier otro costo fijo o variable asociado a la venta que no se haya tomando en cuenta en otro campo (ej. envío especial).",
+            taxRate: "El porcentaje de impuesto sobre la venta (ej. ITBMS en Panamá es 7%).",
+        },
         outputs: {
             resultsTitle: "Resultados",
             sellingPricePreTax: "Precio de Venta (sin impuesto)",

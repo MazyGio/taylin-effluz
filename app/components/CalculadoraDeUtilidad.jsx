@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import brandColors from '../styles/brandColors';
 import { translations } from '../assets/localization/translations';
 import { InputField } from './InputField';
-import { LanguageSelector } from './LanguageSelector';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Helper function to format numbers to 2 decimal places
 const formatCurrency = (value) => {
@@ -32,7 +32,9 @@ const ResultDisplay = ({ label, value, isHighlighted = false, isSubtle = false, 
 
 
 // The Main Calculator Component
-const CommissionCalculator = ({ t }) => {
+const CommissionCalculator = () => {
+    const { language } = useLanguage();
+    const t = translations[language].utilidad;
     const [productCost, setProductCost] = useState('');
     const [sellingPrice, setSellingPrice] = useState('');
     const [expectedMargin, setExpectedMargin] = useState('');
@@ -140,16 +142,16 @@ const CommissionCalculator = ({ t }) => {
             {/* Input Section */}
             <div className="md:w-1/2 p-4">
                 <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.calculator.title}</h3>
-                <InputField label={t.calculator.inputs.productCost} value={productCost} onChange={setProductCost} hasPrefix={true} prefix="$" />
-                <InputField label={t.calculator.inputs.sellingPrice} value={sellingPrice} onChange={setSellingPrice} hasPrefix={true} prefix="$" />
+                <InputField label={t.calculator.inputs.productCost} value={productCost} onChange={setProductCost} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.productCost}/>
+                <InputField label={t.calculator.inputs.sellingPrice} value={sellingPrice} onChange={setSellingPrice} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.sellingPrice}/>
 
                 <hr className="my-6" style={{ borderColor: brandColors.accent1 }} />
-                <InputField label={t.calculator.inputs.paymentCommissionPercentage} value={paymentCommissionPercentage} onChange={setPaymentCommissionPercentage} hasSuffix={true} suffix="%" />
-                <InputField label={t.calculator.inputs.paymentCommissionFixed} value={paymentCommissionFixed} onChange={setPaymentCommissionFixed} hasPrefix={true} prefix="$" />
-                <InputField label={t.calculator.inputs.websiteCommissionPercentage} value={websiteCommissionPercentage} onChange={setWebsiteCommissionPercentage} hasSuffix={true} suffix="%" />
-                <InputField label={t.calculator.inputs.sellerCommissionPercentage} value={sellerCommissionPercentage} onChange={setSellerCommissionPercentage} hasSuffix={true} suffix="%" />
-                <InputField label={t.calculator.inputs.otherCommissions} value={otherCommissions} onChange={setOtherCommissions} hasPrefix={true} prefix="$" />
-                <InputField label={t.calculator.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" />
+                <InputField label={t.calculator.inputs.paymentCommissionPercentage} value={paymentCommissionPercentage} onChange={setPaymentCommissionPercentage} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.paymentCommissionPercentage}/>
+                <InputField label={t.calculator.inputs.paymentCommissionFixed} value={paymentCommissionFixed} onChange={setPaymentCommissionFixed} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.paymentCommissionFixed}/>
+                <InputField label={t.calculator.inputs.websiteCommissionPercentage} value={websiteCommissionPercentage} onChange={setWebsiteCommissionPercentage} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.websiteCommissionPercentage}/>
+                <InputField label={t.calculator.inputs.sellerCommissionPercentage} value={sellerCommissionPercentage} onChange={setSellerCommissionPercentage} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.sellerCommissionPercentage}/>
+                <InputField label={t.calculator.inputs.otherCommissions} value={otherCommissions} onChange={setOtherCommissions} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.otherCommissions}/>
+                <InputField label={t.calculator.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.taxRate}/>
 
                 {/* Tax Inclusion Choice */}
                 <div className="mb-4">
@@ -238,7 +240,7 @@ const CommissionCalculator = ({ t }) => {
 
 // Main App Component
 function CalculadoraDeUtilidad() {
-    const [language, setLanguage] = useState('es');
+    const {language} = useLanguage();
     const [showConcepts, setShowConcepts] = useState(false);
     const [showFormulas, setShowFormulas] = useState(false);
     const t = translations[language].utilidad;
@@ -247,16 +249,12 @@ function CalculadoraDeUtilidad() {
         <div className="min-h-screen p-4" style={{ fontFamily: 'Albert Sans', backgroundColor: brandColors.lightGray2 }}>
             {/* Header */}
             <header className="text-center mb-8 pt-8 relative">
-                <div className="flex flex-col-reverse md:flex-row justify-between items-center">
-                    <div className="flex-1"></div>
-                    <div className="flex-4 mt-2 md:mt-0">
+                <div className="justify-between items-center">
+                    <div className="mt-2 md:mt-0">
                         <h1 className="text-3xl md:text-4xl font-extrabold" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
                         <p className="text-md md:text-lg mb-2" style={{ color: brandColors.darkBlue }}>{t.subtitle1}</p>
                         <p className="text-md md:text-lg font-semibold max-w-xl mx-auto" style={{ color: brandColors.secondary }}>{t.subtitle2_line1}</p>
                         <p className="text-sm md:text-md font-semibold max-w-xl mx-auto" style={{ color: brandColors.secondary }}>{t.subtitle2_line2}</p>
-                    </div>
-                    <div className="flex-1 flex justify-end">
-                        <LanguageSelector language={language} setLanguage={setLanguage} />
                     </div>
                 </div>
             </header>
