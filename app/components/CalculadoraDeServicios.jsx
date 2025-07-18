@@ -159,16 +159,21 @@ const ServiceCalculator = ({ t }) => {
       {/* Input Section */}
       <div className="lg:col-span-2 p-6 rounded-lg shadow-xl" style={{ backgroundColor: brandColors.lightText }}>
         <h3 className="text-2xl font-bold mb-6" style={{ color: brandColors.primary }}>{t.inputsTitle}</h3>
-        <InputField label={t.inputs.desiredMonthlyIncome} value={income} onChange={setIncome} hasPrefix={true} prefix="$" />
-        <InputField label={t.inputs.fixedCosts} value={fixedCosts} onChange={setFixedCosts} hasPrefix={true} prefix="$" />
-        <InputField label={t.inputs.variableCosts} value={variableCosts} onChange={setVariableCosts} hasPrefix={true} prefix="$" />
+        <InputField label={t.inputs.desiredMonthlyIncome} value={income} onChange={setIncome} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.desiredMonthlyIncome}/>
+        <InputField label={t.inputs.fixedCosts} value={fixedCosts} onChange={setFixedCosts} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.fixedCosts}/>
+        <InputField label={t.inputs.variableCosts} value={variableCosts} onChange={setVariableCosts} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.variableCosts}/>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <InputField label={t.inputs.monthlyHours} value={hours} onChange={setHours} />
-          <InputField label={t.inputs.profitMargin} value={profitMargin} onChange={setProfitMargin} placeholder="15" hasSuffix={true} suffix="%" />
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"> */}
+        <div className="flex md:flex-row items-end gap-4">
+          <div className="flex-1">
+            <InputField label={t.inputs.monthlyHours} value={hours} onChange={setHours} tooltipText={t.footer.allConcepts.monthlyHours}/>
+          </div>
+          <div className="flex-1">
+            <InputField label={t.inputs.profitMargin} value={profitMargin} onChange={setProfitMargin} placeholder="15" hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin}/>
+          </div>
         </div>
         <div className="mt-4">
-          <InputField label={t.inputs.taxRate} value={taxRate} onChange={setTaxRate} placeholder="7" hasSuffix={true} suffix="%" />
+          <InputField label={t.inputs.taxRate} value={taxRate} onChange={setTaxRate} placeholder="7" hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate}/>
         </div>
 
         <button

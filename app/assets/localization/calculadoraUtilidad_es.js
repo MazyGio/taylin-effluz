@@ -59,7 +59,7 @@ const calculadoraUtilidad_es = {
         showFormulas: "Mostrar Fórmulas",
         hideFormulas: "Ocultar Fórmulas",
         concepts: {
-            cost: "Costo del Producto: El valor monetario total para adquirir o producir una unidad del producto.",
+            productCost: "Costo del Producto: El valor monetario total para adquirir o producir una unidad del producto.",
             expectedProfit: "Utilidad Actual (antes de comisiones): La ganancia que se esperaba obtener basándose únicamente en el precio de venta y el costo, antes de deducir cualquier comisión.",
             finalProfit: "Utilidad Final: La ganancia neta real que te queda después de restar el costo del producto y todas las comisiones del precio de venta (sin impuesto).",
             profitDifference: "Diferencia de Utilidad: El monto exacto de dinero que las comisiones reducen de tu utilidad prevista. Es el costo real de usar la plataforma.",

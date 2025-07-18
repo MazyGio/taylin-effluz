@@ -127,12 +127,13 @@ const calculadoraPrecios_en = {
             manufacturingOverhead: "Manufacturing Overhead Costs: All manufacturing costs that are not direct materials or direct labor (e.g., factory rent, utilities, machinery depreciation).", // Adjusted capitalization
             otherCosts: "Other Costs: Any other costs directly associated with product production or acquisition not fitting previous categories (e.g., special packaging, per-unit licenses).", // Adjusted capitalization
             transportation: "Transportation: Costs incurred to move materials or products, either for receiving inputs (inbound freight) or for shipping finished products (outbound freight).",
+            quantity: "Quantity: The total number of units of a product that are manufactured or considered in the calculation.", // New concept for quantity
             totalProductCost: "Total Product Cost (per unit): The sum of all direct and indirect costs associated with producing one unit of product. It represents the complete cost to manufacture an item.", // Adjusted capitalization
             overallTotalCost: "Overall Total Cost: The total cost for a specific number of product units. It is calculated by multiplying the Total Product Cost (per unit) by the Quantity.", // Adjusted capitalization
             profitMargin: "Profit Margin (Margin): It's the percentage of profit obtained over the selling price. It indicates how much profit is generated for every dollar of sale. Calculated as (Profit / Selling Price) * 100.", // Adjusted capitalization
             markup: "Markup: It's the percentage added to the cost of a product to determine its selling price. It indicates how much the cost is increased to reach the selling price. Calculated as ((Selling Price - Cost) / Cost) * 100.",
             profit: "Profit (Gain): The *gross monetary gain per unit* obtained from a sale or transaction, before considering general operating expenses. Calculated as Selling Price - Cost.",
-            suggestedSellingPrice: "Suggested Selling Price (pre-tax): The recommended price at which a product should be sold to achieve a desired margin, before applying taxes. It is derived from the cost and the target margin.", // Adjusted capitalization
+            suggestedSellingPrice: "Suggested Selling Price: The recommended price at which a product should be sold to achieve a desired margin, before applying taxes. It is derived from the cost and the target margin.", // Adjusted capitalization
             taxRate: "Tax Rate (%): The percentage of tax applied to the product's selling price in a specific country or region.",
             taxAmount: "Tax Amount: The monetary amount of tax calculated on the selling price. Calculated as Suggested Selling Price * (Tax Rate / 100).", // Adjusted capitalization
             suggestedSellingPriceWithTax: "Suggested Selling Price (with tax): The final recommended price at which a product should be sold, including the applicable tax. Calculated as Suggested Selling Price (pre-tax) + Tax Amount.", // Adjusted capitalization
@@ -144,6 +145,11 @@ const calculadoraPrecios_en = {
             adjustedWholesaleSales: "Sales adjusted for wholesaler: Margin and profit calculations that reflect how my business's profits are adjusted when selling to a wholesaler, while maintaining a fixed public selling price.", // Adjusted capitalization
             grossMargin: "Gross Margin: The difference between sales revenue and the cost of goods sold (Product Cost), expressed as a percentage. It is a measure of sales profitability before operating expenses.", // Adjusted capitalization
             sellerAdjustedMargin: "My Business's Adjusted Margin: Your profit margin after considering the margin the wholesaler needs or wants to obtain. It is your actual margin when selling through a wholesaler.", // Adjusted capitalization
+            discountRate: "Discount Rate (%): The percentage of reduction applied to the selling price of a product.", // New concept
+            discountAmount: "Discount Amount: The monetary amount of the reduction applied to the selling price. Calculated as Suggested Selling Price * (Discount / 100).", // New concept
+            sellingPriceAfterDiscountPreTax: "Suggested Selling Price (with discount, pre-tax): The price of the product after applying a discount, before taxes.", // New concept
+            sellingPriceAfterDiscountWithTax: "Suggested Selling Price (with discount, with tax): The final price of the product after applying a discount and adding taxes.", // New concept
+            profitMarginAfterDiscount: "Profit Margin (with discount): The profit margin calculated after applying a discount to the selling price. Calculated as (Profit with Discount / Selling Price with Discount) * 100.", // New concept
         },
         allFormulas: { // Consolidated formulas
             tab0: {

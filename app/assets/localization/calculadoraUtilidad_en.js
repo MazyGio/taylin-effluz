@@ -59,7 +59,7 @@ const calculadoraUtilidad_en = {
         showFormulas: "Show Formulas",
         hideFormulas: "Hide Formulas",
         concepts: {
-            cost: "Product Cost: The total monetary value to acquire or produce one unit of the product.",
+            productCost: "Product Cost: The total monetary value to acquire or produce one unit of the product.",
             expectedProfit: "Current Profit (pre-commissions): The profit that was expected to be obtained based solely on the selling price and cost, before deducting any commissions.",
             finalProfit: "Final Profit: The actual net gain remaining after subtracting the product cost and all commissions from the selling price (pre-tax).",
             profitDifference: "Profit Difference: The exact amount of money that commissions reduce from your expected profit. It's the real cost of using the platform.",

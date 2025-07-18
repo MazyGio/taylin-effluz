@@ -130,28 +130,34 @@ const calculadoraPrecios_es = {
         disclaimer: "El desarrollo de esta calculadora y su código son propiedad de Effluz S.A. Está prohibida su reproducción total o parcial.", // Combined disclaimer with accent
         allConcepts: { // Consolidated concepts
             cost: "Costo: El valor monetario de los recursos utilizados para producir algo o adquirir un producto.",
-            directMaterials: "Costo de materiales directos: El costo de las materias primas que se convierten directamente en el producto final (ej. madera para un mueble).", // Adjusted capitalization
-            directLabor: "Costo de mano de obra directa: El costo de la mano de obra directamente involucrada en la fabricación del producto (ej. salario de un ensamblador).", // Adjusted capitalization
-            manufacturingOverhead: "Costos indirectos de fabricación: Todos los costos de fabricación que no son materiales directos ni mano de obra directa (ej. alquiler de fábrica, servicios públicos, depreciación de maquinaria).", // Adjusted capitalization
-            otherCosts: "Otros costos: Cualquier otro costo asociado directamente con la producción o adquisición del producto que no encaja en las categorías anteriores (ej. empaque especial, licencias por unidad).", // Adjusted capitalization
+            directMaterials: "Costo de materiales directos: El costo de las materias primas que se convierten directamente en el producto final (ej. madera para un mueble).",
+            directLabor: "Costo de mano de obra directa: El costo de la mano de obra directamente involucrada en la fabricación del producto (ej. salario de un ensamblador).",
+            manufacturingOverhead: "Costos indirectos de fabricación: Todos los costos de fabricación que no son materiales directos ni mano de obra directa (ej. alquiler de fábrica, servicios públicos, depreciación de maquinaria).",
+            otherCosts: "Otros costos: Cualquier otro costo asociado directamente con la producción o adquisición del producto que no encaja en las categorías anteriores (ej. empaque especial, licencias por unidad).",
             transportation: "Transporte: Costos incurridos para mover materiales o productos, ya sea para recibir insumos (flete de entrada) o para enviar productos terminados (flete de salida).",
-            totalProductCost: "Costo total del producto (por unidad): La suma de todos los costos directos e indirectos asociados con la producción de una unidad de producto. Representa el costo completo de fabricar un artículo.", // Adjusted capitalization
-            overallTotalCost: "Costo total general: El costo total de un número específico de unidades del producto. Se calcula multiplicando el Costo Total del Producto (por unidad) por la Cantidad.", // Adjusted capitalization
-            profitMargin: "Margen de utilidad (Margen): Es el porcentaje de utilidad que se obtiene sobre el precio de venta. Indica cuánto beneficio se genera por cada dólar de venta. Se calcula como (Utilidad / Precio de Venta) * 100.", // Adjusted capitalization
+            quantity: "Cantidad: El número total de unidades de un producto que se fabrican o consideran en un cálculo.", // New concept for quantity
+            totalProductCost: "Costo total del producto (por unidad): La suma de todos los costos directos e indirectos asociados con la producción de una unidad de producto. Representa el costo completo de fabricar un artículo.",
+            overallTotalCost: "Costo total general: El costo total de un número específico de unidades del producto. Se calcula multiplicando el Costo Total del Producto (por unidad) por la Cantidad.",
+            profitMargin: "Margen de utilidad (Margen): Es el porcentaje de utilidad que se obtiene sobre el precio de venta. Indica cuánto beneficio se genera por cada dólar de venta. Se calcula como (Utilidad / Precio de Venta) * 100.",
             markup: "Markup: Es el porcentaje que se le añade al costo de un producto para determinar su precio de venta. Indica cuánto se incrementa el costo para llegar al precio de venta. Se calcula como ((Precio de Venta - Costo) / Costo) * 100.",
             profit: "Utilidad (Ganancia): Es la ganancia monetaria *bruta por unidad* obtenida de una venta o transacción, antes de considerar gastos operativos generales. Se calcula como Precio de Venta - Costo.",
-            suggestedSellingPrice: "Precio de venta sugerido (sin impuesto): El precio recomendado al que se debería vender un producto para alcanzar un margen deseado, antes de aplicar impuestos. Se deriva del costo y el margen objetivo.", // Adjusted capitalization
+            suggestedSellingPrice: "Precio de venta sugerido: El precio recomendado al que se debería vender un producto para alcanzar un margen deseado, antes de aplicar impuestos. Se deriva del costo y el margen objetivo.",
             taxRate: "Impuesto (%): El porcentaje de impuesto que se aplica al precio de venta del producto en un país o región específica.",
-            taxAmount: "Monto de impuesto: La cantidad monetaria del impuesto calculado sobre el precio de venta. Se calcula como Precio de Venta Sugerido * (Impuesto / 100).", // Adjusted capitalization
-            suggestedSellingPriceWithTax: "Precio de venta sugerido (con impuesto): El precio final recomendado al que se debería vender un producto, incluyendo el impuesto aplicable. Se calcula como Precio de Venta Sugerido (sin impuesto) + Monto de Impuesto.", // Adjusted capitalization
-            priceToWholesaler: "Precio mayorista: El precio al que mi negocio vende sus productos a un distribuidor o mayorista. Es el ingreso para mi negocio y el costo para el mayorista.", // Adjusted capitalization
-            wholesalerCost: "Costo mayorista: El costo de adquisición del producto para el mayorista, que es igual al Precio Mayorista fijado por mi negocio.", // Adjusted capitalization
-            wholesalerMargin: "Margen mayorista: El porcentaje de ganancia que el mayorista busca obtener sobre su precio de venta al público. Es su propio margen de beneficio.", // Adjusted capitalization
-            suggestedFinalSellingPrice: "Precio de venta sugerido final (Precio de Venta al Público): El precio recomendado al que el mayorista debería vender el producto al consumidor final, considerando su propio margen deseado.", // Adjusted capitalization
-            directSales: "Ventas directas: Se refiere a los cálculos de margen y utilidad cuando mi negocio vende directamente al consumidor final, sin intermediarios.", // Adjusted capitalization
-            adjustedWholesaleSales: "Ventas ajustado a mayorista: Cálculos de margen y utilidad que reflejan cómo se ajustan los beneficios de mi negocio cuando se vende a un mayorista, manteniendo un precio de venta al público fijo.", // Adjusted capitalization
-            grossMargin: "Margen bruto: La diferencia entre los ingresos por ventas y el costo de los bienes vendidos (Costo del Producto), expresada como porcentaje. Es una medida de la rentabilidad de las ventas antes de los gastos operativos.", // Adjusted capitalization
-            sellerAdjustedMargin: "Margen de mi negocio ajustado: Tu margen de ganancia después de considerar el margen que el mayorista necesita o desea obtener. Es tu margen real cuando vendes a través de un mayorista.", // Adjusted capitalization
+            taxAmount: "Monto de impuesto: La cantidad monetaria del impuesto calculado sobre el precio de venta. Se calcula como Precio de Venta Sugerido * (Impuesto / 100).",
+            suggestedSellingPriceWithTax: "Precio de venta sugerido (con impuesto): El precio final recomendado al que se debería vender un producto, incluyendo el impuesto aplicable. Se calcula como Precio de Venta Sugerido (sin impuesto) + Monto de Impuesto.",
+            priceToWholesaler: "Precio mayorista: El precio al que mi negocio vende sus productos a un distribuidor o mayorista. Es el ingreso para mi negocio y el costo para el mayorista.",
+            wholesalerCost: "Costo mayorista: El costo de adquisición del producto para el mayorista, que es igual al Precio Mayorista fijado por mi negocio.",
+            wholesalerMargin: "Margen mayorista: El porcentaje de ganancia que el mayorista busca obtener sobre su precio de venta al público. Es su propio margen de beneficio.",
+            suggestedFinalSellingPrice: "Precio de venta sugerido final (Precio de Venta al Público): El precio recomendado al que el mayorista debería vender el producto al consumidor final, considerando su propio margen deseado.",
+            directSales: "Ventas directas: Se refiere a los cálculos de margen y utilidad cuando mi negocio vende directamente al consumidor final, sin intermediarios.",
+            adjustedWholesaleSales: "Ventas ajustado a mayorista: Cálculos de margen y utilidad que reflejan cómo se ajustan los beneficios de mi negocio cuando se vende a un mayorista, manteniendo un precio de venta al público fijo.",
+            grossMargin: "Margen bruto: La diferencia entre los ingresos por ventas y el costo de los bienes vendidos (Costo del Producto), expresada como porcentaje. Es una medida de la rentabilidad de las ventas antes de los gastos operativos.",
+            sellerAdjustedMargin: "Margen de mi negocio ajustado: Tu margen de ganancia después de considerar el margen que el mayorista necesita o desea obtener. Es tu margen real cuando vendes a través de un mayorista.",
+            discountRate: "Descuento (%): El porcentaje de reducción aplicado al precio de venta de un producto.", // New concept
+            discountAmount: "Monto de descuento: La cantidad monetaria de la reducción aplicada al precio de venta. Se calcula como Precio de Venta Sugerido * (Descuento / 100).", // New concept
+            sellingPriceAfterDiscountPreTax: "Precio de venta sugerido (con descuento, sin impuesto): El precio del producto después de aplicar un descuento, antes de impuestos.", // New concept
+            sellingPriceAfterDiscountWithTax: "Precio de venta sugerido (con descuento, con impuesto): El precio final del producto después de aplicar un descuento y sumar los impuestos.", // New concept
+            profitMarginAfterDiscount: "Margen de utilidad (con descuento): El margen de ganancia calculado después de aplicar un descuento al precio de venta. Se calcula como (Utilidad con Descuento / Precio de Venta con Descuento) * 100.", // New concept
         },
         allFormulas: { // Consolidated formulas
             tab0: {
