@@ -11,32 +11,60 @@ const calculadoraServicios_es = {
         fixedCosts: "Gastos Fijos Mensuales",
         variableCosts: "Gastos Variables Mensuales",
         profitMargin: "Margen de Ganancia Deseado del Negocio (%)",
-        taxRate: "ITBMS (%)",
+        taxRate: "Impuesto (tipo ITBMS) (%)",
+        includeISR: "Incluir cálculo de Impuesto Sobre la Renta (Panamá)",
+        includeCSS: "Incluir cálculo de Seguro Social (IVM - Panamá)",
+        includeSalud: "Incluir afiliación voluntaria de Seguro Social (Salud - Panamá)",
     },
     calculateButton: "Calcular Tarifa",
     resultsTitle: "Resultados Detallados Mensuales",
     results: {
-        costBreakdown: {
-            title: "Desglose de Costos Operativos",
-            income: "Tu Salario",
-            fixed: "Gastos Fijos",
-            variable: "Gastos Variables"
+        sectionTitleCosts: "Costos Operativos",
+        salaryAsCostExplanation: "Tu salario es el costo más importante. El negocio debe poder pagártelo y además ser rentable.",
+        sectionTitleNoTax: "Ingresos y Ganancias (sin Impuesto)",
+        sectionTitleWithTax: "Totales a Facturar (con Impuesto)",
+        sectionTitleISR: "Estimación de Impuesto Sobre la Renta (Anual)",
+        sectionTitleCSS: "Estimación de Seguro Social (Mensual)",
+        cssExplanation: "Este es el aporte obligatorio para Invalidez, Vejez y Muerte (IVM).",
+        saludExplanation: "Este es el aporte voluntario para Enfermedad y Maternidad.",
+        sectionTitleSuggested: "Precios Finales Sugeridos (Redondeados hacia arriba)",
+  
+        totalMonthlyCosts: { label: "Costos Operativos Totales", formula: "Salario + Gastos Fijos + Gastos Variables" },
+        costPerHour: { label: "Costo Real por Hora", subLabel: "basado en", formula: "Costos Operativos Totales / Horas Facturables" },
+        
+        preTaxRevenue: { label: "Ingresos Requeridos (Subtotal)", formula: "Costos Operativos / (1 - % Margen)" },
+        requiredProfit: { label: "Ganancia Neta del Negocio", formula: "Ingresos Requeridos - Costos Operativos" },
+        pricePerHourNoTax: { label: "Precio por Hora (sin Impuesto)", formula: "Ingresos Requeridos / Horas Facturables" },
+  
+        taxAmount: { label: "Monto de Impuesto (tipo ITBMS)", formula: "Ingresos Requeridos * % Impuesto" },
+        totalBilling: { label: "Ingresos Totales", formula: "Ingresos Requeridos + Monto de Impuesto" },
+        pricePerHourWithTax: { label: "Precio Final por Hora (con Impuesto)", formula: "Ingresos Totales / Horas Facturables" },
+        
+        annualTaxableIncome: { label: "Ingreso Gravable Anual", formula: "(Tu Salario + Ganancia Neta) * 12" },
+        taxBracket: { label: "Tramo Impositivo (DGI)", formula: "" },
+        taxableSurplus: { label: "Monto Excedente", formula: "Ingreso Gravable Anual - Base del Tramo" },
+        estimatedISR: { label: "Impuesto Sobre la Renta Anual a Pagar", subLabel: "(Estimado sin deducciones)", formula: "{formula}" },
+        annualIncomeAfterISR: { label: "Ingreso Anual Neto Final", subLabel: "Tu ingreso final (después de ISR y Seguro Social)", formula: "Ingreso Gravable Anual - Impuesto Sobre la Renta - Seguro Social Anual" },
+  
+        cssBaseIncome: { label: "Ingreso Base de Cotización (52%)", formula: "(Tu Salario + Ganancia Neta) * 52%" },
+        cssPayment: { label: "Cuota Mensual a Pagar (IVM)", subLabel: "Aporte obligatorio para jubilación", formula: "Ingreso Base * 9.36%" },
+        
+        saludBaseIncome: { label: "Ingreso Base de Cotización (Salud)", formula: "Max({minBase}, {monthlyIncome})" },
+        saludPayment: { label: "Cuota de Seguro Social (Salud)", subLabel: "Aporte voluntario para salud", formula: "Ingreso Base (Salud) * 8.5%" },
+        totalCssPayment: { label: "Total Cuotas de Seguro Social", subLabel: "Suma de IVM y Salud", formula: "Cuota IVM + Cuota Salud" },
+  
+        roundedPriceNoTax: { label: "Precio Sugerido por Hora (sin Impuesto)" },
+        roundedPriceWithTax: { 
+            label: "Precio Sugerido por Hora (con Impuesto)", 
+            basePriceLabel: "Para lograr este precio, factura un subtotal de:"
         },
-        totalMonthlyCosts: { label: "Costos Operativos Totales", subLabel: "Tu Salario + Gastos", formula: "Salario + Fijos + Variables" },
-        costPerHour: { label: "Costo Real por Hora", subLabel: "basado en", formula: "Costos Totales / Horas" },
-        requiredProfit: { label: "Ganancia Neta del Negocio", subLabel: "Margen para crecimiento", formula: "Facturación - Costos Totales" },
-        preTaxRevenue: { label: "Facturación (Subtotal)", subLabel: "Antes de ITBMS", formula: "Costos / (1 - % Margen)" },
-        taxAmount: { label: "Monto de ITBMS", subLabel: "Impuesto sobre el servicio", formula: "Subtotal * % ITBMS" },
-        totalBilling: { label: "Facturación Total", subLabel: "Con ITBMS incluido", formula: "Subtotal + ITBMS" },
-        pricePerHourNoTax: { label: "PRECIO POR HORA", subLabel: "Subtotal (sin ITBMS)", formula: "Subtotal / Horas" },
-        pricePerHourWithTax: { label: "PRECIO FINAL POR HORA", subLabel: "A facturar al cliente (con impuestos incluidos)", formula: "Fact. Total / Horas" },
-        pricePerHourHalfHours: { label: "PRECIO FACTURANDO LA MITAD DE LAS HORAS", subLabel: "Escenario de riesgo", formula: "Fact. Total / (Horas / 2)" },
-        roundedPrices: {
-            label: "PRECIOS SUGERIDOS (REDONDEADOS)",
-            subLabel: "Para cotizar al cliente",
-            withTax: "Con ITBMS",
-            noTax: "Sin ITBMS",
-        },
+        finalAnalysis: {
+            title: "Análisis de Resultados",
+            p1: "Basado en tus {hours} horas facturables al mes, tu tarifa horaria sugerida de {priceWithTax} (con impuesto) es una guía para cubrir tus necesidades financieras.",
+            p2: "Este precio te permite cubrir {totalCosts} en costos operativos mensuales (que <strong>ya incluyen tu salario</strong> de {salary}), y además generar una <strong>ganancia neta mensual de {profit} para el negocio</strong>, la cual es aparte de tu salario.",
+            p3: "<strong>Importante:</strong> {cssText} {isrText} Para una declaración precisa, es fundamental que te guíes con un contador público autorizado.",
+            p4: "Con esta estimación, de un ingreso anual bruto de {annualGrossIncome}, se restarían {annualExpenses} en impuestos y seguro social, resultando en un ingreso neto final de {annualNetIncome}."
+        }
     },
     guidance: "Ingresa tus datos y haz clic en 'Calcular' para ver los resultados.",
     error: "Por favor, ingresa un número válido de horas (mayor a 0).",
@@ -44,24 +72,28 @@ const calculadoraServicios_es = {
         disclaimer: "Esta calculadora es una herramienta de estimación. Consulta con un profesional financiero para obtener asesoramiento personalizado.",
         conceptsTitle: "Conceptos Clave",
         formulasTitle: "Fórmulas Utilizadas",
+        showConcepts: "Mostrar Conceptos",
+        hideConcepts: "Ocultar Conceptos",
+        showFormulas: "Mostrar Fórmulas",
+        hideFormulas: "Ocultar Fórmulas",
         allConcepts: {
-            desiredMonthlyIncome: "<strong>Tu Ingreso Mensual Deseado:</strong> Es el salario neto que quieres pagarte a ti mismo. <strong>Es crucial tratar tu salario como un costo fijo del negocio.</strong> Esto te obliga a que la empresa sea rentable por sí misma, más allá de solo pagarte. Separa la salud financiera del negocio de tus finanzas personales.",
-            monthlyHours: "<strong>Horas Facturables al Mes:</strong> El número total de horas que planeas vender a tus clientes. No incluyas horas administrativas, de venta o capacitación.",
-            fixedCosts: "<strong>Gastos Fijos:</strong> Costos que no cambian sin importar cuánto trabajes (ej. alquiler, suscripciones a software, internet, contabilidad).",
-            variableCosts: "<strong>Gastos Variables:</strong> Costos que cambian según el volumen de trabajo (ej. materiales para un proyecto, transporte a reuniones, comisiones).",
-            profitMargin: "<strong>Margen de Ganancia Deseado:</strong> Un porcentaje adicional sobre tus costos que se reinvierte en el negocio para crecimiento, ahorros o bonos. Es la ganancia real de la empresa y una decisión estratégica que tú defines.",
-            taxRate: "<strong>ITBMS:</strong> Impuesto de Transferencia de Bienes Muebles y Servicios. En Panamá, es el 7% que se añade al precio de tus servicios y que luego debes declarar.",
-            costPerHour: "<strong>Costo Real por Hora:</strong> Lo que te cuesta operar tu negocio cada hora facturable. Si cobras menos que esto, pierdes dinero.",
-            pricePerHourWithTax: "<strong>Precio Final por Hora:</strong> La tarifa final que debes cobrar al cliente para cubrir todos los costos, tu ganancia y el ITBMS."
+            desiredMonthlyIncome: "Tu Ingreso Mensual Deseado: Es el salario neto que quieres pagarte a ti mismo. Es crucial tratar tu salario como un costo fijo del negocio. Esto te obliga a que la empresa sea rentable por sí misma, más allá de solo pagarte. Separa la salud financiera del negocio de tus finanzas personales.",
+            monthlyHours: "Horas Facturables al Mes: El número total de horas que planeas vender a tus clientes. No incluyas horas administrativas, de venta o capacitación.",
+            fixedCosts: "Gastos Fijos: Costos que no cambian sin importar cuánto trabajes (ej. alquiler, suscripciones a software, internet, contabilidad).",
+            variableCosts: "Gastos Variables: Costos que cambian según el volumen de trabajo (ej. materiales para un proyecto, transporte a reuniones, comisiones).",
+            profitMargin: "Margen de Ganancia Deseado: Un porcentaje adicional sobre tus costos que se reinvierte en el negocio para crecimiento, ahorros o bonos. Es la ganancia real de la empresa y una decisión estratégica que tú defines.",
+            taxRate: "ITBMS: Impuesto de Transferencia de Bienes Muebles y Servicios. En Panamá, es el 7% que se añade al precio de tus servicios y que luego debes declarar.",
+            costPerHour: "Costo Real por Hora: Lo que te cuesta operar tu negocio cada hora facturable. Si cobras menos que esto, pierdes dinero.",
+            pricePerHourWithTax: "Precio Final por Hora: La tarifa final que debes cobrar al cliente para cubrir todos los costos, tu ganancia y el ITBMS."
         },
         allFormulas: {
-            totalMonthlyCosts: "<strong>Costos Operativos Totales</strong> = Tu Salario + Gastos Fijos + Gastos Variables",
-            preTaxRevenue: "<strong>Facturación (Subtotal)</strong> = Costos Operativos / (1 - (Margen de Ganancia / 100))",
-            taxAmount: "<strong>Monto de ITBMS</strong> = Facturación (Subtotal) * (ITBMS / 100)",
-            totalBilling: "<strong>Facturación Total</strong> = Facturación (Subtotal) + Monto de ITBMS",
-            pricePerHourNoTax: "<strong>Precio por Hora (sin ITBMS)</strong> = Facturación (Subtotal) / Horas Facturables",
-            pricePerHourWithTax: "<strong>Precio Final por Hora</strong> = Facturación Total / Horas Facturables",
-            pricePerHourHalfHours: "<strong>Precio Facturando Mitad de Horas</strong> = Facturación Total / (Horas Facturables / 2)",
+            totalMonthlyCosts: "Costos Operativos Totales = Tu Salario + Gastos Fijos + Gastos Variables",
+            preTaxRevenue: "Facturación (Subtotal) = Costos Operativos / (1 - (Margen de Ganancia / 100))",
+            taxAmount: "Monto de ITBMS = Facturación (Subtotal) * (ITBMS / 100)",
+            totalBilling: "Facturación Total = Facturación (Subtotal) + Monto de ITBMS",
+            pricePerHourNoTax: "Precio por Hora (sin ITBMS) = Facturación (Subtotal) / Horas Facturables",
+            pricePerHourWithTax: "Precio Final por Hora = Facturación Total / Horas Facturables",
+            pricePerHourHalfHours: "Precio Facturando Mitad de Horas = Facturación Total / (Horas Facturables / 2)",
         }
     }
 }

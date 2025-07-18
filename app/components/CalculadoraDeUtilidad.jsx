@@ -3,21 +3,7 @@ import brandColors from '../styles/brandColors';
 import { translations } from '../assets/localization/translations';
 import { InputField } from './InputField';
 import { useLanguage } from '../contexts/LanguageContext';
-
-// Helper function to format numbers to 2 decimal places
-const formatCurrency = (value) => {
-    if (typeof value !== 'number' || isNaN(value) || !isFinite(value)) {
-        return '$0.00';
-    }
-    return `$${value.toFixed(2)}`;
-};
-
-const formatPercentage = (value) => {
-    if (typeof value !== 'number' || isNaN(value) || !isFinite(value)) {
-        return '0.00%';
-    }
-    return `${value.toFixed(2)}%`;
-};
+import { formatCurrency } from '../utils/formatter';
 
 // Reusable Result Display Component
 const ResultDisplay = ({ label, value, isHighlighted = false, isSubtle = false, isNegative = false }) => (
@@ -142,16 +128,16 @@ const CommissionCalculator = () => {
             {/* Input Section */}
             <div className="md:w-1/2 p-4">
                 <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.calculator.title}</h3>
-                <InputField label={t.calculator.inputs.productCost} value={productCost} onChange={setProductCost} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.productCost}/>
-                <InputField label={t.calculator.inputs.sellingPrice} value={sellingPrice} onChange={setSellingPrice} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.sellingPrice}/>
+                <InputField label={t.calculator.inputs.productCost} value={productCost} onChange={setProductCost} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.productCost} />
+                <InputField label={t.calculator.inputs.sellingPrice} value={sellingPrice} onChange={setSellingPrice} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.sellingPrice} />
 
                 <hr className="my-6" style={{ borderColor: brandColors.accent1 }} />
-                <InputField label={t.calculator.inputs.paymentCommissionPercentage} value={paymentCommissionPercentage} onChange={setPaymentCommissionPercentage} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.paymentCommissionPercentage}/>
-                <InputField label={t.calculator.inputs.paymentCommissionFixed} value={paymentCommissionFixed} onChange={setPaymentCommissionFixed} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.paymentCommissionFixed}/>
-                <InputField label={t.calculator.inputs.websiteCommissionPercentage} value={websiteCommissionPercentage} onChange={setWebsiteCommissionPercentage} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.websiteCommissionPercentage}/>
-                <InputField label={t.calculator.inputs.sellerCommissionPercentage} value={sellerCommissionPercentage} onChange={setSellerCommissionPercentage} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.sellerCommissionPercentage}/>
-                <InputField label={t.calculator.inputs.otherCommissions} value={otherCommissions} onChange={setOtherCommissions} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.otherCommissions}/>
-                <InputField label={t.calculator.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.taxRate}/>
+                <InputField label={t.calculator.inputs.paymentCommissionPercentage} value={paymentCommissionPercentage} onChange={setPaymentCommissionPercentage} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.paymentCommissionPercentage} />
+                <InputField label={t.calculator.inputs.paymentCommissionFixed} value={paymentCommissionFixed} onChange={setPaymentCommissionFixed} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.paymentCommissionFixed} />
+                <InputField label={t.calculator.inputs.websiteCommissionPercentage} value={websiteCommissionPercentage} onChange={setWebsiteCommissionPercentage} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.websiteCommissionPercentage} />
+                <InputField label={t.calculator.inputs.sellerCommissionPercentage} value={sellerCommissionPercentage} onChange={setSellerCommissionPercentage} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.sellerCommissionPercentage} />
+                <InputField label={t.calculator.inputs.otherCommissions} value={otherCommissions} onChange={setOtherCommissions} hasPrefix={true} prefix="$" tooltipText={t.calculator.tooltips.otherCommissions} />
+                <InputField label={t.calculator.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" tooltipText={t.calculator.tooltips.taxRate} />
 
                 {/* Tax Inclusion Choice */}
                 <div className="mb-4">
@@ -195,7 +181,7 @@ const CommissionCalculator = () => {
                             <h4 className="font-semibold text-center mb-2" style={{ color: brandColors.darkBlue }}>{t.calculator.outputs.scenarioWithoutCommissions}</h4>
                             <hr className="mb-2" style={{ borderColor: brandColors.accent2 }} />
                             <ResultDisplay label={t.calculator.outputs.expectedProfit} value={formatCurrency(results.expectedProfit)} />
-                            <ResultDisplay label={t.calculator.outputs.expectedMargin} value={formatPercentage(results.expectedMargin)} />
+                            <ResultDisplay label={t.calculator.outputs.expectedMargin} value={formatCurrency(results.expectedMargin, symbol = '%', isPrefix = false)} />
                         </div>
 
                         <div className="p-3 border rounded-lg shadow-sm" style={{ borderColor: brandColors.accent2 }}>
@@ -214,7 +200,7 @@ const CommissionCalculator = () => {
                             <h4 className="font-semibold text-center mb-2" style={{ color: brandColors.darkBlue }}>{t.calculator.outputs.scenarioWithCommissions}</h4>
                             <hr className="mb-2" style={{ borderColor: brandColors.accent2 }} />
                             <ResultDisplay label={t.calculator.outputs.profit} value={formatCurrency(results.finalProfit)} isHighlighted={true} isNegative={results.finalProfit < 0} />
-                            <ResultDisplay label={t.calculator.outputs.profitMargin} value={formatPercentage(results.finalProfitMargin)} isHighlighted={true} isNegative={results.finalProfitMargin < 0} />
+                            <ResultDisplay label={t.calculator.outputs.profitMargin} value={formatCurrency(results.finalProfitMargin, symbol = '%', isPrefix = false)} isHighlighted={true} isNegative={results.finalProfitMargin < 0} />
                         </div>
 
                         <div className="p-3 rounded-lg shadow-sm" style={{ backgroundColor: brandColors.lightGray1, border: `1px solid ${brandColors.accent2}` }}>
@@ -223,7 +209,7 @@ const CommissionCalculator = () => {
                                 dangerouslySetInnerHTML={{
                                     __html: t.calculator.outputs.variationAnalysisText
                                         .replace('{profitDifference}', formatCurrency(results.profitDifference))
-                                        .replace('{marginDifference}', formatPercentage(results.marginDifference))
+                                        .replace('{marginDifference}', formatCurrency(results.marginDifference, symbol = '%', isPrefix = false))
                                 }}
                             />
                         </div>
@@ -240,10 +226,12 @@ const CommissionCalculator = () => {
 
 // Main App Component
 function CalculadoraDeUtilidad() {
-    const {language} = useLanguage();
+    const { language } = useLanguage();
+    const t = translations[language].utilidad;
+    
+    // State for collapsible footer sections
     const [showConcepts, setShowConcepts] = useState(false);
     const [showFormulas, setShowFormulas] = useState(false);
-    const t = translations[language].utilidad;
 
     return (
         <div className="min-h-screen p-4" style={{ fontFamily: 'Albert Sans', backgroundColor: brandColors.lightGray2 }}>
@@ -259,50 +247,50 @@ function CalculadoraDeUtilidad() {
                 </div>
             </header>
 
-{/* Calculator Content */ }
-<main className="max-w-4xl mx-auto">
-    <CommissionCalculator t={t} />
-</main>
+            {/* Calculator Content */}
+            <main className="max-w-4xl mx-auto">
+                <CommissionCalculator t={t} />
+            </main>
 
-{/* Footer */ }
-<footer className="text-center mt-12 p-4 border-t" style={{ borderColor: brandColors.accent2 }}>
-    <div className="max-w-4xl mx-auto">
-        {/* Toggle Buttons for Concepts and Formulas */}
-        <div className="flex justify-center gap-4 mb-6">
-            <button onClick={() => { setShowConcepts(!showConcepts); setShowFormulas(false); }} className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1" style={{ backgroundColor: brandColors.darkBlue, boxShadow: `0 4px ${brandColors.primary}` }}>
-                {showConcepts ? t.footer.hideConcepts : t.footer.showConcepts}
-            </button>
-            <button onClick={() => { setShowFormulas(!showFormulas); setShowConcepts(false); }} className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1" style={{ backgroundColor: brandColors.green2, boxShadow: `0 4px ${brandColors.darkGreen}` }}>
-                {showFormulas ? t.footer.hideFormulas : t.footer.showFormulas}
-            </button>
-        </div>
+            {/* Footer */}
+            <footer className="text-center mt-12 p-4 border-t" style={{ borderColor: brandColors.accent2 }}>
+                <div className="max-w-4xl mx-auto">
+                    {/* Toggle Buttons for Concepts and Formulas */}
+                    <div className="flex justify-center gap-4 mb-6">
+                        <button onClick={() => { setShowConcepts(!showConcepts); setShowFormulas(false); }} className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1" style={{ backgroundColor: brandColors.darkBlue, boxShadow: `0 4px ${brandColors.primary}` }}>
+                            {showConcepts ? t.footer.hideConcepts : t.footer.showConcepts}
+                        </button>
+                        <button onClick={() => { setShowFormulas(!showFormulas); setShowConcepts(false); }} className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1" style={{ backgroundColor: brandColors.green2, boxShadow: `0 4px ${brandColors.darkGreen}` }}>
+                            {showFormulas ? t.footer.hideFormulas : t.footer.showFormulas}
+                        </button>
+                    </div>
 
-        {/* Concepts Section (Collapsible) */}
-        {showConcepts && (
-            <div className="mt-4 p-4 border rounded-lg" style={{ borderColor: brandColors.accent2, backgroundColor: brandColors.white }}>
-                <h4 className="text-lg font-bold mb-3" style={{ color: brandColors.primary }}>{t.footer.conceptsTitle}</h4>
-                <div className="space-y-3 text-sm text-left">
-                    {Object.entries(t.footer.concepts).map(([key, value]) => (
-                        <div key={key}><p><strong style={{ color: brandColors.secondary }}>{value.split(':')[0]}:</strong> {value.split(':').slice(1).join(':')}</p></div>
-                    ))}
+                    {/* Concepts Section (Collapsible) */}
+                    {showConcepts && (
+                        <div className="mt-4 p-4 border rounded-lg" style={{ borderColor: brandColors.accent2, backgroundColor: brandColors.white }}>
+                            <h4 className="text-lg font-bold mb-3" style={{ color: brandColors.primary }}>{t.footer.conceptsTitle}</h4>
+                            <div className="space-y-3 text-sm text-left">
+                                {Object.entries(t.footer.allConcepts).map(([key, value]) => (
+                                    <div key={key}><p><strong style={{ color: brandColors.secondary }}>{value.split(':')[0]}:</strong> {value.split(':').slice(1).join(':')}</p></div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Formulas Section (Collapsible) */}
+                    {showFormulas && (
+                        <div className="mt-4 p-4 border rounded-lg" style={{ borderColor: brandColors.accent2, backgroundColor: brandColors.white }}>
+                            <h4 className="text-lg font-bold mb-3" style={{ color: brandColors.primary }}>{t.footer.formulasTitle}</h4>
+                            <div className="space-y-3 text-sm text-left bg-gray-100">
+                                {Object.entries(t.footer.allFormulas).map(([key, value]) => (
+                                   <p key={key} className="font-mono p-2 rounded-md"><strong style={{ color: brandColors.darkBlue }}>{value.split('=')[0]} =</strong> {value.split('=')[1]}</p>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    <p className="text-sm text-gray-500 mt-8" style={{ color: brandColors.darkBlue }} dangerouslySetInnerHTML={{ __html: t.footer.disclaimer }}></p>
                 </div>
-            </div>
-        )}
-
-        {/* Formulas Section (Collapsible) */}
-        {showFormulas && (
-            <div className="mt-4 p-4 border rounded-lg" style={{ borderColor: brandColors.accent2, backgroundColor: brandColors.white }}>
-                <h4 className="text-lg font-bold mb-3" style={{ color: brandColors.primary }}>{t.footer.formulasTitle}</h4>
-                <div className="space-y-3 text-sm text-left">
-                    {Object.entries(t.footer.formulas).map(([key, value]) => (
-                        <p key={key} className="font-mono p-2 rounded-md" style={{ color: brandColors.darkBlue, backgroundColor: brandColors.lightGray1 }} dangerouslySetInnerHTML={{ __html: value }} />
-                    ))}
-                </div>
-            </div>
-        )}
-        <p className="text-sm text-gray-500 mt-8" style={{ color: brandColors.darkBlue }} dangerouslySetInnerHTML={{ __html: t.footer.disclaimer }}></p>
-    </div>
-</footer>
+            </footer>
         </div >
     );
 };

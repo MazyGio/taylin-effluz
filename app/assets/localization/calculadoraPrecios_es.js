@@ -163,46 +163,46 @@ const calculadoraPrecios_es = {
         allFormulas: { // Consolidated formulas
             tab0: {
                 title: "Fórmulas para Cálculo de Costo de Producto",
-                formula: "<strong>Costo Total del Producto (por unidad)</strong> = Costo de Materiales Directos + Costo de Mano de Obra Directa + Costos Indirectos de Fabricación + Otros Costos + Transporte",
-                overallTotalCostFormula: "<strong>Costo Total General</strong> = Costo Total del Producto (por unidad) * Cantidad"
+                formula: "Costo Total del Producto (por unidad) = Costo de Materiales Directos + Costo de Mano de Obra Directa + Costos Indirectos de Fabricación + Otros Costos + Transporte",
+                overallTotalCostFormula: "Costo Total General = Costo Total del Producto (por unidad) * Cantidad"
             },
             tab1: {
                 title: "Fórmulas para Cálculo de Precio en base a Costo",
-                profit: "<strong>Utilidad</strong> = Precio de Venta Sugerido (sin impuesto) - Costo",
-                suggestedSellingPrice: "<strong>Precio de Venta Sugerido (sin impuesto)</strong> = Costo / (1 - (Margen Deseado / 100))",
-                taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta Sugerido (sin impuesto) * (Impuesto / 100)",
-                suggestedSellingPriceWithTax: "<strong>Precio de Venta Sugerido (con impuesto)</strong> = Precio de Venta Sugerido (sin impuesto) + Monto de Impuesto",
-                markup: "<strong>Markup</strong> = ((Precio de Venta Sugerido (sin impuesto) - Costo) / Costo) * 100",
-                profitMargin: "<strong>Margen de Utilidad</strong> = ((Precio de Venta Sugerido (sin impuesto) - Costo) / Precio de Venta Sugerido (sin impuesto)) * 100"
+                profit: "Utilidad = Precio de Venta Sugerido (sin impuesto) - Costo",
+                suggestedSellingPrice: "Precio de Venta Sugerido (sin impuesto) = Costo / (1 - (Margen Deseado / 100))",
+                taxAmount: "Monto de Impuesto = Precio de Venta Sugerido (sin impuesto) * (Impuesto / 100)",
+                suggestedSellingPriceWithTax: "Precio de Venta Sugerido (con impuesto) = Precio de Venta Sugerido (sin impuesto) + Monto de Impuesto",
+                markup: "Markup = ((Precio de Venta Sugerido (sin impuesto) - Costo) / Costo) * 100",
+                profitMargin: "Margen de Utilidad = ((Precio de Venta Sugerido (sin impuesto) - Costo) / Precio de Venta Sugerido (sin impuesto)) * 100"
             },
             tab2: {
                 title: "Fórmulas para Cálculo de Margen y Markup",
-                profit: "<strong>Utilidad</strong> = Precio de Venta Deseado (sin impuesto) - Costo", // Clarified
-                profitMargin: "<strong>Margen de Utilidad (%)</strong> = ((Precio de Venta Deseado (sin impuesto) - Costo) / Precio de Venta Deseado (sin impuesto)) * 100", // Clarified
-                markup: "<strong>Markup (%)</strong> = ((Precio de Venta Deseado (sin impuesto) - Costo) / Costo) * 100", // Clarified
-                taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta Deseado (sin impuesto) * (Impuesto / 100)", // New formula
-                suggestedSellingPriceWithTax: "<strong>Precio de Venta Deseado (con impuesto)</strong> = Precio de Venta Deseado (sin impuesto) + Monto de Impuesto", // New formula
-                derivedPreTaxPrice: "<em>Si el precio de venta deseado incluye impuesto:</em> <strong>Precio de Venta Deseado (sin impuesto)</strong> = Precio de Venta Deseado (ingresado) / (1 + Impuesto / 100)", // New formula explanation
-                derivedPreTaxPriceNoTax: "<em>Si el precio de venta deseado NO incluye impuesto:</em> <strong>Precio de Venta Deseado (sin impuesto)</strong> = Precio de Venta Deseado (ingresado)", // New formula explanation
+                profit: "Utilidad = Precio de Venta Deseado (sin impuesto) - Costo", // Clarified
+                profitMargin: "Margen de Utilidad (%) = ((Precio de Venta Deseado (sin impuesto) - Costo) / Precio de Venta Deseado (sin impuesto)) * 100", // Clarified
+                markup: "Markup (%) = ((Precio de Venta Deseado (sin impuesto) - Costo) / Costo) * 100", // Clarified
+                taxAmount: "Monto de Impuesto = Precio de Venta Deseado (sin impuesto) * (Impuesto / 100)", // New formula
+                suggestedSellingPriceWithTax: "Precio de Venta Deseado (con impuesto) = Precio de Venta Deseado (sin impuesto) + Monto de Impuesto", // New formula
+                derivedPreTaxPrice: "Si el precio de venta deseado incluye impuesto: Precio de Venta Deseado (sin impuesto) = Precio de Venta Deseado (ingresado) / (1 + Impuesto / 100)", // New formula explanation
+                derivedPreTaxPriceNoTax: "Si el precio de venta deseado NO incluye impuesto: Precio de Venta Deseado (sin impuesto) = Precio de Venta Deseado (ingresado)", // New formula explanation
             },
             tab3_section1: { // Formulas for Adjusted Margin part of tab4 (now tab3)
                 title: "Fórmulas para Margen Ajustado (Cálculo de Doble Márgenes)",
-                derivedPreTaxPrice: "<em>Si el precio de venta al público incluye impuesto:</em> <strong>Precio de Venta al Público (sin impuesto)</strong> = Precio de Venta al Público (ingresado) / (1 + Impuesto / 100)", // New formula explanation
-                derivedPreTaxPriceNoTax: "<em>Si el precio de venta al público NO incluye impuesto:</em> <strong>Precio de Venta al Público (sin impuesto)</strong> = Precio de Venta al Público (ingresado)", // New formula explanation
-                priceToWholesaler: "<strong>Precio al Mayorista</strong> = Precio de Venta al Público (sin impuesto) * (1 - (Margen del Mayorista Deseado / 100))", // Clarified
-                sellerAdjustedMargin: "<strong>Margen de mi Negocio Ajustado</strong> = ((Precio al Mayorista - Costo) / Precio al Mayorista) * 100",
-                sellerProfit: "<strong>Utilidad de mi Negocio</strong> = Precio al Mayorista - Costo",
-                taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta al Público (sin impuesto) * (Impuesto / 100)", // New formula
-                suggestedRetailPriceWithTax: "<strong>Precio de Venta al Público (con impuesto)</strong> = Precio de Venta al Público (sin impuesto) + Monto de Impuesto", // New formula
+                derivedPreTaxPrice: "Si el precio de venta al público incluye impuesto: Precio de Venta al Público (sin impuesto) = Precio de Venta al Público (ingresado) / (1 + Impuesto / 100)", // New formula explanation
+                derivedPreTaxPriceNoTax: "Si el precio de venta al público NO incluye impuesto: Precio de Venta al Público (sin impuesto) = Precio de Venta al Público (ingresado)", // New formula explanation
+                priceToWholesaler: "Precio al Mayorista = Precio de Venta al Público (sin impuesto) * (1 - (Margen del Mayorista Deseado / 100))", // Clarified
+                sellerAdjustedMargin: "Margen de mi Negocio Ajustado = ((Precio al Mayorista - Costo) / Precio al Mayorista) * 100",
+                sellerProfit: "Utilidad de mi Negocio = Precio al Mayorista - Costo",
+                taxAmount: "Monto de Impuesto = Precio de Venta al Público (sin impuesto) * (Impuesto / 100)", // New formula
+                suggestedRetailPriceWithTax: "Precio de Venta al Público (con impuesto) = Precio de Venta al Público (sin impuesto) + Monto de Impuesto", // New formula
             },
             tab3_section2: { // Formulas for Desired Margin part of tab4 (now tab3)
                 title: "Fórmulas para Margen Deseado (Cálculo de Doble Márgenes)",
-                priceToWholesaler: "<strong>Precio al Mayorista</strong> = Costo / (1 - (Margen Deseado (Mi negocio) / 100))",
-                suggestedPublicSellingPrice: "<strong>Precio de Venta al Público Sugerido (sin impuesto)</strong> = Precio al Mayorista / (1 - (Margen Deseado del Mayorista / 100))", // Clarified
-                taxAmount: "<strong>Monto de Impuesto</strong> = Precio de Venta al Público Sugerido (sin impuesto) * (Impuesto / 100)", // New formula
-                suggestedPublicSellingPriceWithTax: "<strong>Precio de Venta al Público Sugerido (con impuesto)</strong> = Precio de Venta al Público Sugerido (sin impuesto) + Monto de Impuesto", // New formula
-                yourProfit: "<strong>Utilidad de mi Negocio</strong> = Precio al Mayorista - Costo",
-                wholesalerProfit: "<strong>Utilidad del Mayorista</strong> = Precio de Venta al Público Sugerido (sin impuesto) - Precio al Mayorista" // Clarified
+                priceToWholesaler: "Precio al Mayorista = Costo / (1 - (Margen Deseado (Mi negocio) / 100))",
+                suggestedPublicSellingPrice: "Precio de Venta al Público Sugerido (sin impuesto) = Precio al Mayorista / (1 - (Margen Deseado del Mayorista / 100))", // Clarified
+                taxAmount: "Monto de Impuesto = Precio de Venta al Público Sugerido (sin impuesto) * (Impuesto / 100)", // New formula
+                suggestedPublicSellingPriceWithTax: "Precio de Venta al Público Sugerido (con impuesto) = Precio de Venta al Público Sugerido (sin impuesto) + Monto de Impuesto", // New formula
+                yourProfit: "Utilidad de mi Negocio = Precio al Mayorista - Costo",
+                wholesalerProfit: "Utilidad del Mayorista = Precio de Venta al Público Sugerido (sin impuesto) - Precio al Mayorista" // Clarified
             }
         }
     }

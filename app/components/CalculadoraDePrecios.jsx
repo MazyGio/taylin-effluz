@@ -2,24 +2,8 @@ import { useState, useEffect } from 'react';
 import brandColors from '../styles/brandColors';
 import { InputField } from './InputField';
 import { useLanguage } from '../contexts/LanguageContext';
-
-// Translations object
 import { translations } from '../assets/localization/translations';
-
-// Helper function to format numbers to 2 decimal places
-const formatCurrency = (value) => {
-  if (typeof value !== 'number' || isNaN(value) || !isFinite(value)) {
-    return '$0.00';
-  }
-  return `$${value.toFixed(2)}`;
-};
-
-const formatPercentage = (value) => {
-  if (typeof value !== 'number' || isNaN(value) || !isFinite(value)) {
-    return '0.00%';
-  }
-  return `${value.toFixed(2)}%`;
-};
+import { formatCurrency, formatPercentage } from '../utils/formatter';
 
 // Reusable Result Display Component
 const ResultDisplay = ({ label, value, isHighlighted = false }) => (
@@ -150,8 +134,8 @@ const ProductCostCalculator = ({ language, t }) => {
             <ResultDisplay label={t.tab0.outputs.manufacturingOverhead} value={formatCurrency(results.manufacturingOverhead)} />
             <ResultDisplay label={t.tab0.outputs.otherCosts} value={formatCurrency(results.otherCosts)} />
             <ResultDisplay label={t.tab0.outputs.transportation} value={formatCurrency(results.transportation)} />
-            <ResultDisplay label={t.tab0.outputs.totalProductCost} value={formatCurrency(results.totalProductCost)} /> {/* Per unit cost */}
             <ResultDisplay label={t.tab0.outputs.overallTotalCost} value={formatCurrency(results.overallTotalCost)} isHighlighted={true} /> {/* Overall total cost, highlighted */}
+            <ResultDisplay label={t.tab0.outputs.totalProductCost} value={formatCurrency(results.totalProductCost)} /> {/* Per unit cost */}
           </div>
         ) : (
           <p className="text-gray-500">{language === 'es' ? 'Introduce los valores y haz clic en Calcular.' : 'Enter values and click Calculate.'}</p>
@@ -367,7 +351,7 @@ const DoubleMarginCalculator = ({ language, t }) => {
   const [s1SuggestedRetailPrice, setS1SuggestedRetailPrice] = useState('');
   const [s1WholesalerDesiredMargin, setS1WholesalerDesiredMargin] = useState('');
   const [s1TaxRate, setS1TaxRate] = useState(''); // New state for tax rate in section 1
-  const [isTaxIncludedS1, setIsTaxIncludedS1] = useState(null); // State for tax inclusion choice in section 1
+  const [isTaxIncludedS1, setIsTaxIncludedS1] = useState(true); // State for tax inclusion choice in section 1
   const [s1Results, setS1Results] = useState(null);
 
   const handleS1Calculate = () => {
@@ -432,7 +416,7 @@ const DoubleMarginCalculator = ({ language, t }) => {
   const [s2DesiredMargin, setS2DesiredMargin] = useState('');
   const [s2WholesalerDesiredMargin, setS2WholesalerDesiredMargin] = useState('');
   const [s2TaxRate, setS2TaxRate] = useState(''); // New state for tax rate in section 2
-  const [isTaxIncludedS2, setIsTaxIncludedS2] = useState(null); // State for tax inclusion choice in section 2
+  const [isTaxIncludedS2, setIsTaxIncludedS2] = useState(true); // State for tax inclusion choice in section 2
   const [s2Results, setS2Results] = useState(null);
 
   const handleS2Calculate = () => {
@@ -649,8 +633,8 @@ const DoubleMarginCalculator = ({ language, t }) => {
 // Main App Component
 function CalculadoraDePrecios() {
   const { language } = useLanguage(); // Default to Spanish
-  const [activeTab, setActiveTab] = useState('tab0'); // Start with the new Product Cost tab
   const t = translations[language].precios; // Get current translations
+  const [activeTab, setActiveTab] = useState('tab0'); // Start with the new Product Cost tab
 
   // State for collapsible footer sections
   const [showConcepts, setShowConcepts] = useState(false);
@@ -672,7 +656,7 @@ function CalculadoraDePrecios() {
   };
 
   return (
-    <div className="min-h-screen p-4" style={{ fontFamily: 'Albert Sans' }}>
+    <div className="min-h-screen p-4" style={{ backgroundColor: brandColors.lightGray2, fontFamily: 'Albert Sans' }}>
 
       <header className="text-center mb-8 pt-8 relative">
         <div className="justify-between items-center">
@@ -768,11 +752,11 @@ function CalculadoraDePrecios() {
                 {/* Formulas for Adjusted Margin part of tab3 */}
                 <div className="mb-6 text-left">
                   <h5 className="font-bold mb-2" style={{ color: brandColors.secondary }}>{t.footer.allFormulas.tab3_section1.title}</h5>
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-2 text-sm bg-gray-100">
                     {Object.entries(t.footer.allFormulas.tab3_section1).map(([formulaKey, formulaValue]) => {
                       if (formulaKey !== 'title') {
                         return (
-                          <p key={formulaKey} className="font-mono p-2 rounded-md" style={{ color: brandColors.darkBlue, backgroundColor: brandColors.lightGray1 }} dangerouslySetInnerHTML={{ __html: formulaValue }} />
+                          <p key={formulaKey} className="font-mono p-2 rounded-md"><strong style={{ color: brandColors.darkBlue }}>{formulaValue.split('=')[0]} =</strong> {formulaValue.split('=')[1]}</p>
                         );
                       }
                       return null;
@@ -782,11 +766,11 @@ function CalculadoraDePrecios() {
                 {/* Formulas for Desired Margin part of tab3 */}
                 <div className="mb-6 text-left">
                   <h5 className="font-bold mb-2" style={{ color: brandColors.secondary }}>{t.footer.allFormulas.tab3_section2.title}</h5>
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-2 text-sm bg-gray-100">
                     {Object.entries(t.footer.allFormulas.tab3_section2).map(([formulaKey, formulaValue]) => {
                       if (formulaKey !== 'title') {
                         return (
-                          <p key={formulaKey} className="font-mono p-2 rounded-md" style={{ color: brandColors.darkBlue, backgroundColor: brandColors.lightGray1 }} dangerouslySetInnerHTML={{ __html: formulaValue }} />
+                          <p key={formulaKey} className="font-mono p-2 rounded-md"><strong style={{ color: brandColors.darkBlue }}>{formulaValue.split('=')[0]} =</strong> {formulaValue.split('=')[1]}</p>
                         );
                       }
                       return null;
@@ -799,11 +783,11 @@ function CalculadoraDePrecios() {
               t.footer.allFormulas[activeTab] && (
                 <div className="mb-6 text-left">
                   <h5 className="font-bold mb-2" style={{ color: brandColors.secondary }}>{t.footer.allFormulas[activeTab].title}</h5>
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-2 text-sm bg-gray-100">
                     {Object.entries(t.footer.allFormulas[activeTab]).map(([formulaKey, formulaValue]) => {
                       if (formulaKey !== 'title') {
                         return (
-                          <p key={formulaKey} className="font-mono p-2 rounded-md" style={{ color: brandColors.darkBlue, backgroundColor: brandColors.lightGray1 }} dangerouslySetInnerHTML={{ __html: formulaValue }} />
+                          <p key={formulaKey} className="font-mono p-2 rounded-md"><strong style={{ color: brandColors.darkBlue }}>{formulaValue.split('=')[0]} =</strong> {formulaValue.split('=')[1]}</p>
                         );
                       }
                       return null;

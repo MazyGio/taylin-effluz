@@ -77,12 +77,12 @@ const calculadoraUtilidad_en = {
             marginDifference: "Margin Difference: How many percentage points of profit margin you lose due to commissions. It shows the direct impact on your profitability.",
         },
         formulas: {
-            expectedProfit: "<strong>Current Profit (pre-commissions)</strong> = Selling Price (pre-tax) - Product Cost",
-            totalCommissions: "<strong>Total Commissions</strong> = (Payment Comm. %) + (Fixed Payment Comm.) + (Web Comm. %) + (Salesperson Comm. %) + (Other Comms.)",
-            finalProfit: "<strong>Final Profit</strong> = Current Profit (pre-commissions) - Total Commissions",
-            profitDifference: "<strong>Profit Difference</strong> = Current Profit (pre-commissions) - Final Profit",
-            finalMargin: "<strong>Final Profit Margin (%)</strong> = (Final Profit / Selling Price (pre-tax)) * 100",
-            marginDifference: "<strong>Margin Difference (%)</strong> = Current Sales Margin (%) - Final Profit Margin (%)",
+            expectedProfit: "Current Profit (pre-commissions) = Selling Price (pre-tax) - Product Cost",
+            totalCommissions: "Total Commissions = (Payment Comm. %) + (Fixed Payment Comm.) + (Web Comm. %) + (Salesperson Comm. %) + (Other Comms.)",
+            finalProfit: "Final Profit = Current Profit (pre-commissions) - Total Commissions",
+            profitDifference: "Profit Difference = Current Profit (pre-commissions) - Final Profit",
+            finalMargin: "Final Profit Margin (%) = (Final Profit / Selling Price (pre-tax)) * 100",
+            marginDifference: "Margin Difference (%) = Current Sales Margin (%) - Final Profit Margin (%)",
         }
     }
 };

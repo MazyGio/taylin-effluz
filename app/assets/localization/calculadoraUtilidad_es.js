@@ -69,20 +69,20 @@ const calculadoraUtilidad_es = {
         hideConcepts: "Ocultar Conceptos",
         showFormulas: "Mostrar Fórmulas",
         hideFormulas: "Ocultar Fórmulas",
-        concepts: {
+        allConcepts: {
             productCost: "Costo del Producto: El valor monetario total para adquirir o producir una unidad del producto.",
             expectedProfit: "Utilidad Actual (antes de comisiones): La ganancia que se esperaba obtener basándose únicamente en el precio de venta y el costo, antes de deducir cualquier comisión.",
             finalProfit: "Utilidad Final: La ganancia neta real que te queda después de restar el costo del producto y todas las comisiones del precio de venta (sin impuesto).",
             profitDifference: "Diferencia de Utilidad: El monto exacto de dinero que las comisiones reducen de tu utilidad prevista. Es el costo real de usar la plataforma.",
             marginDifference: "Diferencia de Margen: Cuántos puntos porcentuales de margen de ganancia pierdes debido a las comisiones. Muestra el impacto directo en tu rentabilidad.",
         },
-        formulas: {
-            expectedProfit: "<strong>Utilidad Actual (antes de comisiones)</strong> = Precio de Venta (sin impuesto) - Costo del Producto",
-            totalCommissions: "<strong>Total de Comisiones</strong> = (Comisión Pago %) + (Comisión Pago Fija) + (Comisión Web %) + (Comisión Vendedor %) + (Otras Comisiones)",
-            finalProfit: "<strong>Utilidad Final</strong> = Utilidad Actual (antes de comisiones) - Total de Comisiones",
-            profitDifference: "<strong>Diferencia de Utilidad</strong> = Utilidad Actual (antes de comisiones) - Utilidad Final",
-            finalMargin: "<strong>Margen de Utilidad Final (%)</strong> = (Utilidad Final / Precio de Venta (sin impuesto)) * 100",
-            marginDifference: "<strong>Diferencia de Margen (%)</strong> = Margen de Venta Actual (%) - Margen de Utilidad Final (%)",
+        allFormulas: {
+            expectedProfit: "Utilidad Actual (antes de comisiones) = Precio de Venta (sin impuesto) - Costo del Producto",
+            totalCommissions: "Total de Comisiones = (Comisión Pago %) + (Comisión Pago Fija) + (Comisión Web %) + (Comisión Vendedor %) + (Otras Comisiones)",
+            finalProfit: "Utilidad Final = Utilidad Actual (antes de comisiones) - Total de Comisiones",
+            profitDifference: "Diferencia de Utilidad = Utilidad Actual (antes de comisiones) - Utilidad Final",
+            finalMargin: "Margen de Utilidad Final (%) = (Utilidad Final / Precio de Venta (sin impuesto)) * 100",
+            marginDifference: "Diferencia de Margen (%) = Margen de Venta Actual (%) - Margen de Utilidad Final (%)",
         }
     }
 };
