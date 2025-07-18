@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router';
 import { CartForm } from '@shopify/hydrogen';
 import brandColors from '../styles/brandColors';
+import { useLanguage } from '../contexts/LanguageContext';
+import { translations } from '../assets/localization/translations';
 
 // ====================================================================================
 // SHARED CONFIGURATION AND HELPERS
@@ -8,7 +10,9 @@ import brandColors from '../styles/brandColors';
 
 export default function SelectorDeCalculadoras({product, selectedVariant}) {
     const navigate = useNavigate();
-
+    const { language } = useLanguage();
+    const t = translations[language];
+    // console.log(language);
 
     return (
         <div className="min-h-screen">
@@ -21,16 +25,16 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         className="text-4xl sm:text-5xl font-extrabold mb-2"
                         style={{ color: brandColors.primary }}
                     >
-                        Bienvenido/a
+                        {t.common.welcome}
                     </h1>
                     <p
                         className="text-xl"
                         style={{ color: brandColors.darkBlue }}
                     >
-                        Selecciona la calculadora que deseas utilizar
+                        {t.common.selectCalculator}
                         </p>
                 </div>
-                <div className="w-full max-w-md flex flex-col gap-6">
+                <div className="w-full max-w-lg flex flex-col gap-6">
                     <div className="w-full text-center bg-purple py-2 px-4 mb-8 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
                         <CartForm route="/cart" inputs={{lines: [{
                             merchandiseId: selectedVariant.id,
@@ -50,7 +54,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                                         className="w-full"
                                         // disabled={fetcher.state !== 'idle'}
                                     >
-                                        Comprar Acceso
+                                        {t.common.purchaseAccess}
                                     </button>
                                 </>
                             )}
@@ -61,7 +65,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
                         style={{ backgroundColor: brandColors.primary, boxShadow: '0 6px 15px -3px rgba(79, 8, 57, 0.5)' }}
                     >
-                        Calculadora para Negocios
+                        {t.precios.title}
                         <span className="block text-sm font-normal mt-1 opacity-90">(Costos, Precios, Margen de Productos)</span>
                     </button>
 
@@ -70,7 +74,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
                         style={{ backgroundColor: brandColors.blue2, boxShadow: '0 6px 15px -3px rgba(91, 128, 152, 0.5)' }}
                     >
-                        Calculadora para Servicios
+                        {t.consultoria.title}
                         <span className="block text-sm font-normal mt-1 opacity-90">(Precios por hora)</span>
                     </button>
 
@@ -79,16 +83,16 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
                         style={{ backgroundColor: brandColors.green2, boxShadow: '0 6px 15px -3px rgba(91, 128, 152, 0.5)' }}
                     >
-                        Calculadora de Utilidad
+                        {t.utilidad.title}
                         <span className="block text-sm font-normal mt-1 opacity-90">(Incluyendo comisiones)</span>
                     </button>
                 </div>
                 <div className="text-center mt-12">
                     <p className="text-sm" style={{ color: brandColors.darkBlue }}>
-                        Desarrollado por Taylin Luzcando
+                        {t.common.developedBy}
                     </p>
                     <p className="text-xs text-gray-500 mt-4 px-2" style={{ color: brandColors.darkBlue }}>
-                        El desarrollo de estas calculadoras y su código son propiedad de Effluz S.A. Está prohibida su reproducción total o parcial.
+                        {t.common.copyright}
                     </p>
                 </div>
             </div>

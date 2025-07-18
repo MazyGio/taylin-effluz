@@ -10,6 +10,7 @@ import {
 } from '~/components/SearchFormPredictive';
 import { SearchResultsPredictive } from '~/components/SearchResultsPredictive';
 import { customMenu } from '~/custom-data/calculadoraMenu';
+import { LanguageProvider } from '~/contexts/LanguageContext';
 
 /**
  * @param {PageLayoutProps}
@@ -23,25 +24,27 @@ export function PageLayout({
   publicStoreDomain,
 }) {
   return (
-    <Aside.Provider>
-      <CartAside cart={cart} />
-      <SearchAside />
-      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
-      {header && (
-        <Header
+    <LanguageProvider>
+      <Aside.Provider>
+        <CartAside cart={cart} />
+        <SearchAside />
+        <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
+        {header && (
+          <Header
+            header={header}
+            cart={cart}
+            isLoggedIn={isLoggedIn}
+            publicStoreDomain={publicStoreDomain}
+          />
+        )}
+        <main>{children}</main>
+        <Footer
+          footer={footer}
           header={header}
-          cart={cart}
-          isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
         />
-      )}
-      <main>{children}</main>
-      <Footer
-        footer={footer}
-        header={header}
-        publicStoreDomain={publicStoreDomain}
-      />
-    </Aside.Provider>
+      </Aside.Provider>
+    </LanguageProvider>
   );
 }
 
@@ -152,6 +155,7 @@ function SearchAside() {
  */
 function MobileMenuAside({ header, publicStoreDomain }) {
   header.menu = customMenu;
+
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (

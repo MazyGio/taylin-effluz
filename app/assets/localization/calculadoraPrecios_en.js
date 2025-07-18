@@ -1,4 +1,5 @@
 const calculadoraPrecios_en = {
+    title: "Business Calculator",
     mainTitle: "Business Calculator",
     subtitle1: "Developed by Taylin Luzcando",
     subtitle2: "Calculator for Cost, Price, Margin, and Markup for your business (USD$)",
@@ -79,6 +80,9 @@ const calculadoraPrecios_en = {
                 suggestedRetailPrice: "Suggested Retail Price",
                 wholesalerDesiredMargin: "Wholesaler's Desired Margin (%)",
                 taxRate: "Tax Rate (%)", // New input for section1
+                taxIncludedQuestion: "Does the suggested retail price include tax?", // New
+                taxIncludedYes: "Yes, includes tax", // New
+                taxIncludedNo: "No, does not include tax", // New
             },
             outputs: {
                 directSales: "Direct Sales",

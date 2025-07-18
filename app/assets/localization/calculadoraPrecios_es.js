@@ -1,4 +1,5 @@
 const calculadoraPrecios_es = {
+    title: "Calculadora para Negocios",
     mainTitle: "Calculadora para Negocios",
     subtitle1: "Desarrollado por Taylin Luzcando",
     subtitle2: "Calculadora para costo, precio, margen y markup para tu negocio (USD$)",

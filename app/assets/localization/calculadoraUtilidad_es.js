@@ -1,4 +1,5 @@
 const calculadoraUtilidad_es = {
+    title: "Calculadora para Utilidad",
     mainTitle: "Calculadora de utilidad después de comisiones",
     subtitle1: "Desarrollado por Taylin Luzcando",
     subtitle2_line1: "Calcula tu rentabilidad real al vender en plataformas online,",

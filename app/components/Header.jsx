@@ -3,17 +3,22 @@ import { Await, NavLink, useAsyncValue } from 'react-router';
 import { useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
 import { useAside } from '~/components/Aside';
 import { customMenu } from '~/custom-data/calculadoraMenu';
+import { LanguageSelector } from './LanguageSelector';
+import { useLanguage } from '../contexts/LanguageContext';
+import { translations } from '../assets/localization/translations';
 
 /**
  * @param {HeaderProps}
  */
 export function Header({ header, isLoggedIn, cart, publicStoreDomain }) {
   const { shop, menu } = header;
+  const { language } = useLanguage();
+  const t = translations[language].menu;
 
   return (
     <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>&larr; Inicio</strong>
+        <strong>&larr; {t.home}</strong>
       </NavLink>
       <HeaderMenu
         menu={customMenu}
@@ -42,6 +47,8 @@ export function HeaderMenu({
 }) {
   const className = `header-menu-${viewport}`;
   const { close } = useAside();
+  const { language } = useLanguage();
+  const t = translations[language].menu;
 
   return (
     <nav className={className} role="navigation">
@@ -64,7 +71,7 @@ export function HeaderMenu({
             style={activeLinkStyle}
             to={url}
           >
-            {item.title}
+            {t.menuItems[item.title] || item.title}
           </NavLink>
         );
       })}
@@ -76,8 +83,11 @@ export function HeaderMenu({
  * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
  */
 function HeaderCtas({ isLoggedIn, cart }) {
+  const { language, setLanguage } = useLanguage();
+  
   return (
     <nav className="header-ctas" role="navigation">
+      <LanguageSelector language={language} setLanguage={setLanguage} />
       <HeaderMenuMobileToggle />
       {/* <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">

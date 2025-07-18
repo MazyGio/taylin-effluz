@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import brandColors from '../styles/brandColors';
-import { LanguageSelector } from './LanguageSelector';
 import { InputField } from './InputField';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Translations object
 import { translations } from '../assets/localization/translations';
@@ -570,10 +570,10 @@ const DoubleMarginCalculator = ({ language, t }) => {
         <div className="flex flex-col md:flex-row">
           {/* Inputs */}
           <div className="md:w-1/3 p-4">
-            <InputField label={t.tab3.section2.inputs.cost} value={s2Cost} onChange={setS2Cost} />
-            <InputField label={t.tab3.section2.inputs.desiredMargin} value={s2DesiredMargin} onChange={setS2DesiredMargin} />
-            <InputField label={t.tab3.section2.inputs.wholesalerDesiredMargin} value={s2WholesalerDesiredMargin} onChange={setS2WholesalerDesiredMargin} />
-            <InputField label={t.tab3.section2.inputs.taxRate} value={s2TaxRate} onChange={setS2TaxRate} /> {/* New tax rate input */}
+            <InputField label={t.tab3.section2.inputs.cost} value={s2Cost} onChange={setS2Cost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost}/>
+            <InputField label={t.tab3.section2.inputs.desiredMargin} value={s2DesiredMargin} onChange={setS2DesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin}/>
+            <InputField label={t.tab3.section2.inputs.wholesalerDesiredMargin} value={s2WholesalerDesiredMargin} onChange={setS2WholesalerDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.wholesalerMargin}/>
+            <InputField label={t.tab3.section2.inputs.taxRate} value={s2TaxRate} onChange={setS2TaxRate} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate} /> {/* New tax rate input */}
 
             {/* Tax Inclusion Choice for Section 2 */}
             <div className="mb-4">
@@ -648,7 +648,7 @@ const DoubleMarginCalculator = ({ language, t }) => {
 
 // Main App Component
 function CalculadoraDePrecios() {
-  const [language, setLanguage] = useState('es'); // Default to Spanish
+  const { language } = useLanguage(); // Default to Spanish
   const [activeTab, setActiveTab] = useState('tab0'); // Start with the new Product Cost tab
   const t = translations[language].precios; // Get current translations
 
@@ -675,15 +675,11 @@ function CalculadoraDePrecios() {
     <div className="min-h-screen p-4" style={{ fontFamily: 'Albert Sans' }}>
 
       <header className="text-center mb-8 pt-8 relative">
-        <div className="flex flex-col-reverse md:flex-row justify-between items-center">
-          <div className="flex-1"></div>
-          <div className="flex-4 mt-2 md:mt-0">
+        <div className="justify-between items-center">
+          <div className="mt-2 md:mt-0">
             <h1 className="text-3xl md:text-4xl font-extrabold whitespace-nowrap" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
             <p className="text-md md:text-lg mb-2" style={{ color: brandColors.darkBlue }}>{t.subtitle1}</p>
             <p className="text-md md:text-lg font-semibold max-w-xl mx-auto" style={{ color: brandColors.secondary }}>{t.subtitle2}</p>
-          </div>
-          <div className="flex-1 flex justify-end">
-            <LanguageSelector language={language} setLanguage={setLanguage} />
           </div>
         </div>
       </header>
