@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import brandColors from '../styles/brandColors';
 import { InputField } from './InputField';
-import { LanguageSelector } from './LanguageSelector';
-
-// Translations object for EN/ES
+import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../assets/localization/translations';
 
 // Helper function to format numbers as currency
@@ -238,7 +236,7 @@ const CollapsibleSection = ({ title, children, isOpen, onToggle }) => (
 
 // Main App Component
 function CalculadoraDeServicios() {
-  const [language, setLanguage] = useState('es');
+  const { language } = useLanguage();
   const [openSection, setOpenSection] = useState(null);
   const t = translations[language].consultoria;
 
@@ -251,14 +249,10 @@ function CalculadoraDeServicios() {
       <div className="min-h-screen p-4 sm:p-6 md:p-8" style={{ backgroundColor: brandColors.lightGray2, fontFamily: 'Albert Sans, sans-serif' }}>
         {/* Header */}
         <header className="text-center mb-8 pt-8 mx-auto relative">
-          <div className="flex flex-col-reverse md:flex-row justify-between items-center">
-            <div className="flex-1"></div>
-            <div className="flex-4 mt-2 md:mt-0">
+          <div className="justify-between items-center">
+            <div className="mt-2 md:mt-0">
               <h1 className="text-3xl font-extrabold" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
               <p className="text-md" style={{ color: brandColors.darkText }}>{t.subtitle}</p>
-            </div>
-            <div className="flex-1 flex justify-end">
-              <LanguageSelector language={language} setLanguage={setLanguage} />
             </div>
           </div>
         </header>

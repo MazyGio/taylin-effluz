@@ -46,7 +46,12 @@ const calculadoraServicios_en = {
         allConcepts: {
             desiredMonthlyIncome: "<strong>Desired Monthly Income:</strong> Your net salary. <strong>It's crucial to treat your salary as a business cost.</strong> This forces the business to be profitable on its own, beyond just paying you. It separates the business's financial health from your personal finances.",
             monthlyHours: "<strong>Billable Hours per Month:</strong> The total hours you plan to sell to clients. Exclude admin, sales, or training time.",
+            fixedCosts: "<strong>Fixed Costs:</strong> Costs that don't change regardless of how much you work (e.g. rent, software subscriptions, internet, accounting).",
+            variableCosts: "<strong>Variable Costs:</strong> Costs that change based on the volume of work (e.g. materials for a project, travel expenses, commissions).",
+            profitMargin: "<strong>Desired Profit Margin:</strong> An additional percentage on your costs that you reinvest in the business for growth, savings, or bonuses. It's the real profit of the company and a strategic decision you define.",
             taxRate: "<strong>VAT/Sales Tax:</strong> A tax added to your service price, which you collect for the government.",
+            costPerHour: "<strong>Cost per Hour:</strong> What it costs to operate your business each hour you bill. If you charge less than this, you lose money.",
+            pricePerHourWithTax: "<strong>Final Price per Hour:</strong> The final rate you charge to clients to cover all costs, your profit, and the VAT."
         },
         allFormulas: {
             totalMonthlyCosts: "<strong>Total Operating Costs</strong> = Your Salary + Fixed Costs + Variable Costs",
