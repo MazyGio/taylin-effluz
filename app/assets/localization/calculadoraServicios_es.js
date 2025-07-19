@@ -62,7 +62,7 @@ const calculadoraServicios_es = {
             title: "Análisis de Resultados",
             p1: "Basado en tus {hours} horas facturables al mes, tu tarifa horaria sugerida de {priceWithTax} (con impuesto) es una guía para cubrir tus necesidades financieras.",
             p2: "Este precio te permite cubrir {totalCosts} en costos operativos mensuales (que <strong>ya incluyen tu salario</strong> de {salary}), y además generar una <strong>ganancia neta mensual de {profit} para el negocio</strong>, la cual es aparte de tu salario.",
-            p3: "<strong>Importante:</strong> {cssText} {isrText} Para una declaración precisa, es fundamental que te guíes con un contador público autorizado.",
+            p3: "<strong>Importante:</strong> Para una declaración precisa, es fundamental que te guíes con un contador público autorizado.",
             p4: "Con esta estimación, de un ingreso anual bruto de {annualGrossIncome}, se restarían {annualExpenses} en impuestos y seguro social, resultando en un ingreso neto final de {annualNetIncome}."
         }
     },

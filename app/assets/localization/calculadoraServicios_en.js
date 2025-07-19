@@ -61,7 +61,7 @@ const calculadoraServicios_en = {
           title: "Results Analysis",
           p1: "Based on your {hours} billable hours per month, your suggested hourly rate of {priceWithTax} (tax included) is a guide to cover your financial needs.",
           p2: "This price allows you to cover {totalCosts} in monthly operating costs (which <strong>already include your salary</strong> of {salary}), and also generate a <strong>monthly net profit of {profit} for the business</strong>, which is separate from your salary.",
-          p3: "<strong>Important:</strong> {cssText} {isrText} For an accurate declaration, it is essential to consult with a certified public accountant.",
+          p3: "<strong>Important:</strong> For an accurate declaration, it is essential to consult with a certified public accountant.",
           p4: "With this estimate, from a gross annual income of {annualGrossIncome}, {annualExpenses} in taxes and social security would be subtracted, resulting in a final net income of {annualNetIncome}."
         }
     },
