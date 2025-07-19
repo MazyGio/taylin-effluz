@@ -72,12 +72,12 @@ const ProductCostCalculator = ({ language, t }) => {
       {/* Input Section */}
       <div className="md:w-1/2 p-4">
         <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab0.title}</h3> {/* Use single title */}
-        <InputField label={t.tab0.inputs.directMaterials} value={directMaterials} onChange={setDirectMaterials} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.directMaterials}/>
-        <InputField label={t.tab0.inputs.directLabor} value={directLabor} onChange={setDirectLabor} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.directLabor}/>
-        <InputField label={t.tab0.inputs.manufacturingOverhead} value={manufacturingOverhead} onChange={setManufacturingOverhead} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.manufacturingOverhead}/>
-        <InputField label={t.tab0.inputs.otherCosts} value={otherCosts} onChange={setOtherCosts} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.otherCosts}/>
-        <InputField label={t.tab0.inputs.transportation} value={transportation} onChange={setTransportation} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.transportation}/>
-        <InputField label={t.tab0.inputs.quantity} value={quantity} onChange={setQuantity} min="1" placeholder="1" tooltipText={t.footer.allConcepts.quantity}/> {/* New quantity input */}
+        <InputField label={t.tab0.inputs.directMaterials} value={directMaterials} onChange={setDirectMaterials} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.directMaterials} />
+        <InputField label={t.tab0.inputs.directLabor} value={directLabor} onChange={setDirectLabor} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.directLabor} />
+        <InputField label={t.tab0.inputs.manufacturingOverhead} value={manufacturingOverhead} onChange={setManufacturingOverhead} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.manufacturingOverhead} />
+        <InputField label={t.tab0.inputs.otherCosts} value={otherCosts} onChange={setOtherCosts} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.otherCosts} />
+        <InputField label={t.tab0.inputs.transportation} value={transportation} onChange={setTransportation} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.transportation} />
+        <InputField label={t.tab0.inputs.quantity} value={quantity} onChange={setQuantity} min="1" placeholder="1" tooltipText={t.footer.allConcepts.quantity} /> {/* New quantity input */}
 
         {/* Cost Type Choice */}
         <div className="mb-4">
@@ -187,8 +187,8 @@ const CostToPriceCalculator = ({ language, t }) => {
       {/* Input Section */}
       <div className="md:w-1/3 p-4">
         <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab1.title}</h3> {/* Use single title */}
-        <InputField label={t.tab1.inputs.cost} value={cost} onChange={setCost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost}/>
-        <InputField label={t.tab1.inputs.desiredMargin} value={desiredMargin} onChange={setDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin}/>
+        <InputField label={t.tab1.inputs.cost} value={cost} onChange={setCost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost} />
+        <InputField label={t.tab1.inputs.desiredMargin} value={desiredMargin} onChange={setDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} />
         <InputField label={t.tab1.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate} /> {/* New tax rate input */}
         <button
           onClick={handleCalculate}
@@ -273,8 +273,8 @@ const MarginMarkupCalculator = ({ language, t }) => {
       {/* Input Section */}
       <div className="md:w-1/3 p-4">
         <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab2.title}</h3> {/* Use single title */}
-        <InputField label={t.tab2.inputs.cost} value={cost} onChange={setCost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost}/>
-        <InputField label={t.tab2.inputs.desiredSellingPrice} value={desiredSellingPrice} onChange={setDesiredSellingPrice} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.suggestedSellingPrice}/>
+        <InputField label={t.tab2.inputs.cost} value={cost} onChange={setCost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost} />
+        <InputField label={t.tab2.inputs.desiredSellingPrice} value={desiredSellingPrice} onChange={setDesiredSellingPrice} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.suggestedSellingPrice} />
         <InputField label={t.tab2.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate} /> {/* New tax rate input */}
 
         {/* Tax Inclusion Choice */}
@@ -465,9 +465,9 @@ const DoubleMarginCalculator = ({ language, t }) => {
         <div className="flex flex-col md:flex-row">
           {/* Inputs */}
           <div className="md:w-1/3 p-4">
-            <InputField label={t.tab3.section1.inputs.cost} value={s1Cost} onChange={setS1Cost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost}/>
-            <InputField label={t.tab3.section1.inputs.suggestedRetailPrice} value={s1SuggestedRetailPrice} onChange={setS1SuggestedRetailPrice} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.suggestedSellingPrice}/>
-            <InputField label={t.tab3.section1.inputs.wholesalerDesiredMargin} value={s1WholesalerDesiredMargin} onChange={setS1WholesalerDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin}/>
+            <InputField label={t.tab3.section1.inputs.cost} value={s1Cost} onChange={setS1Cost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost} />
+            <InputField label={t.tab3.section1.inputs.suggestedRetailPrice} value={s1SuggestedRetailPrice} onChange={setS1SuggestedRetailPrice} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.suggestedSellingPrice} />
+            <InputField label={t.tab3.section1.inputs.wholesalerDesiredMargin} value={s1WholesalerDesiredMargin} onChange={setS1WholesalerDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} />
             <InputField label={t.tab3.section1.inputs.taxRate} value={s1TaxRate} onChange={setS1TaxRate} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate} /> {/* New tax rate input */}
 
             {/* Tax Inclusion Choice for Section 1 */}
@@ -554,9 +554,9 @@ const DoubleMarginCalculator = ({ language, t }) => {
         <div className="flex flex-col md:flex-row">
           {/* Inputs */}
           <div className="md:w-1/3 p-4">
-            <InputField label={t.tab3.section2.inputs.cost} value={s2Cost} onChange={setS2Cost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost}/>
-            <InputField label={t.tab3.section2.inputs.desiredMargin} value={s2DesiredMargin} onChange={setS2DesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin}/>
-            <InputField label={t.tab3.section2.inputs.wholesalerDesiredMargin} value={s2WholesalerDesiredMargin} onChange={setS2WholesalerDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.wholesalerMargin}/>
+            <InputField label={t.tab3.section2.inputs.cost} value={s2Cost} onChange={setS2Cost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost} />
+            <InputField label={t.tab3.section2.inputs.desiredMargin} value={s2DesiredMargin} onChange={setS2DesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} />
+            <InputField label={t.tab3.section2.inputs.wholesalerDesiredMargin} value={s2WholesalerDesiredMargin} onChange={setS2WholesalerDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.wholesalerMargin} />
             <InputField label={t.tab3.section2.inputs.taxRate} value={s2TaxRate} onChange={setS2TaxRate} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate} /> {/* New tax rate input */}
 
             {/* Tax Inclusion Choice for Section 2 */}
@@ -670,25 +670,27 @@ function CalculadoraDePrecios() {
 
       {/* Tabs Navigation */}
       <nav className="mb-8 overflow-x-auto">
-        <ul className="flex justify-center gap-x-2 w-full">
-          {[
-            { id: 'tab0', title: t.tab0.title },
-            { id: 'tab1', title: t.tab1.title },
-            { id: 'tab2', title: t.tab2.title },
-            { id: 'tab3', title: t.tab3.title }, // Old tab4, now tab3
-          ].map((tab) => (
-            <li key={tab.id} className="flex-1 flex-shrink-0 mb-2">
-              <button
-                onClick={() => setActiveTab(tab.id)}
-                className={`py-2 px-2 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 w-full h-full flex items-center justify-center text-center ${activeTab === tab.id ? 'bg-opacity-100' : 'bg-opacity-70'
-                  }`}
-                style={{ backgroundColor: activeTab === tab.id ? brandColors.primary : brandColors.secondary }}
-              >
-                <span className="block text-base leading-tight">{tab.title}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div className="justify-center items-center">
+          <ul className="flex justify-center gap-x-2 w-full max-w-6xl mx-auto">
+            {[
+              { id: 'tab0', title: t.tab0.title },
+              { id: 'tab1', title: t.tab1.title },
+              { id: 'tab2', title: t.tab2.title },
+              { id: 'tab3', title: t.tab3.title }, // Old tab4, now tab3
+            ].map((tab) => (
+              <li key={tab.id} className="flex-1 flex-shrink-0 mb-2">
+                <button
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`py-2 px-2 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 w-full h-full flex items-center justify-center text-center ${activeTab === tab.id ? 'bg-opacity-100' : 'bg-opacity-70'
+                    }`}
+                  style={{ backgroundColor: activeTab === tab.id ? brandColors.primary : brandColors.secondary }}
+                >
+                  <span className="block text-base leading-tight">{tab.title}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
 
       {/* Calculator Content */}
@@ -697,7 +699,7 @@ function CalculadoraDePrecios() {
       </main>
 
       {/* Footer */}
-      <footer className="text-center mt-12 p-4 border-t border-gray-300" style={{ borderColor: brandColors.accent2 }}>
+      <footer className="text-center mt-12 p-4 border-t border-gray-300 max-w-6xl mx-auto" style={{ borderColor: brandColors.accent2 }}>
         {/* Toggle Buttons for Concepts and Formulas */}
         <div className="flex justify-center gap-4 mb-6">
           <button

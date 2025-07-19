@@ -3,7 +3,7 @@ import brandColors from '../styles/brandColors';
 import { translations } from '../assets/localization/translations';
 import { InputField } from './InputField';
 import { useLanguage } from '../contexts/LanguageContext';
-import { formatCurrency } from '../utils/formatter';
+import { formatCurrency, formatPercentage } from '../utils/formatter';
 
 // Reusable Result Display Component
 const ResultDisplay = ({ label, value, isHighlighted = false, isSubtle = false, isNegative = false }) => (
@@ -30,7 +30,7 @@ const CommissionCalculator = () => {
     const [sellerCommissionPercentage, setSellerCommissionPercentage] = useState('');
     const [otherCommissions, setOtherCommissions] = useState('');
     const [taxRate, setTaxRate] = useState('');
-    const [isTaxIncluded, setIsTaxIncluded] = useState(null);
+    const [isTaxIncluded, setIsTaxIncluded] = useState(true);
     const [results, setResults] = useState(null);
     const [autoCalculateMargin, setAutoCalculateMargin] = useState(false);
 
@@ -181,7 +181,7 @@ const CommissionCalculator = () => {
                             <h4 className="font-semibold text-center mb-2" style={{ color: brandColors.darkBlue }}>{t.calculator.outputs.scenarioWithoutCommissions}</h4>
                             <hr className="mb-2" style={{ borderColor: brandColors.accent2 }} />
                             <ResultDisplay label={t.calculator.outputs.expectedProfit} value={formatCurrency(results.expectedProfit)} />
-                            <ResultDisplay label={t.calculator.outputs.expectedMargin} value={formatCurrency(results.expectedMargin, symbol = '%', isPrefix = false)} />
+                            <ResultDisplay label={t.calculator.outputs.expectedMargin} value={formatPercentage(results.expectedMargin)} />
                         </div>
 
                         <div className="p-3 border rounded-lg shadow-sm" style={{ borderColor: brandColors.accent2 }}>
@@ -200,7 +200,7 @@ const CommissionCalculator = () => {
                             <h4 className="font-semibold text-center mb-2" style={{ color: brandColors.darkBlue }}>{t.calculator.outputs.scenarioWithCommissions}</h4>
                             <hr className="mb-2" style={{ borderColor: brandColors.accent2 }} />
                             <ResultDisplay label={t.calculator.outputs.profit} value={formatCurrency(results.finalProfit)} isHighlighted={true} isNegative={results.finalProfit < 0} />
-                            <ResultDisplay label={t.calculator.outputs.profitMargin} value={formatCurrency(results.finalProfitMargin, symbol = '%', isPrefix = false)} isHighlighted={true} isNegative={results.finalProfitMargin < 0} />
+                            <ResultDisplay label={t.calculator.outputs.profitMargin} value={formatPercentage(results.finalProfitMargin)} isHighlighted={true} isNegative={results.finalProfitMargin < 0} />
                         </div>
 
                         <div className="p-3 rounded-lg shadow-sm" style={{ backgroundColor: brandColors.lightGray1, border: `1px solid ${brandColors.accent2}` }}>
@@ -209,7 +209,7 @@ const CommissionCalculator = () => {
                                 dangerouslySetInnerHTML={{
                                     __html: t.calculator.outputs.variationAnalysisText
                                         .replace('{profitDifference}', formatCurrency(results.profitDifference))
-                                        .replace('{marginDifference}', formatCurrency(results.marginDifference, symbol = '%', isPrefix = false))
+                                        .replace('{marginDifference}', formatPercentage(results.marginDifference))
                                 }}
                             />
                         </div>
