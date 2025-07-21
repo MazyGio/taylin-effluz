@@ -589,6 +589,7 @@ const DoubleMarginCalculator = ({ language, t }) => {
 function CalculadoraDePrecios() {
   const { language } = useLanguage(); // Default to Spanish
   const t = translations[language].precios; // Get current translations
+  const tCommon = translations[language].common;
   const [activeTab, setActiveTab] = useState('tab0'); // Start with the new Product Cost tab
 
   // State for collapsible footer sections
@@ -617,8 +618,8 @@ function CalculadoraDePrecios() {
         <div className="justify-between items-center">
           <div className="mt-2 md:mt-0">
             <h1 className="text-3xl md:text-4xl font-extrabold whitespace-nowrap text-primary">{t.mainTitle}</h1>
-            <p className="text-md md:text-lg mb-2 text-darkBlue">{t.subtitle1}</p>
-            <p className="text-md md:text-lg font-semibold max-w-xl mx-auto text-darkText">{t.subtitle2}</p>
+            {/* <p className="text-md md:text-lg mb-2 text-darkBlue">{t.subtitle1}</p> */}
+            <p className="text-md md:text-lg max-w-xl mx-auto text-darkText">{t.subtitle2}</p>
           </div>
         </div>
       </header>
@@ -753,7 +754,7 @@ function CalculadoraDePrecios() {
           </div>
         )}
 
-        <p className="text-sm mt-8 text-darkBlue" dangerouslySetInnerHTML={{ __html: t.footer.disclaimer }}></p>
+        <p className="text-sm mt-8 text-darkBlue" dangerouslySetInnerHTML={{ __html: tCommon.disclaimer }}></p>
       </footer>
     </div>
   );

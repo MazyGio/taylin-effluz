@@ -69,7 +69,7 @@ const calculadoraServicios_es = {
     guidance: "Ingresa tus datos y haz clic en 'Calcular' para ver los resultados.",
     error: "Por favor, ingresa un número válido de horas (mayor a 0).",
     footer: {
-        disclaimer: "Esta calculadora es una herramienta de estimación. Consulta con un profesional financiero para obtener asesoramiento personalizado.",
+        disclaimer: "El desarrollo de esta calculadora y su código son propiedad de Effluz S.A. Está prohibida su reproducción total o parcial. Esta calculadora es una herramienta de estimación, no nos hacemos responsables por los usos que le den a estos cálculos. Desarrollada por Taylin Luzcando.",
         conceptsTitle: "Conceptos Clave",
         formulasTitle: "Fórmulas Utilizadas",
         showConcepts: "Mostrar Conceptos",

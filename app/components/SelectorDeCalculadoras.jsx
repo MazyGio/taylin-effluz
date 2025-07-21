@@ -85,7 +85,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         {t.common.developedBy}
                     </p>
                     <p className="text-xs text-darkBlue mt-4 px-2">
-                        {t.common.copyright}
+                        {t.common.disclaimer}
                     </p>
                 </div>
             </div>

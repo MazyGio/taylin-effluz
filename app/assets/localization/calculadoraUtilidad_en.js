@@ -62,7 +62,7 @@ const calculadoraUtilidad_en = {
         resultsPlaceholder: "Enter the values and click Calculate."
     },
     footer: {
-        disclaimer: "The development of this calculator and its code are the property of Effluz S.A. Total or partial reproduction is prohibited. This calculator is an estimation tool; we are not responsible for the uses given to these calculations.",
+        disclaimer: "The development of this calculator and its code are property of Effluz S.A. Total or partial reproduction is prohibited. This calculator is an estimation tool, we are not responsible for the uses you make of these calculations. Developed by Taylin Luzcando.",
         conceptsTitle: "Key Concepts",
         formulasTitle: "Formulas Used",
         showConcepts: "Show Concepts",

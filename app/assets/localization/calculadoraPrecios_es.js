@@ -130,7 +130,7 @@ const calculadoraPrecios_es = {
         }
     },
     footer: {
-        disclaimer: "El desarrollo de esta calculadora y su código son propiedad de Effluz S.A. Está prohibida su reproducción total o parcial.", // Combined disclaimer with accent
+        disclaimer: "El desarrollo de esta calculadora y su código son propiedad de Effluz S.A. Está prohibida su reproducción total o parcial. Esta calculadora es una herramienta de estimación, no nos hacemos responsables por los usos que le den a estos cálculos. Desarrollada por Taylin Luzcando.", // Combined disclaimer with accent
         allConcepts: { // Consolidated concepts
             cost: "Costo: El valor monetario de los recursos utilizados para producir algo o adquirir un producto.",
             directMaterials: "Costo de materiales directos: El costo de las materias primas que se convierten directamente en el producto final (ej. madera para un mueble).",

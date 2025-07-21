@@ -228,6 +228,7 @@ const CommissionCalculator = () => {
 function CalculadoraDeUtilidad() {
     const { language } = useLanguage();
     const t = translations[language].utilidad;
+    const tCommon = translations[language].common;
     
     // State for collapsible footer sections
     const [showConcepts, setShowConcepts] = useState(false);
@@ -240,9 +241,9 @@ function CalculadoraDeUtilidad() {
                 <div className="justify-between items-center">
                     <div className="mt-2 md:mt-0">
                         <h1 className="text-3xl md:text-4xl font-extrabold text-primary">{t.mainTitle}</h1>
-                        <p className="text-md md:text-lg mb-2 text-darkBlue">{t.subtitle1}</p>
-                        <p className="text-md md:text-lg font-semibold max-w-xl mx-auto text-secondary">{t.subtitle2_line1}</p>
-                        <p className="text-sm md:text-md font-semibold max-w-xl mx-auto text-secondary">{t.subtitle2_line2}</p>
+                        {/* <p className="text-md md:text-lg mb-2 text-darkBlue">{t.subtitle1}</p> */}
+                        <p className="text-md md:text-lg max-w-xl mx-auto text-darkText">{t.subtitle2_line1}</p>
+                        <p className="text-md md:text-lg max-w-xl mx-auto text-darkText">{t.subtitle2_line2}</p>
                     </div>
                 </div>
             </header>
@@ -288,7 +289,7 @@ function CalculadoraDeUtilidad() {
                             </div>
                         </div>
                     )}
-                    <p className="text-sm mt-8 text-darkBlue" dangerouslySetInnerHTML={{ __html: t.footer.disclaimer }}></p>
+                    <p className="text-sm mt-8 text-darkBlue" dangerouslySetInnerHTML={{ __html: tCommon.disclaimer }}></p>
                 </div>
             </footer>
         </div >

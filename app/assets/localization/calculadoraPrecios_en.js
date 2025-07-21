@@ -125,7 +125,7 @@ const calculadoraPrecios_en = {
         }
     },
     footer: {
-        disclaimer: "The development of this calculator and its code are property of Effluz S.A. Total or partial reproduction is prohibited.", // Combined disclaimer
+        disclaimer: "The development of this calculator and its code are property of Effluz S.A. Total or partial reproduction is prohibited. This calculator is an estimation tool, we are not responsible for the uses you make of these calculations. Developed by Taylin Luzcando.", // Combined disclaimer
         allConcepts: { // Consolidated concepts
             cost: "Cost: The monetary value of resources used to produce something or acquire a product.",
             directMaterials: "Direct Materials Cost: The cost of raw materials that are directly converted into the final product (e.g., wood for furniture).", // Adjusted capitalization

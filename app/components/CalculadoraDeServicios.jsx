@@ -361,6 +361,7 @@ function CalculadoraDeServicios() {
   const { language } = useLanguage();
   const [openSection, setOpenSection] = useState(null);
   const t = translations[language].consultoria;
+  const tCommon = translations[language].common;
 
   // State for collapsible footer sections
   const [showConcepts, setShowConcepts] = useState(false);
@@ -372,12 +373,12 @@ function CalculadoraDeServicios() {
 
   return (
     <>
-      <div className="min-h-screen p-4 sm:p-6 md:p-8 bg-lightGray2">
+      <div className="min-h-screen p-4 bg-lightGray2">
         {/* Header */}
         <header className="text-center mb-8 pt-8 mx-auto relative">
           <div className="justify-between items-center">
             <div className="mt-2 md:mt-0">
-              <h1 className="text-3xl font-extrabold text-primary">{t.mainTitle}</h1>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-primary">{t.mainTitle}</h1>
               <p className="text-md text-darkText">{t.subtitle}</p>
             </div>
           </div>
@@ -424,7 +425,7 @@ function CalculadoraDeServicios() {
                 </div>
               </div>
             )}
-            <p className="text-sm text-darkBlue mt-8" dangerouslySetInnerHTML={{ __html: t.footer.disclaimer }}></p>
+            <p className="text-sm text-darkBlue mt-8" dangerouslySetInnerHTML={{ __html: tCommon.disclaimer }}></p>
           </div>
         </footer>
       </div>

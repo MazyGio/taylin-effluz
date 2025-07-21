@@ -68,7 +68,7 @@ const calculadoraServicios_en = {
     guidance: "Enter your data and click 'Calculate' to see the results.",
     error: "Please enter a valid number of hours (greater than 0).",
     footer: {
-        disclaimer: "This calculator is an estimation tool. Consult with a financial professional for personalized advice.",
+        disclaimer: "The development of this calculator and its code are property of Effluz S.A. Total or partial reproduction is prohibited. This calculator is an estimation tool, we are not responsible for the uses you make of these calculations. Developed by Taylin Luzcando.",
         conceptsTitle: "Key Concepts",
         formulasTitle: "Formulas Used",
         showConcepts: "Show Concepts",
