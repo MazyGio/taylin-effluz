@@ -15,7 +15,7 @@ const calculadoraServicios_en = {
         includeCSS: "Include Social Security (IVM - Panama)",
         includeSalud: "Include voluntary Social Security affiliation (Health - Panama)",
     },
-    calculateButton: "Calculate Rate",
+    calculateButton: "Calculate",
     resultsTitle: "Monthly Detailed Results",
     results: {
         sectionTitleCosts: "Operating Costs",

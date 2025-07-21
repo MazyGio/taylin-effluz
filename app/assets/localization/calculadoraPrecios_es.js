@@ -12,7 +12,7 @@ const calculadoraPrecios_es = {
             manufacturingOverhead: "Costos Indirectos de Fabricación",
             otherCosts: "Otros Costos",
             transportation: "Transporte",
-            quantity: "Cantidad de productos que fabrique",
+            quantity: "Cantidad de productos que fabriqué",
             costTypeQuestion: "¿Los costos ingresados son por unidad o por el total de la orden?",
             costTypePerUnit: "Por unidad",
             costTypeTotalOrder: "Total de la orden",
@@ -75,6 +75,7 @@ const calculadoraPrecios_es = {
         title: "Cálculo de Precio con Doble Margen", // Updated title
         section1: {
             title: "MARGEN AJUSTADO",
+            explanation: "Calcula tu margen si vendes a un mayorista con un % no negociable y con un precio de venta al público fijo.", // Updated explanation
             inputs: { // Inputs specific to this section
                 cost: "Costo",
                 suggestedRetailPrice: "Precio de Venta al Público",
@@ -103,6 +104,7 @@ const calculadoraPrecios_es = {
         },
         section2: {
             title: "MARGEN DESEADO",
+            explanation: "Calcula el precio de venta al público tomando en cuenta doble margen para alcanzar tus márgenes deseados y los de tu mayorista.", // Updated explanation
             inputs: { // Inputs specific to this section
                 cost: "Costo",
                 desiredMargin: "Margen Deseado (Mi negocio) (%)",

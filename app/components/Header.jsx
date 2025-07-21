@@ -106,7 +106,7 @@ function HeaderMenuMobileToggle() {
   const { open } = useAside();
   return (
     <button
-      className="header-menu-mobile-toggle reset"
+      className="header-menu-mobile-toggle reset cursor-pointer"
       onClick={() => open('mobile')}
     >
       <h3>☰</h3>

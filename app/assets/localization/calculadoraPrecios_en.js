@@ -75,6 +75,7 @@ const calculadoraPrecios_en = {
         title: "Price Calculation with Double Margin", // Updated title
         section1: {
             title: "ADJUSTED MARGIN",
+            explanation: "Calculate your margin if you sell to a wholesaler with a non-negotiable % and with a fixed retail price.", // Updated explanation
             inputs: {
                 cost: "Cost",
                 suggestedRetailPrice: "Suggested Retail Price",
@@ -102,6 +103,7 @@ const calculadoraPrecios_en = {
         },
         section2: {
             title: "DESIRED MARGIN",
+            explanation: "Calculate the retail price to the public taking into account double margin to achieve your desired margins and those of your wholesaler.", // Updated explanation
             inputs: {
                 cost: "Cost",
                 desiredMargin: "Desired Margin (Seller) (%)",

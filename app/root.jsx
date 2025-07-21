@@ -12,9 +12,8 @@ import {
 import favicon from '~/assets/favicon.png';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
-import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
-import globalsStyles from '~/styles/globals.css?url';
+import tailwindCss from './styles/tailwind.css?url';
 import {PageLayout} from './components/PageLayout';
 import {redirect} from '@shopify/remix-oxygen';
 
@@ -109,7 +108,7 @@ async function loadCriticalData({context}) {
     }),
     // Add other queries here, so that they are loaded in parallel
     // customerAccount.query(CUSTOMER_DETAILS_QUERY),
-    customerAccount.isLoggedIn()
+    customerAccount.isLoggedIn(),
   ]);
 
   return {
@@ -162,9 +161,8 @@ export function Layout({children}) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <link rel="stylesheet" href={resetStyles}></link>
+        <link rel="stylesheet" href={tailwindCss}></link>
         <link rel="stylesheet" href={appStyles}></link>
-        <link rel="stylesheet" href={globalsStyles}></link>
         <Meta />
         <Links />
       </head>

@@ -2,7 +2,6 @@ import SelectorDeCalculadoras from '~/components/SelectorDeCalculadoras';
 import {useLoaderData} from 'react-router';
 import {useOptimisticVariant} from '@shopify/hydrogen';
 import {getAdjacentAndFirstAvailableVariants} from '@shopify/hydrogen';
-import globalsStyles from '~/styles/globals.css?url';
 
 /**
  * @type {MetaFunction<typeof loader>}

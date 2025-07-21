@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import brandColors from '../styles/brandColors';
 import { InputField } from './InputField';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../assets/localization/translations';
@@ -7,31 +6,31 @@ import { formatCurrency } from '../utils/formatter';
 
 // New Result Row Component
 const ResultRow = ({ label, subLabel, value, formula, formulaNumbers, isHighlighted = false, highlightColor, textColor }) => (
-  <div className={`flex justify-between items-center py-3 px-4 rounded-md ${isHighlighted ? 'shadow-sm' : ''}`} style={{ backgroundColor: highlightColor ? highlightColor : (isHighlighted ? brandColors.lightGray1 : 'transparent') }}>
+  <div className={`flex justify-between items-center py-3 px-4 rounded-md bg-${highlightColor ? `${highlightColor}` : (isHighlighted ? 'lightGray1' : 'transparent')} ${isHighlighted ? 'shadow-sm' : ''}`}>
     <div>
-      <p className="text-base font-semibold" style={{ color: brandColors.darkText }}>{label}</p>
-      {subLabel && <p className="text-xs" style={{ color: brandColors.darkText, opacity: 0.8 }}>{subLabel}</p>}
-      <p className="text-sm font-mono mt-1" style={{ color: brandColors.darkText, opacity: 0.6 }}>{formula}</p>
-      {formulaNumbers && <p className="text-sm font-mono mt-1" style={{ color: brandColors.darkText, opacity: 0.6 }}>{formulaNumbers}</p>}
+      <p className="text-base font-semibold text-darkText">{label}</p>
+      {subLabel && <p className="text-xs text-darkText opacity-80">{subLabel}</p>}
+      <p className="text-sm font-mono mt-1 text-darkText opacity-60">{formula}</p>
+      {formulaNumbers && <p className="text-sm font-mono mt-1 text-darkText opacity-60">{formulaNumbers}</p>}
     </div>
-    <p className={`font-bold text-2xl ml-4`} style={{ color: textColor ? textColor : (isHighlighted ? brandColors.primary : brandColors.darkText) }}>{value}</p>
+    <p className={`font-bold text-2xl ml-4 text-${textColor ? textColor : (isHighlighted ? 'primary' : 'darkText')}`}>{value}</p>
   </div>
 );
 
 // New Section Title Component
 const SectionTitle = ({ title }) => (
   <div className="mt-6 mb-2">
-    <h4 className="text-lg font-bold p-2 rounded-md" style={{ color: brandColors.lightText, backgroundColor: brandColors.darkText }}>{title}</h4>
+    <h4 className="text-lg font-bold p-2 rounded-md text-lightText bg-darkText">{title}</h4>
   </div>
 );
 
 // New Suggested Price Card
 const SuggestedPriceCard = ({ t, title, price, basePrice, basePriceLabel, bgColor, textColor }) => (
-  <div className="p-4 rounded-lg shadow-lg flex flex-col items-center justify-center text-center h-40" style={{ backgroundColor: bgColor, color: textColor }}>
+  <div className={`p-4 rounded-lg shadow-lg flex flex-col items-center justify-center text-center h-40 bg-${bgColor} text-${textColor}`}>
     <h5 className="font-bold text-base text-center">{title}</h5>
     <p className="text-4xl font-extrabold my-2">{formatCurrency(price, 0)}</p>
     {basePrice && (
-      <div className="mt-2 text-xs opacity-80 bg-black bg-opacity-10 p-1 rounded-md">
+      <div className={`mt-2 text-xs opacity-80 bg-opacity-10 p-1 rounded-md`}>
         <p>{basePriceLabel}</p>
         <p className="font-bold">{formatCurrency(basePrice)}</p>
       </div>
@@ -205,9 +204,9 @@ const ServiceCalculator = () => {
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8">
       {/* Input Section */}
-      <div className="lg:col-span-2 p-6 rounded-lg shadow-xl" style={{ backgroundColor: brandColors.lightText }}>
-        <h3 className="text-2xl font-bold mb-6" style={{ color: brandColors.primary }}>{t.inputsTitle}</h3>
-        <InputField label={t.inputs.desiredMonthlyIncome} value={income} onChange={setIncome} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.desiredMonthlyIncome} />
+      <div className="lg:col-span-2 p-6 rounded-lg shadow-xl bg-lightText">
+        <h3 className="text-2xl font-bold mb-6 text-primary">{t.inputsTitle}</h3>
+        <InputField label={t.inputs.desiredMonthlyIncome} value={income} onChange={setIncome} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.desiredMonthlyIncome} isTooltipLeft={true}/>
         <InputField label={t.inputs.fixedCosts} value={fixedCosts} onChange={setFixedCosts} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.fixedCosts} />
         <InputField label={t.inputs.variableCosts} value={variableCosts} onChange={setVariableCosts} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.variableCosts} />
 
@@ -216,7 +215,7 @@ const ServiceCalculator = () => {
             <InputField label={t.inputs.monthlyHours} value={hours} onChange={setHours} placeholder="160" tooltipText={t.footer.allConcepts.monthlyHours} />
           </div>
           <div className="flex-1">
-            <InputField label={t.inputs.profitMargin} value={profitMargin} onChange={setProfitMargin} placeholder="15" hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} />
+            <InputField label={t.inputs.profitMargin} value={profitMargin} onChange={setProfitMargin} placeholder="15" hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} isTooltipLeft={true}/>
           </div>
         </div>
         <div className="mt-4">
@@ -226,23 +225,22 @@ const ServiceCalculator = () => {
         {/* Checkboxes */}
         <div className="mt-6 space-y-2">
           <div className="flex items-center">
-            <input id="include-isr" type="checkbox" checked={includeISR} onChange={(e) => setIncludeISR(e.target.checked)} className="h-4 w-4 rounded" style={{ accentColor: brandColors.primary }} />
+            <input id="include-isr" type="checkbox" checked={includeISR} onChange={(e) => setIncludeISR(e.target.checked)} className="h-4 w-4 rounded accent-primary" />
             <label htmlFor="include-isr" className="ml-2 block text-sm text-gray-900">{t.inputs.includeISR}</label>
           </div>
           <div className="flex items-center">
-            <input id="include-css" type="checkbox" checked={includeCSS} onChange={(e) => setIncludeCSS(e.target.checked)} className="h-4 w-4 rounded" style={{ accentColor: brandColors.primary }} />
+            <input id="include-css" type="checkbox" checked={includeCSS} onChange={(e) => setIncludeCSS(e.target.checked)} className="h-4 w-4 rounded accent-primary" />
             <label htmlFor="include-css" className="ml-2 block text-sm text-gray-900">{t.inputs.includeCSS}</label>
           </div>
           <div className="flex items-center">
-            <input id="include-salud" type="checkbox" checked={includeSalud} onChange={(e) => setIncludeSalud(e.target.checked)} className="h-4 w-4 rounded" style={{ accentColor: brandColors.primary }} />
+            <input id="include-salud" type="checkbox" checked={includeSalud} onChange={(e) => setIncludeSalud(e.target.checked)} className="h-4 w-4 rounded accent-primary" />
             <label htmlFor="include-salud" className="ml-2 block text-sm text-gray-900">{t.inputs.includeSalud}</label>
           </div>
         </div>
 
         <button
           onClick={handleCalculate}
-          className="w-full mt-6 py-3 px-4 rounded-lg text-white font-bold text-lg transition duration-300 ease-in-out transform hover:scale-105"
-          style={{ backgroundColor: brandColors.primary, boxShadow: `0 4px 14px 0 ${brandColors.accent2}` }}
+          className="w-full mt-6 py-3 px-4 rounded-lg text-white font-bold text-lg transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer bg-primary shadow-lg shadow-accent2"
         >
           {t.calculateButton}
         </button>
@@ -250,8 +248,8 @@ const ServiceCalculator = () => {
       </div>
 
       {/* Results Section */}
-      <div className="lg:col-span-3 p-6 rounded-lg" style={{ backgroundColor: brandColors.lightGray1 }}>
-        <h3 className="text-2xl font-bold mb-6" style={{ color: brandColors.primary }}>{t.resultsTitle}</h3>
+      <div className="lg:col-span-3 p-6 rounded-lg bg-lightGray1">
+        <h3 className="text-2xl font-bold mb-6 text-primary">{t.resultsTitle}</h3>
         {results ? (
           <div className="space-y-4">
             <div>
@@ -281,15 +279,15 @@ const ServiceCalculator = () => {
                 {results.cssResults && <>
                   <p className="text-xs italic text-gray-600 px-4 mb-2">{t.results.cssExplanation}</p>
                   <ResultRow label={t.results.cssBaseIncome.label} value={formatCurrency(results.cssResults.cssBaseIncome)} formula={t.results.cssBaseIncome.formula} formulaNumbers={`${formatCurrency(results.income, 0)} + ${formatCurrency(results.requiredProfit)} * 52%`} />
-                  <ResultRow label={t.results.cssPayment.label} subLabel={t.results.cssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment)} formula={t.results.cssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssBaseIncome)} * 9.36%`} isHighlighted={true} highlightColor={brandColors.blue1} />
+                  <ResultRow label={t.results.cssPayment.label} subLabel={t.results.cssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment)} formula={t.results.cssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssBaseIncome)} * 9.36%`} isHighlighted={true} highlightColor={"blue1"} />
                 </>}
                 {results.saludResults && <div className="mt-4">
                   <ResultRow label={t.results.saludBaseIncome.label} subLabel={t.results.saludExplanation} value={formatCurrency(results.saludResults.saludBaseIncome)} formula={t.results.saludBaseIncome.formula.replace('{minBase}', formatCurrency(800)).replace('{monthlyIncome}', formatCurrency(results.income + results.requiredProfit))} />
-                  <ResultRow label={t.results.saludPayment.label} subLabel={t.results.saludPayment.subLabel} value={formatCurrency(results.saludResults.saludPayment)} formula={t.results.saludPayment.formula} formulaNumbers={`${formatCurrency(results.saludResults.saludBaseIncome)} * 8.5%`} isHighlighted={true} highlightColor={brandColors.blue1} />
+                  <ResultRow label={t.results.saludPayment.label} subLabel={t.results.saludPayment.subLabel} value={formatCurrency(results.saludResults.saludPayment)} formula={t.results.saludPayment.formula} formulaNumbers={`${formatCurrency(results.saludResults.saludBaseIncome)} * 8.5%`} isHighlighted={true} highlightColor={"blue1"} />
                 </div>}
                 {results.cssResults && results.saludResults && (
                   <div className="mt-4">
-                    <ResultRow label={t.results.totalCssPayment.label} subLabel={t.results.totalCssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment + results.saludResults.saludPayment)} formula={t.results.totalCssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssPayment)} + ${formatCurrency(results.saludResults.saludPayment)}`} isHighlighted={true} highlightColor={brandColors.blue1} />
+                    <ResultRow label={t.results.totalCssPayment.label} subLabel={t.results.totalCssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment + results.saludResults.saludPayment)} formula={t.results.totalCssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssPayment)} + ${formatCurrency(results.saludResults.saludPayment)}`} isHighlighted={true} highlightColor={"blue1"} />
                   </div>
                 )}
               </div>
@@ -302,7 +300,7 @@ const ServiceCalculator = () => {
                 <ResultRow label={t.results.taxBracket.label} value={results.isrResults.taxBracket} formula={t.results.taxBracket.formula} />
                 {results.isrResults.taxableSurplus > 0 && <ResultRow label={t.results.taxableSurplus.label} value={formatCurrency(results.isrResults.taxableSurplus)} formula={results.isrResults.taxableSurplusFormula} />}
                 <ResultRow label={t.results.estimatedISR.label} subLabel={t.results.estimatedISR.subLabel} value={formatCurrency(results.isrResults.estimatedISR)} formula={results.isrResults.isrFormula} />
-                <ResultRow label={t.results.annualIncomeAfterISR.label} subLabel={t.results.annualIncomeAfterISR.subLabel} value={formatCurrency(results.isrResults.annualIncomeAfterISR)} formula={t.results.annualIncomeAfterISR.formula} formulaNumbers={`${formatCurrency(results.isrResults.annualTaxableIncome)} - ${formatCurrency(results.isrResults.estimatedISR)} - (${formatCurrency(results.cssResults.cssPayment + results.saludResults.saludPayment)} * 12)`} isHighlighted={true} highlightColor={brandColors.green1} />
+                <ResultRow label={t.results.annualIncomeAfterISR.label} subLabel={t.results.annualIncomeAfterISR.subLabel} value={formatCurrency(results.isrResults.annualIncomeAfterISR)} formula={t.results.annualIncomeAfterISR.formula} formulaNumbers={`${formatCurrency(results.isrResults.annualTaxableIncome)} - ${formatCurrency(results.isrResults.estimatedISR)} - (${formatCurrency(results.cssResults.cssPayment + results.saludResults.saludPayment)} * 12)`} isHighlighted={true} highlightColor={"green1"} />
               </div>
             )}
 
@@ -312,16 +310,16 @@ const ServiceCalculator = () => {
                 <SuggestedPriceCard
                   title={t.results.roundedPriceNoTax.label}
                   price={results.roundedPriceNoTax}
-                  bgColor={brandColors.green1}
-                  textColor={brandColors.darkGreen}
+                  bgColor={"green1"}
+                  textColor={"darkGreen"}
                 />
                 <SuggestedPriceCard
                   title={t.results.roundedPriceWithTax.label}
                   price={results.roundedPriceWithTax}
                   basePrice={results.basePriceForRoundedWithTax}
                   basePriceLabel={t.results.roundedPriceWithTax.basePriceLabel}
-                  bgColor={brandColors.primary}
-                  textColor={brandColors.lightText}
+                  bgColor={"primary"}
+                  textColor={"lightText"}
                 />
               </div>
             </div>
@@ -329,7 +327,7 @@ const ServiceCalculator = () => {
           </div>
         ) : (
           <div className="flex items-center justify-center h-full min-h-[300px]">
-            <p className="text-center text-lg" style={{ color: brandColors.darkText }}>{t.guidance}</p>
+            <p className="text-center text-lg text-darkText">{t.guidance}</p>
           </div>
         )}
       </div>
@@ -344,13 +342,13 @@ const CollapsibleSection = ({ title, children, isOpen, onToggle }) => (
       onClick={onToggle}
       className="w-full flex justify-between items-center p-4 focus:outline-none"
     >
-      <h4 className="text-lg font-semibold" style={{ color: brandColors.primary }}>{title}</h4>
-      <span className="transform transition-transform duration-300" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-        <svg className="w-6 h-6" style={{ color: brandColors.secondary }} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+      <h4 className="text-lg font-semibold text-primary">{title}</h4>
+      <span className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
+        <svg className="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
       </span>
     </button>
     {isOpen && (
-      <div className="p-4 border-t" style={{ borderColor: brandColors.lightGray1 }}>
+      <div className="p-4 border-t bg-lightGray1">
         {children}
       </div>
     )}
@@ -374,13 +372,13 @@ function CalculadoraDeServicios() {
 
   return (
     <>
-      <div className="min-h-screen p-4 sm:p-6 md:p-8" style={{ backgroundColor: brandColors.lightGray2, fontFamily: 'Albert Sans, sans-serif' }}>
+      <div className="min-h-screen p-4 sm:p-6 md:p-8 bg-lightGray2">
         {/* Header */}
         <header className="text-center mb-8 pt-8 mx-auto relative">
           <div className="justify-between items-center">
             <div className="mt-2 md:mt-0">
-              <h1 className="text-3xl font-extrabold" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
-              <p className="text-md" style={{ color: brandColors.darkText }}>{t.subtitle}</p>
+              <h1 className="text-3xl font-extrabold text-primary">{t.mainTitle}</h1>
+              <p className="text-md text-darkText">{t.subtitle}</p>
             </div>
           </div>
         </header>
@@ -391,25 +389,25 @@ function CalculadoraDeServicios() {
         </main>
 
         {/* Footer */}
-        <footer className="text-center mt-12 p-4 border-t" style={{ borderColor: brandColors.accent2 }}>
+        <footer className="text-center mt-12 p-4 border-t border-accent2">
           <div className="max-w-4xl mx-auto">
             {/* Toggle Buttons for Concepts and Formulas */}
             <div className="flex justify-center gap-4 mb-6">
-              <button onClick={() => { setShowConcepts(!showConcepts); setShowFormulas(false); }} className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1" style={{ backgroundColor: brandColors.darkBlue, boxShadow: `0 4px ${brandColors.primary}` }}>
+              <button onClick={() => { setShowConcepts(!showConcepts); setShowFormulas(false); }} className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1 cursor-pointer bg-darkBlue shadow-md shadow-darkBlue">
                 {showConcepts ? t.footer.hideConcepts : t.footer.showConcepts}
               </button>
-              <button onClick={() => { setShowFormulas(!showFormulas); setShowConcepts(false); }} className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1" style={{ backgroundColor: brandColors.green2, boxShadow: `0 4px ${brandColors.darkGreen}` }}>
+              <button onClick={() => { setShowFormulas(!showFormulas); setShowConcepts(false); }} className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1 cursor-pointer bg-green2 shadow-md shadow-darkGreen">
                 {showFormulas ? t.footer.hideFormulas : t.footer.showFormulas}
               </button>
             </div>
 
             {/* Concepts Section (Collapsible) */}
             {showConcepts && (
-              <div className="mt-4 p-4 border rounded-lg" style={{ borderColor: brandColors.accent2, backgroundColor: brandColors.white }}>
-                <h4 className="text-lg font-bold mb-3" style={{ color: brandColors.primary }}>{t.footer.conceptsTitle}</h4>
+              <div className="mt-4 p-4 border rounded-lg border-accent2 bg-white">
+                <h4 className="text-lg font-bold mb-3 text-primary">{t.footer.conceptsTitle}</h4>
                 <div className="space-y-3 text-sm text-left">
                   {Object.entries(t.footer.allConcepts).map(([key, value]) => (
-                    <div key={key}><p><strong style={{ color: brandColors.secondary }}>{value.split(':')[0]}:</strong> {value.split(':').slice(1).join(':')}</p></div>
+                    <div key={key}><p><strong className="text-secondary">{value.split(':')[0]}:</strong> {value.split(':').slice(1).join(':')}</p></div>
                   ))}
                 </div>
               </div>
@@ -417,40 +415,18 @@ function CalculadoraDeServicios() {
 
             {/* Formulas Section (Collapsible) */}
             {showFormulas && (
-              <div className="mt-4 p-4 border rounded-lg" style={{ borderColor: brandColors.accent2, backgroundColor: brandColors.white }}>
-                <h4 className="text-lg font-bold mb-3" style={{ color: brandColors.primary }}>{t.footer.formulasTitle}</h4>
+              <div className="mt-4 p-4 border rounded-lg border-accent2 bg-white">
+                <h4 className="text-lg font-bold mb-3 text-primary">{t.footer.formulasTitle}</h4>
                 <div className="space-y-3 text-sm text-left bg-gray-100">
                   {Object.entries(t.footer.allFormulas).map(([key, value]) => (
-                    <p key={key} className="font-mono p-2 rounded-md"><strong style={{ color: brandColors.darkBlue }}>{value.split('=')[0]} =</strong> {value.split('=')[1]}</p>
+                    <p key={key} className="font-mono p-2 rounded-md"><strong className="text-darkBlue">{value.split('=')[0]} =</strong> {value.split('=')[1]}</p>
                   ))}
                 </div>
               </div>
             )}
-            <p className="text-sm text-gray-500 mt-8" style={{ color: brandColors.darkBlue }} dangerouslySetInnerHTML={{ __html: t.footer.disclaimer }}></p>
+            <p className="text-sm text-darkBlue mt-8" dangerouslySetInnerHTML={{ __html: t.footer.disclaimer }}></p>
           </div>
         </footer>
-
-        {/* Footer with Concepts and Formulas */}
-        {/* <footer className="max-w-7xl mx-auto mt-12 text-center">
-          <div className="space-y-4">
-            <CollapsibleSection title={t.footer.conceptsTitle} isOpen={openSection === 'concepts'} onToggle={() => toggleSection('concepts')}>
-              <div className="space-y-4 text-left">
-                {Object.values(t.footer.allConcepts).map((value, index) => (
-                  <p key={index} className="text-sm" style={{ color: brandColors.darkText }} dangerouslySetInnerHTML={{ __html: value }} />
-                ))}
-              </div>
-            </CollapsibleSection>
-            <CollapsibleSection title={t.footer.formulasTitle} isOpen={openSection === 'formulas'} onToggle={() => toggleSection('formulas')}>
-              <div className="space-y-3 text-left">
-                {Object.values(t.footer.allFormulas).map((value, index) => (
-                  <div key={index} className="p-3 rounded-md text-sm font-mono" style={{ backgroundColor: brandColors.lightGray1, color: brandColors.darkText }} dangerouslySetInnerHTML={{ __html: value }} />
-                ))}
-              </div>
-            </CollapsibleSection>
-          </div>
-
-          <p className="text-xs text-gray-500 mt-8">{t.footer.disclaimer}</p>
-        </footer> */}
       </div>
     </>
   );

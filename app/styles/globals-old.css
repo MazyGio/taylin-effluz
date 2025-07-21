@@ -526,6 +526,10 @@ video {
     margin-top: 2rem
 }
 
+.hidden {
+    display: none;
+}
+
 .block {
     display: block
 }
@@ -712,7 +716,11 @@ video {
 }
 
 .cursor-pointer {
-    cursor: pointer
+    cursor: pointer;
+}
+
+.cursor-help {
+    cursor: help;
 }
 
 .border {

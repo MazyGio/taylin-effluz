@@ -1,7 +1,6 @@
 import CalculadoraDeServicios from '~/components/CalculadoraDeServicios';
 import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery';
 import { useLoaderData } from 'react-router';
-import '../styles/globals.css';
 import { RestrictedContentByTags } from '~/components/RestrictedContentByTags';
 
 /**

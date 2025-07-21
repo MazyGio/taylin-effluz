@@ -16,7 +16,7 @@ const calculadoraServicios_es = {
         includeCSS: "Incluir cálculo de Seguro Social (IVM - Panamá)",
         includeSalud: "Incluir afiliación voluntaria de Seguro Social (Salud - Panamá)",
     },
-    calculateButton: "Calcular Tarifa",
+    calculateButton: "Calcular",
     resultsTitle: "Resultados Detallados Mensuales",
     results: {
         sectionTitleCosts: "Costos Operativos",

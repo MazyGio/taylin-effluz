@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router';
 import { CartForm } from '@shopify/hydrogen';
-import brandColors from '../styles/brandColors';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../assets/localization/translations';
 
@@ -17,25 +16,22 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
     return (
         <div className="min-h-screen">
             <div
-                className="flex flex-col items-center justify-center min-h-screen p-4"
-                style={{ backgroundColor: brandColors.lightGray2 }}
+                className="flex flex-col items-center justify-center min-h-screen p-4 bg-lightGray2"
             >
                 <div className="text-center mb-12">
                     <h1
-                        className="text-4xl sm:text-5xl font-extrabold mb-2"
-                        style={{ color: brandColors.primary }}
+                        className="text-4xl sm:text-5xl font-extrabold mb-2 text-primary"
                     >
                         {t.common.welcome}
                     </h1>
                     <p
-                        className="text-xl"
-                        style={{ color: brandColors.darkBlue }}
+                        className="text-xl text-darkBlue"
                     >
                         {t.common.selectCalculator}
                         </p>
                 </div>
                 <div className="w-full max-w-lg flex flex-col gap-6">
-                    <div className="w-full text-center bg-purple py-2 px-4 mb-8 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+                    <div className="w-full text-center bg-purple cursor-pointer py-2 px-4 mb-8 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
                         <CartForm route="/cart" inputs={{lines: [{
                             merchandiseId: selectedVariant.id,
                             quantity: 1,
@@ -51,7 +47,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                                     />
                                     <button
                                         type="submit"
-                                        className="w-full"
+                                        className="w-full cursor-pointer"
                                         // disabled={fetcher.state !== 'idle'}
                                     >
                                         {t.common.purchaseAccess}
@@ -62,8 +58,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                     </div>
                     <button
                         onClick={() => navigate('/calculadora-precios')}
-                        className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-                        style={{ backgroundColor: brandColors.primary, boxShadow: '0 6px 15px -3px rgba(79, 8, 57, 0.5)' }}
+                        className="w-full text-center cursor-pointer py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-primary"
                     >
                         {t.precios.title}
                         <span className="block text-sm font-normal mt-1 opacity-90">(Costos, Precios, Margen de Productos)</span>
@@ -71,8 +66,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
 
                     <button
                         onClick={() => navigate('/calculadora-servicios')}
-                        className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-                        style={{ backgroundColor: brandColors.blue2, boxShadow: '0 6px 15px -3px rgba(91, 128, 152, 0.5)' }}
+                        className="w-full text-center cursor-pointer py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-blue2"
                     >
                         {t.consultoria.title}
                         <span className="block text-sm font-normal mt-1 opacity-90">(Precios por hora)</span>
@@ -80,18 +74,17 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
 
                     <button
                         onClick={() => navigate('/calculadora-utilidad')}
-                        className="w-full text-center py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-                        style={{ backgroundColor: brandColors.green2, boxShadow: '0 6px 15px -3px rgba(91, 128, 152, 0.5)' }}
+                        className="w-full text-center cursor-pointer py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-green2"
                     >
                         {t.utilidad.title}
                         <span className="block text-sm font-normal mt-1 opacity-90">(Incluyendo comisiones)</span>
                     </button>
                 </div>
                 <div className="text-center mt-12">
-                    <p className="text-sm" style={{ color: brandColors.darkBlue }}>
+                    <p className="text-sm text-darkBlue">
                         {t.common.developedBy}
                     </p>
-                    <p className="text-xs text-gray-500 mt-4 px-2" style={{ color: brandColors.darkBlue }}>
+                    <p className="text-xs text-darkBlue mt-4 px-2">
                         {t.common.copyright}
                     </p>
                 </div>

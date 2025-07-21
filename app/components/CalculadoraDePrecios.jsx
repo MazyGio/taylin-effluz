@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import brandColors from '../styles/brandColors';
 import { InputField } from './InputField';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../assets/localization/translations';
 import { formatCurrency, formatPercentage } from '../utils/formatter';
+import { ButtonTabSelector } from './ButtonTabSelector';
 
 // Reusable Result Display Component
 const ResultDisplay = ({ label, value, isHighlighted = false }) => (
-  <div className={`flex justify-between items-center mb-2 ${isHighlighted ? 'text-base font-bold p-2 rounded-md' : 'text-sm'}`} style={{ color: isHighlighted ? brandColors.primary : brandColors.darkBlue, backgroundColor: isHighlighted ? brandColors.lightGray1 : 'transparent' }}>
+  <div className={`flex justify-between items-center mb-2 rounded-md ${isHighlighted ? 'text-primary bg-lightGray1 font-bold p-2' : 'text-sm text-darkBlue bg-transparent'}`}>
     <span className="font-semibold">{label}:</span>
     <span className="text-right">{value}</span>
   </div>
@@ -68,20 +68,20 @@ const ProductCostCalculator = ({ language, t }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row p-6 rounded-lg shadow-lg" style={{ backgroundColor: brandColors.white }}>
+    <div className="flex flex-col md:flex-row p-6 rounded-lg shadow-lg bg-white">
       {/* Input Section */}
       <div className="md:w-1/2 p-4">
-        <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab0.title}</h3> {/* Use single title */}
+        <h3 className="text-xl font-bold mb-4 text-primary">{t.tab0.title}</h3> {/* Use single title */}
         <InputField label={t.tab0.inputs.directMaterials} value={directMaterials} onChange={setDirectMaterials} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.directMaterials} />
-        <InputField label={t.tab0.inputs.directLabor} value={directLabor} onChange={setDirectLabor} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.directLabor} />
-        <InputField label={t.tab0.inputs.manufacturingOverhead} value={manufacturingOverhead} onChange={setManufacturingOverhead} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.manufacturingOverhead} />
+        <InputField label={t.tab0.inputs.directLabor} value={directLabor} onChange={setDirectLabor} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.directLabor} isTooltipLeft={true}/>
+        <InputField label={t.tab0.inputs.manufacturingOverhead} value={manufacturingOverhead} onChange={setManufacturingOverhead} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.manufacturingOverhead} isTooltipLeft={true}/>
         <InputField label={t.tab0.inputs.otherCosts} value={otherCosts} onChange={setOtherCosts} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.otherCosts} />
         <InputField label={t.tab0.inputs.transportation} value={transportation} onChange={setTransportation} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.transportation} />
-        <InputField label={t.tab0.inputs.quantity} value={quantity} onChange={setQuantity} min="1" placeholder="1" tooltipText={t.footer.allConcepts.quantity} /> {/* New quantity input */}
+        <InputField label={t.tab0.inputs.quantity} value={quantity} onChange={setQuantity} min="1" placeholder="1" tooltipText={t.footer.allConcepts.quantity} isTooltipLeft={true}/> {/* New quantity input */}
 
         {/* Cost Type Choice */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" style={{ color: brandColors.darkBlue }}>
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-darkBlue">
             {t.tab0.inputs.costTypeQuestion}
           </label>
           <div className="flex space-x-4">
@@ -92,10 +92,9 @@ const ProductCostCalculator = ({ language, t }) => {
                 value="per_unit"
                 checked={costType === 'per_unit'}
                 onChange={() => setCostType('per_unit')}
-                className="form-radio h-4 w-4"
-                style={{ color: brandColors.blue2 }}
+                className="form-radio h-4 w-4 text-blue2"
               />
-              <span className="ml-2 text-sm font-semibold pl-1" style={{ color: brandColors.darkBlue }}>{t.tab0.inputs.costTypePerUnit}</span>
+              <span className="ml-2 text-sm font-semibold pl-1 text-darkBlue">{t.tab0.inputs.costTypePerUnit}</span>
             </label>
             <label className="inline-flex items-center">
               <input
@@ -104,10 +103,9 @@ const ProductCostCalculator = ({ language, t }) => {
                 value="total_order"
                 checked={costType === 'total_order'}
                 onChange={() => setCostType('total_order')}
-                className="form-radio h-4 w-4"
-                style={{ color: brandColors.blue2 }}
+                className="form-radio h-4 w-4 text-blue2"
               />
-              <span className="ml-2 text-sm font-semibold pl-1" style={{ color: brandColors.darkBlue }}>{t.tab0.inputs.costTypeTotalOrder}</span>
+              <span className="ml-2 text-sm font-semibold pl-1 text-darkBlue">{t.tab0.inputs.costTypeTotalOrder}</span>
             </label>
           </div>
           {costType === null && (
@@ -117,16 +115,15 @@ const ProductCostCalculator = ({ language, t }) => {
 
         <button
           onClick={handleCalculate}
-          className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105"
-          style={{ backgroundColor: brandColors.primary, boxShadow: `0 4px ${brandColors.darkBlue}` }}
+          className="w-full py-2 px-4 rounded-md text-primary font-bold transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md shadow-darkBlue"
         >
           {language === 'es' ? 'Calcular' : 'Calculate'}
         </button>
       </div>
 
       {/* Results Section */}
-      <div className="md:w-1/2 p-4 md:border-l border-gray-200" style={{ borderColor: brandColors.accent2 }}>
-        <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{language === 'es' ? 'Resultados' : 'Results'}</h3>
+      <div className="md:w-1/2 p-4 md:border-l border-accent2">
+        <h3 className="text-xl font-bold mb-4 text-primary">{language === 'es' ? 'Resultados' : 'Results'}</h3>
         {results ? (
           <div>
             <ResultDisplay label={t.tab0.outputs.directMaterials} value={formatCurrency(results.directMaterials)} />
@@ -183,25 +180,24 @@ const CostToPriceCalculator = ({ language, t }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row p-6 rounded-lg shadow-lg" style={{ backgroundColor: brandColors.white }}>
+    <div className="flex flex-col md:flex-row p-6 rounded-lg shadow-lg bg-white">
       {/* Input Section */}
       <div className="md:w-1/3 p-4">
-        <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab1.title}</h3> {/* Use single title */}
+        <h3 className="text-xl font-bold mb-4 text-primary">{t.tab1.title}</h3> {/* Use single title */}
         <InputField label={t.tab1.inputs.cost} value={cost} onChange={setCost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost} />
         <InputField label={t.tab1.inputs.desiredMargin} value={desiredMargin} onChange={setDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} />
         <InputField label={t.tab1.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate} /> {/* New tax rate input */}
         <button
           onClick={handleCalculate}
-          className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105"
-          style={{ backgroundColor: brandColors.primary, boxShadow: `0 4px ${brandColors.darkBlue}` }}
+          className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer bg-primary shadow-md shadow-darkBlue"
         >
           {language === 'es' ? 'Calcular' : 'Calculate'}
         </button>
       </div>
 
       {/* Results Section */}
-      <div className="md:w-2/3 p-4 md:border-l border-gray-200" style={{ borderColor: brandColors.accent2 }}>
-        <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{language === 'es' ? 'Resultados' : 'Results'}</h3>
+      <div className="md:w-2/3 p-4 md:border-l border-accent2">
+        <h3 className="text-xl font-bold mb-4 text-primary">{language === 'es' ? 'Resultados' : 'Results'}</h3>
         {results ? (
           <div>
             <ResultDisplay label={t.tab1.outputs.cost} value={formatCurrency(results.cost)} />
@@ -269,17 +265,17 @@ const MarginMarkupCalculator = ({ language, t }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row p-6 rounded-lg shadow-lg" style={{ backgroundColor: brandColors.white }}>
+    <div className="flex flex-col md:flex-row p-6 rounded-lg shadow-lg bg-white">
       {/* Input Section */}
       <div className="md:w-1/3 p-4">
-        <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab2.title}</h3> {/* Use single title */}
+        <h3 className="text-xl font-bold mb-4 text-primary">{t.tab2.title}</h3> {/* Use single title */}
         <InputField label={t.tab2.inputs.cost} value={cost} onChange={setCost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost} />
         <InputField label={t.tab2.inputs.desiredSellingPrice} value={desiredSellingPrice} onChange={setDesiredSellingPrice} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.suggestedSellingPrice} />
         <InputField label={t.tab2.inputs.taxRate} value={taxRate} onChange={setTaxRate} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate} /> {/* New tax rate input */}
 
         {/* Tax Inclusion Choice */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" style={{ color: brandColors.darkBlue }}>
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-darkBlue">
             {t.tab2.inputs.taxIncludedQuestion}
           </label>
           <div className="flex space-x-4">
@@ -290,10 +286,9 @@ const MarginMarkupCalculator = ({ language, t }) => {
                 value="yes"
                 checked={isTaxIncluded === true}
                 onChange={() => setIsTaxIncluded(true)}
-                className="form-radio h-4 w-4"
-                style={{ color: brandColors.blue2 }}
+                className="form-radio h-4 w-4 text-darkBlue"
               />
-              <span className="ml-2 text-sm font-semibold" style={{ color: brandColors.darkBlue }}>{t.tab2.inputs.taxIncludedYes}</span>
+              <span className="ml-2 text-sm font-semibold text-darkBlue">{t.tab2.inputs.taxIncludedYes}</span>
             </label>
             <label className="inline-flex items-center">
               <input
@@ -302,10 +297,9 @@ const MarginMarkupCalculator = ({ language, t }) => {
                 value="no"
                 checked={isTaxIncluded === false}
                 onChange={() => setIsTaxIncluded(false)}
-                className="form-radio h-4 w-4"
-                style={{ color: brandColors.blue2 }}
+                className="form-radio h-4 w-4 text-darkBlue"
               />
-              <span className="ml-2 text-sm font-semibold" style={{ color: brandColors.darkBlue }}>{t.tab2.inputs.taxIncludedNo}</span>
+              <span className="ml-2 text-sm font-semibold text-darkBlue">{t.tab2.inputs.taxIncludedNo}</span>
             </label>
           </div>
           {isTaxIncluded === null && (
@@ -315,16 +309,15 @@ const MarginMarkupCalculator = ({ language, t }) => {
 
         <button
           onClick={handleCalculate}
-          className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105"
-          style={{ backgroundColor: brandColors.primary, boxShadow: `0 4px ${brandColors.darkBlue}` }}
+          className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer bg-primary shadow-md shadow-darkBlue"
         >
           {language === 'es' ? 'Calcular' : 'Calculate'}
         </button>
       </div>
 
       {/* Results Section */}
-      <div className="md:w-2/3 p-4 md:border-l border-gray-200" style={{ borderColor: brandColors.accent2 }}>
-        <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{language === 'es' ? 'Resultados' : 'Results'}</h3>
+      <div className="md:w-2/3 p-4 md:border-l border-accent2">
+        <h3 className="text-xl font-bold mb-4 text-primary">{language === 'es' ? 'Resultados' : 'Results'}</h3>
         {results ? (
           <div>
             <ResultDisplay label={t.tab2.outputs.cost} value={formatCurrency(results.cost)} />
@@ -458,21 +451,22 @@ const DoubleMarginCalculator = ({ language, t }) => {
   };
 
   return (
-    <div className="flex flex-col p-6 rounded-lg shadow-lg" style={{ backgroundColor: brandColors.white }}>
+    <div className="flex flex-col p-6 rounded-lg shadow-lg bg-white">
       {/* Section 1: Adjusted Margin */}
-      <div className="mb-8 p-4 border rounded-lg" style={{ borderColor: brandColors.accent1 }}>
-        <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab3.section1.title}</h3>
+      <div className="mb-8 p-4 border rounded-lg border-accent1">
+        <h3 className="text-xl font-bold mb-4 text-primary">{t.tab3.section1.title}</h3>
+        <p className="text-sm text-gray-600 mb-4">{t.tab3.section1.explanation}</p> {/* Added explanation */}
         <div className="flex flex-col md:flex-row">
           {/* Inputs */}
           <div className="md:w-1/3 p-4">
             <InputField label={t.tab3.section1.inputs.cost} value={s1Cost} onChange={setS1Cost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost} />
             <InputField label={t.tab3.section1.inputs.suggestedRetailPrice} value={s1SuggestedRetailPrice} onChange={setS1SuggestedRetailPrice} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.suggestedSellingPrice} />
-            <InputField label={t.tab3.section1.inputs.wholesalerDesiredMargin} value={s1WholesalerDesiredMargin} onChange={setS1WholesalerDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} />
+            <InputField label={t.tab3.section1.inputs.wholesalerDesiredMargin} value={s1WholesalerDesiredMargin} onChange={setS1WholesalerDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} isTooltipLeft={true}/>
             <InputField label={t.tab3.section1.inputs.taxRate} value={s1TaxRate} onChange={setS1TaxRate} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate} /> {/* New tax rate input */}
 
             {/* Tax Inclusion Choice for Section 1 */}
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" style={{ color: brandColors.darkBlue }}>
+              <label className="block text-sm font-bold mb-2 text-darkBlue">
                 {t.tab3.section1.inputs.taxIncludedQuestion}
               </label>
               <div className="flex space-x-4">
@@ -483,10 +477,9 @@ const DoubleMarginCalculator = ({ language, t }) => {
                     value="yes"
                     checked={isTaxIncludedS1 === true}
                     onChange={() => setIsTaxIncludedS1(true)}
-                    className="form-radio h-4 w-4"
-                    style={{ color: brandColors.blue2 }}
+                    className="form-radio h-4 w-4 text-blue2"
                   />
-                  <span className="ml-2 text-sm font-semibold" style={{ color: brandColors.darkBlue }}>{t.tab3.section1.inputs.taxIncludedYes}</span>
+                  <span className="ml-2 text-sm font-semibold text-darkBlue">{t.tab3.section1.inputs.taxIncludedYes}</span>
                 </label>
                 <label className="inline-flex items-center">
                   <input
@@ -495,10 +488,9 @@ const DoubleMarginCalculator = ({ language, t }) => {
                     value="no"
                     checked={isTaxIncludedS1 === false}
                     onChange={() => setIsTaxIncludedS1(false)}
-                    className="form-radio h-4 w-4"
-                    style={{ color: brandColors.blue2 }}
+                    className="form-radio h-4 w-4 text-blue2"
                   />
-                  <span className="ml-2 text-sm font-semibold" style={{ color: brandColors.darkBlue }}>{t.tab3.section1.inputs.taxIncludedNo}</span>
+                  <span className="ml-2 text-sm font-semibold text-darkBlue">{t.tab3.section1.inputs.taxIncludedNo}</span>
                 </label>
               </div>
               {isTaxIncludedS1 === null && (
@@ -508,20 +500,19 @@ const DoubleMarginCalculator = ({ language, t }) => {
 
             <button
               onClick={handleS1Calculate}
-              className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105"
-              style={{ backgroundColor: brandColors.primary, boxShadow: `0 4px ${brandColors.darkBlue}` }}
+              className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer bg-primary shadow-md shadow-darkBlue"
             >
               {language === 'es' ? 'Calcular' : 'Calculate'}
             </button>
             <p className="text-sm text-gray-500 mt-2">{t.tab3.section1.inputGuidance}</p> {/* Input guidance */}
           </div>
           {/* Results */}
-          <div className="md:w-2/3 p-4 md:border-l border-gray-200" style={{ borderColor: brandColors.accent2 }}>
-            <h4 className="font-bold mb-2" style={{ color: brandColors.primary }}>{language === 'es' ? 'Resultados' : 'Results'}</h4>
+          <div className="md:w-2/3 p-4 md:border-l border-accent2">
+            <h4 className="font-bold mb-2 text-primary">{language === 'es' ? 'Resultados' : 'Results'}</h4>
             {s1Results ? (
               <div className="space-y-4">
-                <div className="border p-3 rounded-md" style={{ borderColor: brandColors.accent1 }}>
-                  <h5 className="font-semibold mb-2" style={{ color: brandColors.primary }}>{t.tab3.section1.outputs.directSales}</h5>
+                <div className="border p-3 rounded-md border-accent1">
+                  <h5 className="font-semibold mb-2 text-primary">{t.tab3.section1.outputs.directSales}</h5>
                   <ResultDisplay label={t.tab3.section1.outputs.suggestedRetailPrice} value={formatCurrency(s1Results.directSales.suggestedRetailPrice)} isHighlighted={true} /> {/* Highlighted */}
                   <ResultDisplay label={t.tab3.section1.outputs.taxAmount} value={formatCurrency(s1Results.directSales.taxAmount)} />
                   <ResultDisplay label={t.tab3.section1.outputs.suggestedRetailPriceWithTax} value={formatCurrency(s1Results.directSales.suggestedRetailPriceWithTax)} isHighlighted={true} />
@@ -529,8 +520,8 @@ const DoubleMarginCalculator = ({ language, t }) => {
                   <ResultDisplay label={t.tab3.section1.outputs.grossMargin} value={formatPercentage(s1Results.directSales.grossMargin)} />
                   <ResultDisplay label={t.tab3.section1.outputs.profit} value={formatCurrency(s1Results.directSales.profit)} />
                 </div>
-                <div className="border p-3 rounded-md" style={{ borderColor: brandColors.accent1 }}>
-                  <h5 className="font-semibold mb-2" style={{ color: brandColors.primary }}>{t.tab3.section1.outputs.adjustedWholesaleSales}</h5>
+                <div className="border p-3 rounded-md border-accent1">
+                  <h5 className="font-semibold mb-2 text-primary">{t.tab3.section1.outputs.adjustedWholesaleSales}</h5>
                   <ResultDisplay label={t.tab3.section1.outputs.suggestedRetailPrice} value={formatCurrency(s1Results.adjustedWholesaleSales.suggestedRetailPrice)} isHighlighted={true} /> {/* Highlighted */}
                   <ResultDisplay label={t.tab3.section1.outputs.taxAmount} value={formatCurrency(s1Results.adjustedWholesaleSales.taxAmount)} />
                   <ResultDisplay label={t.tab3.section1.outputs.suggestedRetailPriceWithTax} value={formatCurrency(s1Results.adjustedWholesaleSales.suggestedRetailPriceWithTax)} isHighlighted={true} />
@@ -549,64 +540,28 @@ const DoubleMarginCalculator = ({ language, t }) => {
       </div>
 
       {/* Section 2: Desired Margin */}
-      <div className="p-4 border rounded-lg" style={{ borderColor: brandColors.accent1 }}>
-        <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>{t.tab3.section2.title}</h3>
+      <div className="p-4 border rounded-lg border-accent1">
+        <h3 className="text-xl font-bold mb-4 text-primary">{t.tab3.section2.title}</h3>
+        <p className="text-sm text-gray-600 mb-4">{t.tab3.section2.explanation}</p> {/* Added explanation */}
         <div className="flex flex-col md:flex-row">
           {/* Inputs */}
           <div className="md:w-1/3 p-4">
             <InputField label={t.tab3.section2.inputs.cost} value={s2Cost} onChange={setS2Cost} hasPrefix={true} prefix="$" tooltipText={t.footer.allConcepts.cost} />
-            <InputField label={t.tab3.section2.inputs.desiredMargin} value={s2DesiredMargin} onChange={setS2DesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} />
-            <InputField label={t.tab3.section2.inputs.wholesalerDesiredMargin} value={s2WholesalerDesiredMargin} onChange={setS2WholesalerDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.wholesalerMargin} />
+            <InputField label={t.tab3.section2.inputs.desiredMargin} value={s2DesiredMargin} onChange={setS2DesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.profitMargin} isTooltipLeft={true}/>
+            <InputField label={t.tab3.section2.inputs.wholesalerDesiredMargin} value={s2WholesalerDesiredMargin} onChange={setS2WholesalerDesiredMargin} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.wholesalerMargin} isTooltipLeft={true}/>
             <InputField label={t.tab3.section2.inputs.taxRate} value={s2TaxRate} onChange={setS2TaxRate} hasSuffix={true} suffix="%" tooltipText={t.footer.allConcepts.taxRate} /> {/* New tax rate input */}
-
-            {/* Tax Inclusion Choice for Section 2 */}
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" style={{ color: brandColors.darkBlue }}>
-                {t.tab3.section2.inputs.taxIncludedQuestion}
-              </label>
-              <div className="flex space-x-4">
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="tax_included_s2"
-                    value="yes"
-                    checked={isTaxIncludedS2 === true}
-                    onChange={() => setIsTaxIncludedS2(true)}
-                    className="form-radio h-4 w-4"
-                    style={{ color: brandColors.blue2 }}
-                  />
-                  <span className="ml-2 text-sm font-semibold" style={{ color: brandColors.darkBlue }}>{t.tab3.section2.inputs.taxIncludedYes}</span>
-                </label>
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="tax_included_s2"
-                    value="no"
-                    checked={isTaxIncludedS2 === false}
-                    onChange={() => setIsTaxIncludedS2(false)}
-                    className="form-radio h-4 w-4"
-                    style={{ color: brandColors.blue2 }}
-                  />
-                  <span className="ml-2 text-sm font-semibold" style={{ color: brandColors.darkBlue }}>{t.tab3.section2.inputs.taxIncludedNo}</span>
-                </label>
-              </div>
-              {isTaxIncludedS2 === null && (
-                <p className="text-red-500 text-xs italic mt-1">{t.tab3.section2.mandatoryChoiceGuidance}</p>
-              )}
-            </div>
 
             <button
               onClick={handleS2Calculate}
-              className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105"
-              style={{ backgroundColor: brandColors.primary, boxShadow: `0 4px ${brandColors.darkBlue}` }}
+              className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer bg-primary shadow-md shadow-darkBlue"
             >
               {language === 'es' ? 'Calcular' : 'Calculate'}
             </button>
             <p className="text-sm text-gray-500 mt-2">{t.tab3.section2.inputGuidance}</p> {/* Input guidance */}
           </div>
           {/* Results */}
-          <div className="md:w-2/3 p-4 md:border-l border-gray-200" style={{ borderColor: brandColors.accent2 }}>
-            <h4 className="font-bold mb-2" style={{ color: brandColors.primary }}>{language === 'es' ? 'Resultados' : 'Results'}</h4>
+          <div className="md:w-2/3 p-4 md:border-l border-accent2">
+            <h4 className="font-bold mb-2 text-primary">{language === 'es' ? 'Resultados' : 'Results'}</h4>
             {s2Results ? (
               <div>
                 <ResultDisplay label={t.tab3.section2.outputs.cost} value={formatCurrency(s2Results.cost)} />
@@ -656,14 +611,14 @@ function CalculadoraDePrecios() {
   };
 
   return (
-    <div className="min-h-screen p-4" style={{ backgroundColor: brandColors.lightGray2, fontFamily: 'Albert Sans' }}>
+    <div className="min-h-screen p-4 font-sans bg-lightGray2">
 
       <header className="text-center mb-8 pt-8 relative">
         <div className="justify-between items-center">
           <div className="mt-2 md:mt-0">
-            <h1 className="text-3xl md:text-4xl font-extrabold whitespace-nowrap" style={{ color: brandColors.primary }}>{t.mainTitle}</h1>
-            <p className="text-md md:text-lg mb-2" style={{ color: brandColors.darkBlue }}>{t.subtitle1}</p>
-            <p className="text-md md:text-lg font-semibold max-w-xl mx-auto" style={{ color: brandColors.secondary }}>{t.subtitle2}</p>
+            <h1 className="text-3xl md:text-4xl font-extrabold whitespace-nowrap text-primary">{t.mainTitle}</h1>
+            <p className="text-md md:text-lg mb-2 text-darkBlue">{t.subtitle1}</p>
+            <p className="text-md md:text-lg font-semibold max-w-xl mx-auto text-darkText">{t.subtitle2}</p>
           </div>
         </div>
       </header>
@@ -679,14 +634,12 @@ function CalculadoraDePrecios() {
               { id: 'tab3', title: t.tab3.title }, // Old tab4, now tab3
             ].map((tab) => (
               <li key={tab.id} className="flex-1 flex-shrink-0 mb-2">
-                <button
+                <ButtonTabSelector
+                  isActiveTab={activeTab === tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`py-2 px-2 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 w-full h-full flex items-center justify-center text-center ${activeTab === tab.id ? 'bg-opacity-100' : 'bg-opacity-70'
-                    }`}
-                  style={{ backgroundColor: activeTab === tab.id ? brandColors.primary : brandColors.secondary }}
                 >
                   <span className="block text-base leading-tight">{tab.title}</span>
-                </button>
+                </ButtonTabSelector>
               </li>
             ))}
           </ul>
@@ -699,7 +652,7 @@ function CalculadoraDePrecios() {
       </main>
 
       {/* Footer */}
-      <footer className="text-center mt-12 p-4 border-t border-gray-300 max-w-6xl mx-auto" style={{ borderColor: brandColors.accent2 }}>
+      <footer className="text-center mt-12 p-4 border-t border-gray-300 max-w-6xl mx-auto border-accent2">
         {/* Toggle Buttons for Concepts and Formulas */}
         <div className="flex justify-center gap-4 mb-6">
           <button
@@ -707,8 +660,7 @@ function CalculadoraDePrecios() {
               setShowConcepts(!showConcepts);
               setShowFormulas(false); // Close formulas if concepts are opened
             }}
-            className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1" // Added flex-1
-            style={{ backgroundColor: brandColors.blue2, boxShadow: `0 4px ${brandColors.darkBlue}` }}
+            className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1 cursor-pointer bg-blue2 shadow-md shadow-darkBlue" // Added flex-1
           >
             {language === 'es' ? (showConcepts ? 'Ocultar Conceptos Clave' : 'Mostrar Conceptos Clave') : (showConcepts ? 'Hide Key Concepts' : 'Show Key Concepts')}
           </button>
@@ -717,8 +669,7 @@ function CalculadoraDePrecios() {
               setShowFormulas(!showFormulas);
               setShowConcepts(false); // Close concepts if formulas are opened
             }}
-            className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1" // Added flex-1
-            style={{ backgroundColor: brandColors.green2, boxShadow: `0 4px ${brandColors.darkGreen}` }}
+            className="py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 flex-1 cursor-pointer bg-green2 shadow-md shadow-darkGreen" // Added flex-1
           >
             {language === 'es' ? (showFormulas ? 'Ocultar Fórmulas' : 'Mostrar Fórmulas') : (showFormulas ? 'Hide Formulas' : 'Show Formulas')}
           </button>
@@ -726,9 +677,9 @@ function CalculadoraDePrecios() {
 
         {/* All Concepts Section (Collapsible) */}
         {showConcepts && (
-          <div className="mt-4 py-2 px-4 border-t border-gray-200 rounded-lg" style={{ borderColor: brandColors.accent2, backgroundColor: brandColors.lightGray2 }}>
-            <h4 className="text-lg font-bold mb-3" style={{ color: brandColors.darkBlue }}>{language === 'es' ? 'Conceptos Clave' : 'Key Concepts'}</h4>
-            <p className="mb-4 text-sm text-gray-700" style={{ color: brandColors.darkBlue }}>
+          <div className="mt-4 py-2 px-4 border-t rounded-lg border-accent2 bg-lightGray2">
+            <h4 className="text-lg font-bold mb-3 text-darkBlue">{language === 'es' ? 'Conceptos Clave' : 'Key Concepts'}</h4>
+            <p className="mb-4 text-sm text-darkBlue">
               {language === 'es' ?
                 'Esta sección define los términos clave y las fórmulas utilizadas en la calculadora. La "Utilidad" mencionada en las pestañas se refiere a la utilidad bruta por unidad, calculada como Ingreso por unidad - Costo por unidad.' :
                 'This section defines key terms and formulas used in the calculator. "Profit" mentioned in the tabs refers to gross profit per unit, calculated as Revenue per unit - Cost per unit.'
@@ -736,8 +687,8 @@ function CalculadoraDePrecios() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-left">
               {Object.entries(t.footer.allConcepts).map(([key, value]) => (
-                <div key={key} className="mb-2 p-2 rounded-md" style={{ backgroundColor: brandColors.lightGray1 }}>
-                  <p><span className="font-semibold" style={{ color: brandColors.primary }}>{value.split(':')[0]}:</span> <span dangerouslySetInnerHTML={{ __html: value.split(':')[1] }} /></p>
+                <div key={key} className="mb-2 p-2 rounded-md bg-lightGray1">
+                  <p><span className="font-semibold text-primary">{value.split(':')[0]}:</span> <span dangerouslySetInnerHTML={{ __html: value.split(':')[1] }} /></p>
                 </div>
               ))}
             </div>
@@ -746,19 +697,19 @@ function CalculadoraDePrecios() {
 
         {/* All Formulas Section (Collapsible) */}
         {showFormulas && (
-          <div className="mt-4 py-2 px-4 border-t border-gray-200 rounded-lg" style={{ borderColor: brandColors.accent2, backgroundColor: brandColors.lightGray2 }}>
-            <h4 className="text-lg font-bold mb-3" style={{ color: brandColors.darkBlue }}>{language === 'es' ? 'Fórmulas Utilizadas' : 'Fórmulas Used'}</h4>
+          <div className="mt-4 py-2 px-4 border-t rounded-lg border-accent2 bg-lightGray2">
+            <h4 className="text-lg font-bold mb-3 text-darkBlue">{language === 'es' ? 'Fórmulas Utilizadas' : 'Fórmulas Used'}</h4>
             {/* Render formulas based on activeTab */}
             {activeTab === 'tab3' ? ( // Double Margin Calculation tab
               <>
                 {/* Formulas for Adjusted Margin part of tab3 */}
                 <div className="mb-6 text-left">
-                  <h5 className="font-bold mb-2" style={{ color: brandColors.secondary }}>{t.footer.allFormulas.tab3_section1.title}</h5>
+                  <h5 className="font-bold mb-2 text-secondary">{t.footer.allFormulas.tab3_section1.title}</h5>
                   <div className="space-y-2 text-sm bg-gray-100">
                     {Object.entries(t.footer.allFormulas.tab3_section1).map(([formulaKey, formulaValue]) => {
                       if (formulaKey !== 'title') {
                         return (
-                          <p key={formulaKey} className="font-mono p-2 rounded-md"><strong style={{ color: brandColors.darkBlue }}>{formulaValue.split('=')[0]} =</strong> {formulaValue.split('=')[1]}</p>
+                          <p key={formulaKey} className="font-mono p-2 rounded-md"><strong className="text-darkBlue">{formulaValue.split('=')[0]} =</strong> {formulaValue.split('=')[1]}</p>
                         );
                       }
                       return null;
@@ -767,12 +718,12 @@ function CalculadoraDePrecios() {
                 </div>
                 {/* Formulas for Desired Margin part of tab3 */}
                 <div className="mb-6 text-left">
-                  <h5 className="font-bold mb-2" style={{ color: brandColors.secondary }}>{t.footer.allFormulas.tab3_section2.title}</h5>
+                  <h5 className="font-bold mb-2 text-secondary">{t.footer.allFormulas.tab3_section2.title}</h5>
                   <div className="space-y-2 text-sm bg-gray-100">
                     {Object.entries(t.footer.allFormulas.tab3_section2).map(([formulaKey, formulaValue]) => {
                       if (formulaKey !== 'title') {
                         return (
-                          <p key={formulaKey} className="font-mono p-2 rounded-md"><strong style={{ color: brandColors.darkBlue }}>{formulaValue.split('=')[0]} =</strong> {formulaValue.split('=')[1]}</p>
+                          <p key={formulaKey} className="font-mono p-2 rounded-md"><strong className="text-darkBlue">{formulaValue.split('=')[0]} =</strong> {formulaValue.split('=')[1]}</p>
                         );
                       }
                       return null;
@@ -784,12 +735,12 @@ function CalculadoraDePrecios() {
               // General rendering for other tabs
               t.footer.allFormulas[activeTab] && (
                 <div className="mb-6 text-left">
-                  <h5 className="font-bold mb-2" style={{ color: brandColors.secondary }}>{t.footer.allFormulas[activeTab].title}</h5>
+                  <h5 className="font-bold mb-2 text-secondary">{t.footer.allFormulas[activeTab].title}</h5>
                   <div className="space-y-2 text-sm bg-gray-100">
                     {Object.entries(t.footer.allFormulas[activeTab]).map(([formulaKey, formulaValue]) => {
                       if (formulaKey !== 'title') {
                         return (
-                          <p key={formulaKey} className="font-mono p-2 rounded-md"><strong style={{ color: brandColors.darkBlue }}>{formulaValue.split('=')[0]} =</strong> {formulaValue.split('=')[1]}</p>
+                          <p key={formulaKey} className="font-mono p-2 rounded-md"><strong className="text-darkBlue">{formulaValue.split('=')[0]} =</strong> {formulaValue.split('=')[1]}</p>
                         );
                       }
                       return null;
@@ -801,7 +752,7 @@ function CalculadoraDePrecios() {
           </div>
         )}
 
-        <p className="text-sm text-gray-500 mt-8" style={{ color: brandColors.darkBlue }} dangerouslySetInnerHTML={{ __html: t.footer.disclaimer }}></p>
+        <p className="text-sm mt-8 text-darkBlue" dangerouslySetInnerHTML={{ __html: t.footer.disclaimer }}></p>
       </footer>
     </div>
   );
