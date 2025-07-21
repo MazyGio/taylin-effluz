@@ -56,3 +56,11 @@
         cursor: pointer;
     }
 }
+
+@components {
+    @media (min-width: 64em) {
+        .tab3-button {
+            @apply px-8;
+        }
+    }
+}

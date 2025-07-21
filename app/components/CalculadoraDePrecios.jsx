@@ -637,8 +637,9 @@ function CalculadoraDePrecios() {
                 <ButtonTabSelector
                   isActiveTab={activeTab === tab.id}
                   onClick={() => setActiveTab(tab.id)}
+                  tabId={tab.id}
                 >
-                  <span className="block text-base leading-tight">{tab.title}</span>
+                  <span className={`block text-base leading-tight`}>{tab.title}</span>
                 </ButtonTabSelector>
               </li>
             ))}
@@ -652,7 +653,7 @@ function CalculadoraDePrecios() {
       </main>
 
       {/* Footer */}
-      <footer className="text-center mt-12 p-4 border-t border-gray-300 max-w-6xl mx-auto border-accent2">
+      <footer className="text-center mt-12 p-4 border-t max-w-6xl mx-auto border-accent2">
         {/* Toggle Buttons for Concepts and Formulas */}
         <div className="flex justify-center gap-4 mb-6">
           <button
