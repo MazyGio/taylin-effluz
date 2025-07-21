@@ -61,7 +61,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         className="w-full text-center cursor-pointer py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-primary"
                     >
                         {t.precios.title}
-                        <span className="block text-sm font-normal mt-1 opacity-90">(Costos, Precios, Margen de Productos)</span>
+                        <span className="block text-sm font-normal mt-1 opacity-90">({t.precios.summary})</span>
                     </button>
 
                     <button
@@ -69,7 +69,7 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         className="w-full text-center cursor-pointer py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-blue2"
                     >
                         {t.consultoria.title}
-                        <span className="block text-sm font-normal mt-1 opacity-90">(Precios por hora)</span>
+                        <span className="block text-sm font-normal mt-1 opacity-90">({t.consultoria.summary})</span>
                     </button>
 
                     <button
@@ -77,13 +77,10 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         className="w-full text-center cursor-pointer py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-green2"
                     >
                         {t.utilidad.title}
-                        <span className="block text-sm font-normal mt-1 opacity-90">(Incluyendo comisiones)</span>
+                        <span className="block text-sm font-normal mt-1 opacity-90">({t.utilidad.summary})</span>
                     </button>
                 </div>
                 <div className="text-center mt-12">
-                    <p className="text-sm text-darkBlue">
-                        {t.common.developedBy}
-                    </p>
                     <p className="text-xs text-darkBlue mt-4 px-2">
                         {t.common.disclaimer}
                     </p>

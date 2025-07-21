@@ -1,6 +1,7 @@
 const calculadoraUtilidad_en = {
     title: "Profit Calculator",
     mainTitle: "Profit Calculator After Commissions",
+    summary: "Including commissions",
     subtitle1: "Developed by Taylin Luzcando",
     subtitle2_line1: "Calculate your real profitability when selling on online platforms,",
     subtitle2_line2: "using payment gateways and salespeople (USD$)",

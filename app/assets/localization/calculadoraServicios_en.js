@@ -1,6 +1,7 @@
 const calculadoraServicios_en = {
     title: "Service Price Calculator",
     mainTitle: "Consulting Service Price Calculator",
+    summary: "Hourly rates",
     subtitle: "Define your hourly rate based on your goals and costs (USD$)",
     languageToggle: { es: "ES", en: "EN" },
     inputsTitle: "1. Define Your Monthly Goals & Costs",

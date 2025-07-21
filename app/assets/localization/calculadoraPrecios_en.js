@@ -1,6 +1,7 @@
 const calculadoraPrecios_en = {
     title: "Business Calculator",
     mainTitle: "Business Calculator",
+    summary: "Costs, Prices, Product Margin",
     subtitle1: "Developed by Taylin Luzcando",
     subtitle2: "Calculator for Cost, Price, Margin, and Markup for your business (USD$)",
     languageToggle: "Español",
