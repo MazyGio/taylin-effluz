@@ -115,7 +115,7 @@ const ProductCostCalculator = ({ language, t }) => {
 
         <button
           onClick={handleCalculate}
-          className="w-full py-2 px-4 rounded-md text-primary font-bold transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md shadow-darkBlue"
+          className="w-full py-2 px-4 rounded-md text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer bg-primary shadow-md shadow-darkBlue"
         >
           {language === 'es' ? 'Calcular' : 'Calculate'}
         </button>
