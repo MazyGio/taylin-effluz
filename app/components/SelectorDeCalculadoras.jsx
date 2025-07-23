@@ -31,31 +31,12 @@ export default function SelectorDeCalculadoras({product, selectedVariant}) {
                         </p>
                 </div>
                 <div className="w-full max-w-lg flex flex-col gap-6">
-                    <div className="w-full text-center bg-purple cursor-pointer py-2 px-4 mb-8 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
-                        <CartForm route="/cart" inputs={{lines: [{
-                            merchandiseId: selectedVariant.id,
-                            quantity: 1,
-                            selectedVariant,
-                            }]}} action={CartForm.ACTIONS.LinesAdd}
-                        >
-                            {(fetcher) => (
-                                <>
-                                    <input
-                                        name="acceleratedCheckout"
-                                        type="hidden"
-                                        value="true"
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="w-full cursor-pointer"
-                                        // disabled={fetcher.state !== 'idle'}
-                                    >
-                                        {t.common.purchaseAccess}
-                                    </button>
-                                </>
-                            )}
-                        </CartForm>
-                    </div>
+                    <button
+                        onClick={() => navigate('/cart/50805268709668:1')}
+                        className="w-full text-center bg-purple cursor-pointer py-2 px-4 mb-8 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                    >
+                        {t.common.purchaseAccess}
+                    </button>
                     <button
                         onClick={() => navigate('/calculadora-precios')}
                         className="w-full text-center cursor-pointer py-6 px-4 rounded-xl text-white font-bold text-xl sm:text-2xl transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-primary"

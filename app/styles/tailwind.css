@@ -5,6 +5,13 @@
 
 @import 'tailwindcss';
 
+@layer base {
+    a:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
 @theme {
     --font-family: 'Albert Sans', sans-serif;
     --font-sans: 'Albert Sans', sans-serif;
@@ -49,11 +56,6 @@
 
     .header-menu-item.active {
         background-color: var(--color-accent2);
-    }
-
-    header a:hover {
-        text-decoration: underline;
-        cursor: pointer;
     }
 }
 
