@@ -300,7 +300,7 @@ const ServiceCalculator = () => {
                 <ResultRow label={t.results.taxBracket.label} value={results.isrResults.taxBracket} formula={t.results.taxBracket.formula} />
                 {results.isrResults.taxableSurplus > 0 && <ResultRow label={t.results.taxableSurplus.label} value={formatCurrency(results.isrResults.taxableSurplus)} formula={results.isrResults.taxableSurplusFormula} />}
                 <ResultRow label={t.results.estimatedISR.label} subLabel={t.results.estimatedISR.subLabel} value={formatCurrency(results.isrResults.estimatedISR)} formula={results.isrResults.isrFormula} />
-                <ResultRow label={t.results.annualIncomeAfterISR.label} subLabel={t.results.annualIncomeAfterISR.subLabel} value={formatCurrency(results.isrResults.annualIncomeAfterISR)} formula={t.results.annualIncomeAfterISR.formula} formulaNumbers={`${formatCurrency(results.isrResults.annualTaxableIncome)} - ${formatCurrency(results.isrResults.estimatedISR)} - (${formatCurrency(results.cssResults.cssPayment + results.saludResults.saludPayment)} * 12)`} isHighlighted={true} highlightColor={"green1"} />
+                <ResultRow label={t.results.annualIncomeAfterISR.label} subLabel={t.results.annualIncomeAfterISR.subLabel} value={formatCurrency(results.isrResults.annualIncomeAfterISR)} formula={t.results.annualIncomeAfterISR.formula} formulaNumbers={`${formatCurrency(results.isrResults.annualTaxableIncome)} - ${formatCurrency(results.isrResults.estimatedISR)} - (${formatCurrency((results.cssResults ? results.cssResults.cssPayment : 0) + (results.saludResults ? results.saludResults.saludPayment : 0))} * 12)`} isHighlighted={true} highlightColor={"green1"} />
               </div>
             )}
 
