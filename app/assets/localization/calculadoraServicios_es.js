@@ -1,7 +1,7 @@
 
 const calculadoraServicios_es = {
     title: "Calculadora para Servicios",
-    mainTitle: "Calculadora de Precios para Consultorías",
+    mainTitle: "Calculadora de Precios para Servicios",
     summary: "Precios por hora",
     subtitle: "Define tu tarifa por hora basada en tus metas y costos (USD$)",
     languageToggle: { es: "ES", en: "EN" },
