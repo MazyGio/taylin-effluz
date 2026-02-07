@@ -31,6 +31,7 @@ const calculadoraServicios_en = {
   
         totalMonthlyCosts: { label: "Total Operating Costs", formula: "Salary + Fixed Costs + Variable Costs" },
         costPerHour: { label: "True Cost per Hour", subLabel: "based on", formula: "Total Operating Costs / Billable Hours" },
+        annualizedLabel: "annualized",
         
         preTaxRevenue: { label: "Required Revenue (Subtotal)", formula: "Operating Costs / (1 - % Profit Margin)" },
         requiredProfit: { label: "Net Business Profit", formula: "Required Revenue - Total Operating Costs" },

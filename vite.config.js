@@ -34,6 +34,10 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ['improved-koi-normal.ngrok-free.app'],
+    allowedHosts: [
+      'improved-koi-normal.ngrok-free.app',
+      '9cda-190-35-58-34.ngrok-free.app',
+      'aracelis-unutilizable-genie.ngrok-free.dev',
+    ],
   },
 });

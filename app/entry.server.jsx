@@ -25,6 +25,8 @@ export default async function handleRequest(
     connectSrc: [
       "wss://improved-koi-normal.ngrok-free.app:*",
       "https://improved-koi-normal.ngrok-free.app:*",
+      "https://9cda-190-35-58-34.ngrok-free.app:*",
+      "https://aracelis-unutilizable-genie.ngrok-free.dev:*",
       "https://calculadora.effluz.com:*"
     ],
   });

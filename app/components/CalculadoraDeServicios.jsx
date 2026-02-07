@@ -5,7 +5,7 @@ import { translations } from '../assets/localization/translations';
 import { formatCurrency } from '../utils/formatter';
 
 // New Result Row Component
-const ResultRow = ({ label, subLabel, value, formula, formulaNumbers, isHighlighted = false, highlightColor, textColor }) => (
+const ResultRow = ({ label, subLabel, value, subValue = null, subValueLabel = null, formula, formulaNumbers, isHighlighted = false, highlightColor, textColor }) => (
   <div className={`flex justify-between items-center py-3 px-4 rounded-md bg-${highlightColor ? `${highlightColor}` : (isHighlighted ? 'lightGray1' : 'transparent')} ${isHighlighted ? 'shadow-sm' : ''}`}>
     <div>
       <p className="text-base font-semibold text-darkText">{label}</p>
@@ -13,7 +13,10 @@ const ResultRow = ({ label, subLabel, value, formula, formulaNumbers, isHighligh
       <p className="text-sm font-mono mt-1 text-darkText opacity-60">{formula}</p>
       {formulaNumbers && <p className="text-sm font-mono mt-1 text-darkText opacity-60">{formulaNumbers}</p>}
     </div>
-    <p className={`font-bold text-2xl ml-4 text-${textColor ? textColor : (isHighlighted ? 'primary' : 'darkText')}`}>{value}</p>
+    <div>
+      <p className={`font-bold text-2xl ml-4 text-${textColor ? textColor : (isHighlighted ? 'primary' : 'darkText')}`}>{value}</p>
+      {subValue && <p className="text-xs text-darkText text-right opacity-60">{subValue} {subValueLabel}</p>}
+    </div>
   </div>
 );
 
@@ -177,7 +180,7 @@ const ServiceCalculator = () => {
       }
       const totalAnnualCSS = (cssResults?.cssPayment || 0) * 12 + (saludResults?.saludPayment || 0) * 12;
       const annualIncomeAfterISR = annualTaxableIncome - estimatedISR - totalAnnualCSS;
-      isrResults = { annualTaxableIncome, taxBracket, taxableSurplus, taxableSurplusFormula, estimatedISR, isrFormula, annualIncomeAfterISR };
+      isrResults = { annualTaxableIncome, taxBracket, taxableSurplus, taxableSurplusFormula, estimatedISR, totalAnnualCSS, isrFormula, annualIncomeAfterISR };
     }
 
     setResults({
@@ -255,21 +258,21 @@ const ServiceCalculator = () => {
             <div>
               <SectionTitle title={t.results.sectionTitleCosts} />
               <p className="text-xs italic text-gray-600 px-4 mb-2">{t.results.salaryAsCostExplanation}</p>
-              <ResultRow label={t.results.totalMonthlyCosts.label} value={formatCurrency(results.totalMonthlyCosts)} formula={t.results.totalMonthlyCosts.formula} formulaNumbers={`${formatCurrency(results.income, 0)} + ${formatCurrency(results.totalMonthlyCosts - results.income, 0)}`} />
+              <ResultRow label={t.results.totalMonthlyCosts.label} value={formatCurrency(results.totalMonthlyCosts)} subValue={formatCurrency(results.totalMonthlyCosts*12)} subValueLabel={t.results.annualizedLabel} formula={t.results.totalMonthlyCosts.formula} formulaNumbers={`${formatCurrency(results.income, 0)} + ${formatCurrency(results.totalMonthlyCosts - results.income, 0)}`} />
               <ResultRow label={`${t.results.costPerHour.label} (${results.hours}h)`} value={formatCurrency(results.costPerHour)} formula={t.results.costPerHour.formula} formulaNumbers={`${formatCurrency(results.totalMonthlyCosts, 0)} / ${results.hours}`} isHighlighted={true} />
             </div>
 
             <div>
               <SectionTitle title={t.results.sectionTitleNoTax} />
-              <ResultRow label={t.results.preTaxRevenue.label} value={formatCurrency(results.preTaxRevenue)} formula={t.results.preTaxRevenue.formula} formulaNumbers={`${formatCurrency(results.totalMonthlyCosts, 0)} / (1 - ${results.profitMargin || 0}%)`} />
-              <ResultRow label={t.results.requiredProfit.label} value={formatCurrency(results.requiredProfit)} formula={t.results.requiredProfit.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} - ${formatCurrency(results.totalMonthlyCosts)}`} />
+              <ResultRow label={t.results.preTaxRevenue.label} value={formatCurrency(results.preTaxRevenue)} subValue={formatCurrency(results.preTaxRevenue*12)} subValueLabel={t.results.annualizedLabel} formula={t.results.preTaxRevenue.formula} formulaNumbers={`${formatCurrency(results.totalMonthlyCosts, 0)} / (1 - ${results.profitMargin || 0}%)`} />
+              <ResultRow label={t.results.requiredProfit.label} value={formatCurrency(results.requiredProfit)} subValue={formatCurrency(results.requiredProfit*12)} subValueLabel={t.results.annualizedLabel} formula={t.results.requiredProfit.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} - ${formatCurrency(results.totalMonthlyCosts)}`} />
               <ResultRow label={t.results.pricePerHourNoTax.label} value={formatCurrency(results.pricePerHourNoTax)} formula={t.results.pricePerHourNoTax.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} / ${results.hours}`} isHighlighted={true} />
             </div>
 
             <div>
               <SectionTitle title={t.results.sectionTitleWithTax} />
-              <ResultRow label={t.results.taxAmount.label} value={formatCurrency(results.taxAmount)} formula={t.results.taxAmount.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} * ${taxRate || 0}%`} />
-              <ResultRow label={t.results.totalBilling.label} value={formatCurrency(results.totalBilling)} formula={t.results.totalBilling.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} + ${formatCurrency(results.taxAmount)}`} />
+              <ResultRow label={t.results.taxAmount.label} value={formatCurrency(results.taxAmount)} subValue={`${formatCurrency(results.taxAmount*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.taxAmount.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} * ${taxRate || 0}%`} />
+              <ResultRow label={t.results.totalBilling.label} value={formatCurrency(results.totalBilling)} subValue={`${formatCurrency(results.totalBilling*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.totalBilling.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} + ${formatCurrency(results.taxAmount)}`} />
               <ResultRow label={t.results.pricePerHourWithTax.label} value={formatCurrency(results.pricePerHourWithTax)} formula={t.results.pricePerHourWithTax.formula} formulaNumbers={`${formatCurrency(results.totalBilling)} / ${results.hours}`} isHighlighted={true} />
             </div>
 
@@ -279,15 +282,15 @@ const ServiceCalculator = () => {
                 {results.cssResults && <>
                   <p className="text-xs italic text-gray-600 px-4 mb-2">{t.results.cssExplanation}</p>
                   <ResultRow label={t.results.cssBaseIncome.label} value={formatCurrency(results.cssResults.cssBaseIncome)} formula={t.results.cssBaseIncome.formula} formulaNumbers={`${formatCurrency(results.income, 0)} + ${formatCurrency(results.requiredProfit)} * 52%`} />
-                  <ResultRow label={t.results.cssPayment.label} subLabel={t.results.cssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment)} formula={t.results.cssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssBaseIncome)} * 9.36%`} isHighlighted={true} highlightColor={"blue1"} />
+                  <ResultRow label={t.results.cssPayment.label} subLabel={t.results.cssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment)} subValue={`${formatCurrency(results.cssResults.cssPayment*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.cssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssBaseIncome)} * 9.36%`} isHighlighted={true} highlightColor={"blue1"} />
                 </>}
                 {results.saludResults && <div className="mt-4">
                   <ResultRow label={t.results.saludBaseIncome.label} subLabel={t.results.saludExplanation} value={formatCurrency(results.saludResults.saludBaseIncome)} formula={t.results.saludBaseIncome.formula.replace('{minBase}', formatCurrency(800)).replace('{monthlyIncome}', formatCurrency(results.income + results.requiredProfit))} />
-                  <ResultRow label={t.results.saludPayment.label} subLabel={t.results.saludPayment.subLabel} value={formatCurrency(results.saludResults.saludPayment)} formula={t.results.saludPayment.formula} formulaNumbers={`${formatCurrency(results.saludResults.saludBaseIncome)} * 8.5%`} isHighlighted={true} highlightColor={"blue1"} />
+                  <ResultRow label={t.results.saludPayment.label} subLabel={t.results.saludPayment.subLabel} value={formatCurrency(results.saludResults.saludPayment)} subValue={`${formatCurrency(results.saludResults.saludPayment*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.saludPayment.formula} formulaNumbers={`${formatCurrency(results.saludResults.saludBaseIncome)} * 8.5%`} isHighlighted={true} highlightColor={"blue1"} />
                 </div>}
                 {results.cssResults && results.saludResults && (
                   <div className="mt-4">
-                    <ResultRow label={t.results.totalCssPayment.label} subLabel={t.results.totalCssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment + results.saludResults.saludPayment)} formula={t.results.totalCssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssPayment)} + ${formatCurrency(results.saludResults.saludPayment)}`} isHighlighted={true} highlightColor={"blue1"} />
+                    <ResultRow label={t.results.totalCssPayment.label} subLabel={t.results.totalCssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment + results.saludResults.saludPayment)} subValue={`${formatCurrency((results.cssResults.cssPayment + results.saludResults.saludPayment)*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.totalCssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssPayment)} + ${formatCurrency(results.saludResults.saludPayment)}`} isHighlighted={true} highlightColor={"blue1"} />
                   </div>
                 )}
               </div>

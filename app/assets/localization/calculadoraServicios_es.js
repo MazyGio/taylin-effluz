@@ -32,6 +32,7 @@ const calculadoraServicios_es = {
   
         totalMonthlyCosts: { label: "Costos Operativos Totales", formula: "Salario + Gastos Fijos + Gastos Variables" },
         costPerHour: { label: "Costo Real por Hora", subLabel: "basado en", formula: "Costos Operativos Totales / Horas Facturables" },
+        annualizedLabel: "anual",
         
         preTaxRevenue: { label: "Ingresos Requeridos (Subtotal)", formula: "Costos Operativos / (1 - % Margen)" },
         requiredProfit: { label: "Ganancia Neta del Negocio", formula: "Ingresos Requeridos - Costos Operativos" },

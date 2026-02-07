@@ -29,11 +29,14 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({ context, request, params }) {
-  const { data, errors } = await context.customerAccount.query(
-    CUSTOMER_DETAILS_QUERY,
-  );
+  if (!import.meta.env.DEV) {
+    const { data, errors } = await context.customerAccount.query(
+      CUSTOMER_DETAILS_QUERY,
+    );
 
-  return { data }
+    return { data }
+  }
+  return {}
 }
 
 /**
@@ -49,8 +52,12 @@ function loadDeferredData({ context }) {
 export default function CalculadoraServicios() {
   const { data } = useLoaderData();
   return (
-    <RestrictedContentByTags customer={data.customer} allowedTags={['cliente-calculadora']}>
+    import.meta.env.DEV ? (
       <CalculadoraDeServicios />
-    </RestrictedContentByTags>
+    ) : (
+      <RestrictedContentByTags customer={data.customer} allowedTags={['cliente-calculadora']}>
+        <CalculadoraDeServicios />
+      </RestrictedContentByTags>
+    )
   )
 }
