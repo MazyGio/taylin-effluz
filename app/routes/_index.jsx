@@ -29,14 +29,15 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context, request, params}) {
-  const {storefront} = context;
+  const {storefront, customerAccount} = context;
   const productId = "gid://shopify/Product/10115186000164";
 
-  const [{product}] = await Promise.all([
+  const [{product, isLoggedIn}] = await Promise.all([
     storefront.query(CALCULADORA_QUERY, {
       variables: {productId},
     }),
     // Add other queries here, so that they are loaded in parallel
+    customerAccount.isLoggedIn(),
   ]);
 
   if (!product?.id) {
@@ -45,6 +46,7 @@ async function loadCriticalData({context, request, params}) {
 
   return {
     product,
+    isLoggedIn,
   };
 }
 
@@ -60,13 +62,16 @@ function loadDeferredData({context}) {
 
 export default function SelectorCalculadoras() {
   /** @type {LoaderReturnData} */
-  const {product} = useLoaderData();
+  const {product, isLoggedIn} = useLoaderData();
 
   // Optimistically selects a variant with given available variant information
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
+
+  console.log('isLoggedIn', isLoggedIn);
+  console.log('product:', product);
 
   return (
     <SelectorDeCalculadoras product={product} selectedVariant={selectedVariant}/>
