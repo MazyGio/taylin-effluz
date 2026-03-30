@@ -62,8 +62,8 @@ const ProductCostCalculator = ({ language, t }) => {
       manufacturingOverhead: mo,
       otherCosts: oc,
       transportation: tr,
-      totalProductCost: totalProductCost,
-      overallTotalCost: overallTotalCost,
+      totalProductCost,
+      overallTotalCost,
     });
   };
 
@@ -170,12 +170,12 @@ const CostToPriceCalculator = ({ language, t }) => {
 
     setResults({
       cost: c,
-      profitMargin: profitMargin,
-      suggestedSellingPrice: suggestedSellingPrice,
-      taxAmount: taxAmount, // New output
-      suggestedSellingPriceWithTax: suggestedSellingPriceWithTax, // New output, highlighted
-      markup: markup,
-      profitPerUnit: profitPerUnit,
+      profitMargin,
+      suggestedSellingPrice,
+      taxAmount, // New output
+      suggestedSellingPriceWithTax, // New output, highlighted
+      markup,
+      profitPerUnit,
     });
   };
 
@@ -256,11 +256,11 @@ const MarginMarkupCalculator = ({ language, t }) => {
     setResults({
       cost: c,
       desiredSellingPricePreTax: dsp_pre_tax,
-      taxAmount: taxAmount,
+      taxAmount,
       desiredSellingPriceWithTax: dsp_with_tax,
-      profitMargin: profitMargin,
-      markup: markup,
-      profitPerUnit: profitPerUnit,
+      profitMargin,
+      markup,
+      profitPerUnit,
     });
   };
 
@@ -385,7 +385,7 @@ const DoubleMarginCalculator = ({ language, t }) => {
     setS1Results({
       directSales: {
         suggestedRetailPrice: srp_pre_tax,
-        taxAmount: taxAmount, // Use the calculated tax amount
+        taxAmount, // Use the calculated tax amount
         suggestedRetailPriceWithTax: srp_with_tax, // Use the calculated price with tax
         cost: c,
         grossMargin: directGrossMargin,
@@ -393,13 +393,13 @@ const DoubleMarginCalculator = ({ language, t }) => {
       },
       adjustedWholesaleSales: {
         suggestedRetailPrice: srp_pre_tax, // Pre-tax retail price
-        taxAmount: taxAmount,
+        taxAmount,
         suggestedRetailPriceWithTax: srp_with_tax, // Use the calculated price with tax
         cost: c,
-        priceToWholesaler: priceToWholesaler,
-        wholesalerMargin: wholesalerMargin,
-        sellerAdjustedMargin: sellerAdjustedMargin,
-        sellerProfit: sellerProfit,
+        priceToWholesaler,
+        wholesalerMargin,
+        sellerAdjustedMargin,
+        sellerProfit,
       },
     });
   };
@@ -441,11 +441,11 @@ const DoubleMarginCalculator = ({ language, t }) => {
       cost: c,
       desiredMargin: dm,
       wholesalerDesiredMargin: wdm,
-      priceToWholesaler: priceToWholesaler,
+      priceToWholesaler,
       suggestedPublicSellingPrice: suggestedPublicSellingPrice_pre_tax,
-      taxAmount: taxAmount,
+      taxAmount,
       suggestedPublicSellingPriceWithTax: suggestedPublicSellingPrice_with_tax,
-      yourProfit: yourProfit,
+      yourProfit,
       wholesalerProfit: wholesalerProfit_pre_tax, // This is pre-tax profit
     });
   };

@@ -1,8 +1,7 @@
+import SelectorDeCalculadoras from '~/components/SelectorDeCalculadoras';
 import {useLoaderData} from 'react-router';
-import CalculadorasLandingPage from '~/components/CalculadorasLandingPage';
-import CalculadorasDemoPage from '~/components/CalculadorasDemoPage';
-import { LandingPageLanguageSelector } from '~/components/LandingPageLanguageSelector';
-import { useLanguage } from '~/contexts/LanguageContext';
+import {useOptimisticVariant} from '@shopify/hydrogen';
+import {getAdjacentAndFirstAvailableVariants} from '@shopify/hydrogen';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -65,7 +64,6 @@ function loadDeferredData({context}) {
 export default function SelectorCalculadoras() {
   /** @type {LoaderReturnData} */
   const {isLoggedInPromise} = useLoaderData();
-  const { language, setLanguage } = useLanguage();
 
   // Optimistically selects a variant with given available variant information
   // const selectedVariant = useOptimisticVariant(
@@ -74,13 +72,7 @@ export default function SelectorCalculadoras() {
   // );
 
   return (
-    <div>
-      <div className="fixed top-0 right-0 p-8 z-10">
-          <LandingPageLanguageSelector language={language} setLanguage={setLanguage} />
-      </div>
-      <CalculadorasLandingPage />
-      <CalculadorasDemoPage />
-    </div>
+    <SelectorDeCalculadoras isLoggedInPromise={isLoggedInPromise}/>
   );
 }
 

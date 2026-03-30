@@ -29,6 +29,12 @@ export default async function handleRequest(
       "https://aracelis-unutilizable-genie.ngrok-free.dev:*",
       "https://calculadora.effluz.com:*"
     ],
+    styleSrc: [
+      "https://fonts.googleapis.com"
+    ],
+    fontSrc: [
+      "https://fonts.gstatic.com"
+    ]
   });
 
   const body = await renderToReadableStream(

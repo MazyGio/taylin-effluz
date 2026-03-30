@@ -30,10 +30,11 @@ export async function loader(args) {
  */
 async function loadCriticalData({ context, request, params }) {
   if (!import.meta.env.DEV) {
+    // if the user doesn't exist or isn't logged in, this query
+    // will redirect them to the login page
     const { data, errors } = await context.customerAccount.query(
       CUSTOMER_DETAILS_QUERY,
     );
-
     return { data }
   }
   return {}

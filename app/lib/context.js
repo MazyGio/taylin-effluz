@@ -1,8 +1,6 @@
 import {createHydrogenContext} from '@shopify/hydrogen';
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
-import {createCustomerAccountClient} from '@shopify/hydrogen';
-import {createCartHandler} from '@shopify/hydrogen';
 
 /**
  * The context implementation is separate from server.ts

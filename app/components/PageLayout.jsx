@@ -20,7 +20,7 @@ export function PageLayout({
   children = null,
   footer,
   header,
-  isLoggedIn,
+  isLoggedInPromise,
   publicStoreDomain,
 }) {
   return (
@@ -33,7 +33,7 @@ export function PageLayout({
           <Header
             header={header}
             cart={cart}
-            isLoggedIn={isLoggedIn}
+            isLoggedInPromise={isLoggedInPromise}
             publicStoreDomain={publicStoreDomain}
           />
         )}
@@ -176,7 +176,7 @@ function MobileMenuAside({ header, publicStoreDomain }) {
  * @property {Promise<CartApiQueryFragment|null>} cart
  * @property {Promise<FooterQuery|null>} footer
  * @property {HeaderQuery} header
- * @property {Promise<boolean>} isLoggedIn
+ * @property {Promise<boolean>} isLoggedInPromise
  * @property {string} publicStoreDomain
  * @property {React.ReactNode} [children]
  */

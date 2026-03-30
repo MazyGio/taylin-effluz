@@ -4,6 +4,7 @@
  */
 
 @import 'tailwindcss';
+/* @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100..900&display=swap'); */
 
 @layer base {
     a:hover {
@@ -12,7 +13,7 @@
     }
 }
 
-@theme {
+@theme static {
     --font-family: 'Albert Sans', sans-serif;
     --font-sans: 'Albert Sans', sans-serif;
     --font-body: 'Albert Sans', sans-serif;

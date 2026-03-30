@@ -11,11 +11,10 @@ import {
 } from 'react-router';
 import favicon from '~/assets/favicon.png';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
-import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
 import appStyles from '~/styles/app.css?url';
-import tailwindCss from './styles/tailwind.css?url';
+import tailwindCss from '~/styles/tailwind.css?url';
+import fonts from '~/styles/fonts.css?url';
 import {PageLayout} from './components/PageLayout';
-import {redirect} from '@shopify/remix-oxygen';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -57,6 +56,9 @@ export function links() {
       href: 'https://shop.app',
     },
     {rel: 'icon', type: 'image/png', href: favicon},
+    {rel: 'stylesheet', href: fonts},
+    {rel: 'stylesheet', href: tailwindCss},
+    {rel: 'stylesheet', href: appStyles},
   ];
 }
 
@@ -97,7 +99,7 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context}) {
-  const {storefront, customerAccount} = context;
+  const {storefront} = context;
 
   const [header] = await Promise.all([
     storefront.query(HEADER_QUERY, {
@@ -107,13 +109,11 @@ async function loadCriticalData({context}) {
       },
     }),
     // Add other queries here, so that they are loaded in parallel
-    // customerAccount.query(CUSTOMER_DETAILS_QUERY),
-    customerAccount.isLoggedIn(),
   ]);
 
   return {
     header,
-    // isLoggedIn: customerAccount.isLoggedIn(), n
+    // isLoggedIn: customerAccount.isLoggedIn(),
   };
 }
 
@@ -141,7 +141,7 @@ function loadDeferredData({context}) {
     });
   return {
     cart: cart.get(),
-    // isLoggedIn: customerAccount.isLoggedIn(),
+    isLoggedInPromise: customerAccount.isLoggedIn(),
     footer,
   };
 }
@@ -161,8 +161,9 @@ export function Layout({children}) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <link rel="stylesheet" href={tailwindCss}></link>
-        <link rel="stylesheet" href={appStyles}></link>
+        {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Albert+Sans" /> */}
+        {/* <link rel="stylesheet" href={tailwindCss}></link>
+        <link rel="stylesheet" href={appStyles}></link> */}
         <Meta />
         <Links />
       </head>

@@ -21,8 +21,10 @@ const calculadoraServicios_en = {
     results: {
         sectionTitleCosts: "Operating Costs",
         salaryAsCostExplanation: "Your salary is the most important cost. The business must be able to pay you and still be profitable.",
-        sectionTitleNoTax: "Revenue & Profit (pre-tax)",
-        sectionTitleWithTax: "Total Billing (with tax)",
+        sectionTitleNoTax: "Required Revenue & Profit (pre-tax)",
+        sectionSubtitleNoTax: "to cover costs and have a profit margin",
+        sectionTitleWithTax: "Required Billing (with tax)",
+        sectionSubtitleWithTax: "to reach required revenue",
         sectionTitleISR: "Estimated Income Tax (Annual)",
         sectionTitleCSS: "Estimated Social Security (Monthly)",
         cssExplanation: "This is the mandatory contribution for pension (IVM).",
@@ -33,12 +35,12 @@ const calculadoraServicios_en = {
         costPerHour: { label: "True Cost per Hour", subLabel: "based on", formula: "Total Operating Costs / Billable Hours" },
         annualizedLabel: "annualized",
         
-        preTaxRevenue: { label: "Required Revenue (Subtotal)", formula: "Operating Costs / (1 - % Profit Margin)" },
+        preTaxRevenue: { label: "Required Revenue (before Tax)", formula: "Operating Costs / (1 - % Profit Margin)" },
         requiredProfit: { label: "Net Business Profit", formula: "Required Revenue - Total Operating Costs" },
-        pricePerHourNoTax: { label: "Price per Hour (pre-tax)", formula: "Required Revenue / Billable Hours" },
+        pricePerHourNoTax: { label: "Price per Hour (before Tax)", formula: "Required Revenue / Billable Hours" },
   
         taxAmount: { label: "Tax Amount (e.g., VAT)", formula: "Required Revenue * % Tax" },
-        totalBilling: { label: "Total Revenue", formula: "Required Revenue + Tax Amount" },
+        totalBilling: { label: "Sales Total", formula: "Required Revenue + Tax Amount" },
         pricePerHourWithTax: { label: "Final Price per Hour (with tax)", formula: "Total Revenue / Billable Hours" },
         
         annualTaxableIncome: { label: "Annual Taxable Income", formula: "(Your Salary + Net Profit) * 12" },

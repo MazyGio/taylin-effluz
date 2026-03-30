@@ -12,3 +12,7 @@ export function formatPercentage(value, digits = 2) {
     }
     return `${value.toFixed(digits)}%`;
 }
+
+export function replaceNewLine(text) {
+    return text.replace(/\n/g, '<br>');
+}

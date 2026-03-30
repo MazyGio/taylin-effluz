@@ -6,6 +6,10 @@ import calculadoraUtilidad_es from "./calculadoraUtilidad_es";
 import calculadoraUtilidad_en from "./calculadoraUtilidad_en";
 import menu_es from "./menu_es";
 import menu_en from "./menu_en";
+import landing_es from "./landing_es";
+import landing_en from "./landing_en";
+import demo_es from "./demo_es";
+import demo_en from "./demo_en";
 
 export const translations = {
   es: {
@@ -20,6 +24,8 @@ export const translations = {
     precios: calculadoraPrecios_es,
     consultoria: calculadoraServicios_es,
     utilidad: calculadoraUtilidad_es,
+    landing: landing_es,
+    demo: demo_es,
     menu: menu_es,
   },
   en: {
@@ -34,6 +40,8 @@ export const translations = {
     precios: calculadoraPrecios_en,
     consultoria: calculadoraServicios_en,
     utilidad: calculadoraUtilidad_en,
+    landing: landing_en,
+    demo: demo_en,
     menu: menu_en,
   }
 };

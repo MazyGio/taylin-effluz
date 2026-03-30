@@ -15,7 +15,7 @@ export function InputField({ label, value, onChange, type = 'number', min = '0',
                     type={type}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
-                    className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 border-accent1 leading-tight focus:outline-none focus:shadow-outline ${hasPrefix ? 'pl-6' : 'pl-3'}`}
+                    className={`shadow text-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 border-accent1 leading-tight focus:outline-none focus:shadow-outline ${hasPrefix ? 'pl-6' : 'pl-3'}`}
                     min={min}
                     step={step}
                     placeholder={placeholder}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { translations } from '../assets/localization/translations';
 import { InputField } from './InputField';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -32,7 +32,7 @@ const CommissionCalculator = () => {
     const [taxRate, setTaxRate] = useState('');
     const [isTaxIncluded, setIsTaxIncluded] = useState(true);
     const [results, setResults] = useState(null);
-    const [autoCalculateMargin, setAutoCalculateMargin] = useState(false);
+    // const [autoCalculateMargin, setAutoCalculateMargin] = useState(false);
 
     useEffect(() => {
         const pc = parseFloat(productCost || 0);
@@ -106,20 +106,20 @@ const CommissionCalculator = () => {
 
         setResults({
             sellingPricePreTax: sp_pre_tax,
-            taxAmount: taxAmount,
+            taxAmount,
             sellingPriceWithTax: sp_with_tax,
-            expectedProfit: expectedProfit,
+            expectedProfit,
             expectedMargin: em,
             commissionPaymentAmount: commissionPaymentPercentAmount,
             paymentCommissionFixedAmount: pcf,
             websiteCommissionAmount: commissionWebsitePercentAmount,
-            sellerCommissionAmount: sellerCommissionAmount,
+            sellerCommissionAmount,
             otherCommissionsAmount: oc,
-            totalCommissions: totalCommissions,
-            finalProfit: finalProfit,
-            finalProfitMargin: finalProfitMargin,
-            profitDifference: profitDifference,
-            marginDifference: marginDifference
+            totalCommissions,
+            finalProfit,
+            finalProfitMargin,
+            profitDifference,
+            marginDifference
         });
     };
 

@@ -1,34 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { InputField } from './InputField';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../assets/localization/translations';
 import { formatCurrency } from '../utils/formatter';
 
 // New Result Row Component
-const ResultRow = ({ label, subLabel, value, subValue = null, subValueLabel = null, formula, formulaNumbers, isHighlighted = false, highlightColor, textColor }) => (
-  <div className={`flex justify-between items-center py-3 px-4 rounded-md bg-${highlightColor ? `${highlightColor}` : (isHighlighted ? 'lightGray1' : 'transparent')} ${isHighlighted ? 'shadow-sm' : ''}`}>
+const ResultRow = ({ label, subLabel, value, subValue = null, subValueLabel = null, formula, formulaNumbers, isHighlighted = false, highlightColor }) => (
+  <div className={`flex justify-between items-center py-3 px-4 rounded-md bg-${highlightColor ? `${highlightColor}` : (isHighlighted ? 'blue1' : 'transparent')} ${isHighlighted ? 'shadow-sm' : ''}`}>
     <div>
-      <p className="text-base font-semibold text-darkText">{label}</p>
+      <p className="text-sm font-semibold text-darkText">{label}</p>
       {subLabel && <p className="text-xs text-darkText opacity-80">{subLabel}</p>}
-      <p className="text-sm font-mono mt-1 text-darkText opacity-60">{formula}</p>
-      {formulaNumbers && <p className="text-sm font-mono mt-1 text-darkText opacity-60">{formulaNumbers}</p>}
+      <p className="text-xs font-mono mt-1 text-darkText opacity-60">{formula}</p>
+      {formulaNumbers && <p className="text-xs font-mono mt-1 text-darkText opacity-60">{formulaNumbers}</p>}
     </div>
     <div>
-      <p className={`font-bold text-2xl ml-4 text-${textColor ? textColor : (isHighlighted ? 'primary' : 'darkText')}`}>{value}</p>
+      <p className={`font-bold text-lg ml-4 text-${isHighlighted ? 'primary' : 'darkText opacity-70'}`}>{value}</p>
       {subValue && <p className="text-xs text-darkText text-right opacity-60">{subValue} {subValueLabel}</p>}
     </div>
   </div>
 );
 
 // New Section Title Component
-const SectionTitle = ({ title }) => (
-  <div className="mt-6 mb-2">
-    <h4 className="text-lg font-bold p-2 rounded-md text-lightText bg-darkText">{title}</h4>
+const SectionTitle = ({ title, subtitle }) => (
+  <div className="mt-6 mb-2 p-2 rounded-md bg-darkText">
+    <h4 className="text-lg font-bold text-lightText">{title}</h4>
+    {subtitle && <p className="text-xs text-lightText italic opacity-70">{subtitle}</p>}
   </div>
 );
 
 // New Suggested Price Card
-const SuggestedPriceCard = ({ t, title, price, basePrice, basePriceLabel, bgColor, textColor }) => (
+const SuggestedPriceCard = ({ title, price, basePrice, basePriceLabel, bgColor, textColor }) => (
   <div className={`p-4 rounded-lg shadow-lg flex flex-col items-center justify-center text-center h-40 bg-${bgColor} text-${textColor}`}>
     <h5 className="font-bold text-base text-center">{title}</h5>
     <p className="text-4xl font-extrabold my-2">{formatCurrency(price, 0)}</p>
@@ -240,6 +241,7 @@ const ServiceCalculator = () => {
             <label htmlFor="include-salud" className="ml-2 block text-sm text-gray-900">{t.inputs.includeSalud}</label>
           </div>
         </div>
+        <span className="text-blue1 bg-blue1 bg-lightGray2 bg-green1"></span>
 
         <button
           onClick={handleCalculate}
@@ -252,25 +254,24 @@ const ServiceCalculator = () => {
 
       {/* Results Section */}
       <div className="lg:col-span-3 p-6 rounded-lg bg-lightGray1">
-        <h3 className="text-2xl font-bold mb-6 text-primary">{t.resultsTitle}</h3>
+        <h3 className="text-lg font-bold mb-6 text-primary">{t.resultsTitle}</h3>
         {results ? (
           <div className="space-y-4">
             <div>
-              <SectionTitle title={t.results.sectionTitleCosts} />
-              <p className="text-xs italic text-gray-600 px-4 mb-2">{t.results.salaryAsCostExplanation}</p>
+              <SectionTitle title={t.results.sectionTitleCosts} subtitle={t.results.salaryAsCostExplanation} />
               <ResultRow label={t.results.totalMonthlyCosts.label} value={formatCurrency(results.totalMonthlyCosts)} subValue={formatCurrency(results.totalMonthlyCosts*12)} subValueLabel={t.results.annualizedLabel} formula={t.results.totalMonthlyCosts.formula} formulaNumbers={`${formatCurrency(results.income, 0)} + ${formatCurrency(results.totalMonthlyCosts - results.income, 0)}`} />
               <ResultRow label={`${t.results.costPerHour.label} (${results.hours}h)`} value={formatCurrency(results.costPerHour)} formula={t.results.costPerHour.formula} formulaNumbers={`${formatCurrency(results.totalMonthlyCosts, 0)} / ${results.hours}`} isHighlighted={true} />
             </div>
 
             <div>
-              <SectionTitle title={t.results.sectionTitleNoTax} />
+              <SectionTitle title={t.results.sectionTitleNoTax} subtitle={t.results.sectionSubtitleNoTax} />
               <ResultRow label={t.results.preTaxRevenue.label} value={formatCurrency(results.preTaxRevenue)} subValue={formatCurrency(results.preTaxRevenue*12)} subValueLabel={t.results.annualizedLabel} formula={t.results.preTaxRevenue.formula} formulaNumbers={`${formatCurrency(results.totalMonthlyCosts, 0)} / (1 - ${results.profitMargin || 0}%)`} />
               <ResultRow label={t.results.requiredProfit.label} value={formatCurrency(results.requiredProfit)} subValue={formatCurrency(results.requiredProfit*12)} subValueLabel={t.results.annualizedLabel} formula={t.results.requiredProfit.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} - ${formatCurrency(results.totalMonthlyCosts)}`} />
               <ResultRow label={t.results.pricePerHourNoTax.label} value={formatCurrency(results.pricePerHourNoTax)} formula={t.results.pricePerHourNoTax.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} / ${results.hours}`} isHighlighted={true} />
             </div>
 
             <div>
-              <SectionTitle title={t.results.sectionTitleWithTax} />
+              <SectionTitle title={t.results.sectionTitleWithTax} subtitle={t.results.sectionSubtitleWithTax} />
               <ResultRow label={t.results.taxAmount.label} value={formatCurrency(results.taxAmount)} subValue={`${formatCurrency(results.taxAmount*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.taxAmount.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} * ${taxRate || 0}%`} />
               <ResultRow label={t.results.totalBilling.label} value={formatCurrency(results.totalBilling)} subValue={`${formatCurrency(results.totalBilling*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.totalBilling.formula} formulaNumbers={`${formatCurrency(results.preTaxRevenue)} + ${formatCurrency(results.taxAmount)}`} />
               <ResultRow label={t.results.pricePerHourWithTax.label} value={formatCurrency(results.pricePerHourWithTax)} formula={t.results.pricePerHourWithTax.formula} formulaNumbers={`${formatCurrency(results.totalBilling)} / ${results.hours}`} isHighlighted={true} />
@@ -278,15 +279,14 @@ const ServiceCalculator = () => {
 
             {(results.cssResults || results.saludResults) && (
               <div>
-                <SectionTitle title={t.results.sectionTitleCSS} />
+                <SectionTitle title={t.results.sectionTitleCSS} subtitle={t.results.sectionSubtitleCSS}/>
                 {results.cssResults && <>
-                  <p className="text-xs italic text-gray-600 px-4 mb-2">{t.results.cssExplanation}</p>
                   <ResultRow label={t.results.cssBaseIncome.label} value={formatCurrency(results.cssResults.cssBaseIncome)} formula={t.results.cssBaseIncome.formula} formulaNumbers={`${formatCurrency(results.income, 0)} + ${formatCurrency(results.requiredProfit)} * 52%`} />
-                  <ResultRow label={t.results.cssPayment.label} subLabel={t.results.cssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment)} subValue={`${formatCurrency(results.cssResults.cssPayment*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.cssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssBaseIncome)} * 9.36%`} isHighlighted={true} highlightColor={"blue1"} />
+                  <ResultRow label={t.results.cssPayment.label} subLabel={t.results.cssPayment.subLabel} value={formatCurrency(results.cssResults.cssPayment)} subValue={`${formatCurrency(results.cssResults.cssPayment*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.cssPayment.formula} formulaNumbers={`${formatCurrency(results.cssResults.cssBaseIncome)} * 9.36%`} isHighlighted={true} highlightColor={"lightGray2"} />
                 </>}
                 {results.saludResults && <div className="mt-4">
-                  <ResultRow label={t.results.saludBaseIncome.label} subLabel={t.results.saludExplanation} value={formatCurrency(results.saludResults.saludBaseIncome)} formula={t.results.saludBaseIncome.formula.replace('{minBase}', formatCurrency(800)).replace('{monthlyIncome}', formatCurrency(results.income + results.requiredProfit))} />
-                  <ResultRow label={t.results.saludPayment.label} subLabel={t.results.saludPayment.subLabel} value={formatCurrency(results.saludResults.saludPayment)} subValue={`${formatCurrency(results.saludResults.saludPayment*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.saludPayment.formula} formulaNumbers={`${formatCurrency(results.saludResults.saludBaseIncome)} * 8.5%`} isHighlighted={true} highlightColor={"blue1"} />
+                  <ResultRow label={t.results.saludBaseIncome.label} subLabel={t.results.saludExplanation} value={formatCurrency(results.saludResults.saludBaseIncome)} formula={t.results.saludBaseIncome.formula.replace('{minBase}', formatCurrency(800)).replace('{monthlyIncome}', formatCurrency(results.income + results.requiredProfit))} formulaNumbers={`${formatCurrency(results.income, 0)} + ${formatCurrency(results.requiredProfit)}`}/>
+                  <ResultRow label={t.results.saludPayment.label} subLabel={t.results.saludPayment.subLabel} value={formatCurrency(results.saludResults.saludPayment)} subValue={`${formatCurrency(results.saludResults.saludPayment*12)}`} subValueLabel={t.results.annualizedLabel} formula={t.results.saludPayment.formula} formulaNumbers={`${formatCurrency(results.saludResults.saludBaseIncome)} * 8.5%`} isHighlighted={true} highlightColor={"lightGray2"} />
                 </div>}
                 {results.cssResults && results.saludResults && (
                   <div className="mt-4">
@@ -303,7 +303,7 @@ const ServiceCalculator = () => {
                 <ResultRow label={t.results.taxBracket.label} value={results.isrResults.taxBracket} formula={t.results.taxBracket.formula} />
                 {results.isrResults.taxableSurplus > 0 && <ResultRow label={t.results.taxableSurplus.label} value={formatCurrency(results.isrResults.taxableSurplus)} formula={results.isrResults.taxableSurplusFormula} />}
                 <ResultRow label={t.results.estimatedISR.label} subLabel={t.results.estimatedISR.subLabel} value={formatCurrency(results.isrResults.estimatedISR)} formula={results.isrResults.isrFormula} />
-                <ResultRow label={t.results.annualIncomeAfterISR.label} subLabel={t.results.annualIncomeAfterISR.subLabel} value={formatCurrency(results.isrResults.annualIncomeAfterISR)} formula={t.results.annualIncomeAfterISR.formula} formulaNumbers={`${formatCurrency(results.isrResults.annualTaxableIncome)} - ${formatCurrency(results.isrResults.estimatedISR)} - (${formatCurrency((results.cssResults ? results.cssResults.cssPayment : 0) + (results.saludResults ? results.saludResults.saludPayment : 0))} * 12)`} isHighlighted={true} highlightColor={"green1"} />
+                <ResultRow label={t.results.annualIncomeAfterISR.label} subLabel={t.results.annualIncomeAfterISR.subLabel} value={formatCurrency(results.isrResults.annualIncomeAfterISR)} formula={t.results.annualIncomeAfterISR.formula} formulaNumbers={`${formatCurrency(results.isrResults.annualTaxableIncome)} - ${formatCurrency(results.isrResults.estimatedISR)} - (${formatCurrency((results.cssResults ? results.cssResults.cssPayment : 0) + (results.saludResults ? results.saludResults.saludPayment : 0))} * 12)`} isHighlighted={true} highlightColor={"blue1"} />
               </div>
             )}
 
@@ -313,8 +313,8 @@ const ServiceCalculator = () => {
                 <SuggestedPriceCard
                   title={t.results.roundedPriceNoTax.label}
                   price={results.roundedPriceNoTax}
-                  bgColor={"green1"}
-                  textColor={"darkGreen"}
+                  bgColor={"lightGray2"}
+                  textColor={"darkBlue"}
                 />
                 <SuggestedPriceCard
                   title={t.results.roundedPriceWithTax.label}
@@ -338,41 +338,15 @@ const ServiceCalculator = () => {
   );
 };
 
-// Collapsible Footer Section Component
-const CollapsibleSection = ({ title, children, isOpen, onToggle }) => (
-  <div className="border bg-white rounded-lg mb-4 shadow-md">
-    <button
-      onClick={onToggle}
-      className="w-full flex justify-between items-center p-4 focus:outline-none"
-    >
-      <h4 className="text-lg font-semibold text-primary">{title}</h4>
-      <span className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
-        <svg className="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-      </span>
-    </button>
-    {isOpen && (
-      <div className="p-4 border-t bg-lightGray1">
-        {children}
-      </div>
-    )}
-  </div>
-);
-
-
 // Main App Component
 function CalculadoraDeServicios() {
   const { language } = useLanguage();
-  const [openSection, setOpenSection] = useState(null);
   const t = translations[language].consultoria;
   const tCommon = translations[language].common;
 
   // State for collapsible footer sections
   const [showConcepts, setShowConcepts] = useState(false);
   const [showFormulas, setShowFormulas] = useState(false);
-
-  const toggleSection = (section) => {
-    setOpenSection(openSection === section ? null : section);
-  };
 
   return (
     <>

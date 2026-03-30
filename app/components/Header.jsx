@@ -1,24 +1,28 @@
 import { Suspense } from 'react';
-import { Await, NavLink, useAsyncValue } from 'react-router';
+import { Await, Link, NavLink, useAsyncValue } from 'react-router';
 import { useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
 import { useAside } from '~/components/Aside';
 import { customMenu } from '~/custom-data/calculadoraMenu';
 import { LanguageSelector } from './LanguageSelector';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../assets/localization/translations';
+import { CalculadorasHomeButton } from './CalculadorasHomeButton';
+import { LuCircleUserRound } from 'react-icons/lu';
+import { useLocation } from 'react-router';
 
 /**
  * @param {HeaderProps}
  */
-export function Header({ header, isLoggedIn, cart, publicStoreDomain }) {
+export function Header({ header, isLoggedInPromise: isLoggedInPromise, cart, publicStoreDomain }) {
   const { shop, menu } = header;
   const { language } = useLanguage();
+  const location = useLocation();
   const t = translations[language].menu;
 
   return (
-    <header className="header">
+    location.pathname !== "/" && <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>&larr; {t.home}</strong>
+        <CalculadorasHomeButton />
       </NavLink>
       <HeaderMenu
         menu={customMenu}
@@ -26,7 +30,7 @@ export function Header({ header, isLoggedIn, cart, publicStoreDomain }) {
         primaryDomainUrl={header.shop.primaryDomain.url}
         publicStoreDomain={publicStoreDomain}
       />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      <HeaderCtas isLoggedInPromise={isLoggedInPromise} cart={cart} />
     </header>
   );
 }
@@ -80,24 +84,29 @@ export function HeaderMenu({
 }
 
 /**
- * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
+ * @param {Pick<HeaderProps, 'isLoggedInPromise' | 'cart'>}
  */
-function HeaderCtas({ isLoggedIn, cart }) {
+function HeaderCtas({ isLoggedInPromise: isLoggedInPromise, cart }) {
   const { language, setLanguage } = useLanguage();
   
   return (
     <nav className="header-ctas" role="navigation">
+      <Suspense fallback="Loading...">
+        <Await resolve={isLoggedInPromise}>
+          {(isLoggedIn) => (
+            <Link to={isLoggedIn ? "/account" : "/login"}>
+              <div className="flex flex-col items-center justify-center text-primary">
+                <span className="text-2xl">
+                  <LuCircleUserRound />
+                </span>
+                <span className="text-xs">{isLoggedIn ? "Cuenta" : "Login"}</span>
+              </div>
+            </Link>
+          )}
+        </Await>
+      </Suspense>
       <LanguageSelector language={language} setLanguage={setLanguage} />
       <HeaderMenuMobileToggle />
-      {/* <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Iniciar Sesión">
-            {(isLoggedIn) => (isLoggedIn ? 'Mi Cuenta' : 'Iniciar Sesión')}
-          </Await>
-        </Suspense>
-      </NavLink>
-      <SearchToggle />
-      <CartToggle cart={cart} /> */}
     </nav>
   );
 }
@@ -109,7 +118,7 @@ function HeaderMenuMobileToggle() {
       className="header-menu-mobile-toggle reset cursor-pointer"
       onClick={() => open('mobile')}
     >
-      <h3>☰</h3>
+      <p className="text-xl font-extrabold">☰</p>
     </button>
   );
 }
@@ -228,7 +237,7 @@ function activeLinkStyle({ isActive, isPending }) {
  * @typedef {Object} HeaderProps
  * @property {HeaderQuery} header
  * @property {Promise<CartApiQueryFragment|null>} cart
- * @property {Promise<boolean>} isLoggedIn
+ * @property {Promise<boolean>} isLoggedInPromise
  * @property {string} publicStoreDomain
  */
 
