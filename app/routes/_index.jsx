@@ -3,6 +3,7 @@ import CalculadorasLandingPage from '~/components/CalculadorasLandingPage';
 import CalculadorasDemoPage from '~/components/CalculadorasDemoPage';
 import { LandingPageLanguageSelector } from '~/components/LandingPageLanguageSelector';
 import { useLanguage } from '~/contexts/LanguageContext';
+import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -30,23 +31,19 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context, request, params}) {
-  const {storefront, customerAccount} = context;
-  const productId = "gid://shopify/Product/10115186000164";
+  const {customerAccount} = context;
+  const isLoggedIn = await customerAccount.isLoggedIn();
+  let customerDetails = null;
 
-  const [{product}] = await Promise.all([
-    storefront.query(CALCULADORA_QUERY, {
-      variables: {productId},
-    }),
-    // Add other queries here, so that they are loaded in parallel
-    customerAccount.isLoggedIn(),
-  ]);
-
-  if (!product?.id) {
-    throw new Response(null, {status: 404});
+  if (isLoggedIn) {
+    customerDetails = await context.customerAccount.query(
+      CUSTOMER_DETAILS_QUERY,
+    );
   }
 
   return {
-    product,
+    isLoggedIn,
+    customerDetails: customerDetails || null,
   };
 }
 
@@ -56,15 +53,13 @@ async function loadCriticalData({context, request, params}) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {LoaderFunctionArgs}
  */
-function loadDeferredData({context}) {
-  const {customerAccount} = context;
-
-  return {isLoggedInPromise: customerAccount.isLoggedIn()};
+function loadDeferredData() {
+  return {};
 }
 
 export default function SelectorCalculadoras() {
   /** @type {LoaderReturnData} */
-  const {isLoggedInPromise} = useLoaderData();
+  const { isLoggedIn, customerDetails } = useLoaderData();
   const { language, setLanguage } = useLanguage();
 
   // Optimistically selects a variant with given available variant information
@@ -73,12 +68,15 @@ export default function SelectorCalculadoras() {
   //   getAdjacentAndFirstAvailableVariants(product),
   // );
 
+  console.log("testing now", isLoggedIn);
+  console.log("customer details", customerDetails);
+
   return (
     <div>
       <div className="fixed top-0 right-0 p-8 z-10">
           <LandingPageLanguageSelector language={language} setLanguage={setLanguage} />
       </div>
-      <CalculadorasLandingPage />
+      <CalculadorasLandingPage isLoggedIn={isLoggedIn} customerDetails={customerDetails} />
       <CalculadorasDemoPage />
     </div>
   );

@@ -17,7 +17,7 @@ export default function CalculadorasDemoPage() {
                 <div className="flex flex-col p-4 items-center">
                     <div id="demo-title" className="flex flex-row items-center sm:self-start sm:pl-4 mt-6">
                         <div className="h-[4rem] sm:h-[6rem] px-2">
-                            <Image src="/app/assets/calc-demo-icon.jpg" alt="Calculadoras Demo" className="max-w-[8rem]" />
+                            <Image src="/app/assets/calc-demo-icon.jpg" alt="Calculadoras Demo" className="max-w-[8rem]" sizes="(max-width: 160px) 4rem, 6rem" />
                         </div>
                         <div className="px-2">
                             <h1 className="text-3xl text-white font-extrabold">
@@ -31,21 +31,21 @@ export default function CalculadorasDemoPage() {
                             subtitle={t.demo.calculadoraNegociosSubtitle}
                             headerClassName="bg-primary"
                         >
-                            <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" />
+                            <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" />
                         </CalculadoraDemoCard>
                         <CalculadoraDemoCard
                             title={t.demo.calculadoraServiciosTitle}
                             subtitle={t.demo.calculadoraServiciosSubtitle}
                             headerClassName="bg-blue2"
                         >
-                            <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" />
+                            <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" />
                         </CalculadoraDemoCard>
                         <CalculadoraDemoCard
                             title={t.demo.calculadoraUtilidadTitle}
                             subtitle={t.demo.calculadoraUtilidadSubtitle}
                             headerClassName="bg-darkGreen"
                         >
-                            <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" />
+                            <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" />
                         </CalculadoraDemoCard>
                     </div>
                     <div id="demo-disclaimer" className="mt-4 sm:mt-0">

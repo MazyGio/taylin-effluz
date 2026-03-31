@@ -29,24 +29,24 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context, request, params}) {
-  const {storefront, customerAccount} = context;
-  const productId = "gid://shopify/Product/10115186000164";
+  // const {storefront} = context;
+  // const productId = "gid://shopify/Product/10115186000164";
 
-  const [{product}] = await Promise.all([
-    storefront.query(CALCULADORA_QUERY, {
-      variables: {productId},
-    }),
-    // Add other queries here, so that they are loaded in parallel
-    customerAccount.isLoggedIn(),
-  ]);
+  // const [{product}] = await Promise.all([
+  //   storefront.query(CALCULADORA_QUERY, {
+  //     variables: {productId},
+  //   }),
+  //   // Add other queries here, so that they are loaded in parallel
+  // ]);
 
-  if (!product?.id) {
-    throw new Response(null, {status: 404});
-  }
+  // if (!product?.id) {
+  //   throw new Response(null, {status: 404});
+  // }
 
-  return {
-    product,
-  };
+  // return {
+  //   product,
+  // };
+  return {};
 }
 
 /**
@@ -76,90 +76,90 @@ export default function SelectorCalculadoras() {
   );
 }
 
-const PRODUCT_VARIANT_FRAGMENT = `#graphql
-  fragment CalculadoraProductVariant on ProductVariant {
-    availableForSale
-    compareAtPrice {
-      amount
-      currencyCode
-    }
-    id
-    image {
-      __typename
-      id
-      url
-      altText
-      width
-      height
-    }
-    price {
-      amount
-      currencyCode
-    }
-    product {
-      title
-      handle
-    }
-    selectedOptions {
-      name
-      value
-    }
-    sku
-    title
-    unitPrice {
-      amount
-      currencyCode
-    }
-  }
-`;
+// const PRODUCT_VARIANT_FRAGMENT = `#graphql
+//   fragment CalculadoraProductVariant on ProductVariant {
+//     availableForSale
+//     compareAtPrice {
+//       amount
+//       currencyCode
+//     }
+//     id
+//     image {
+//       __typename
+//       id
+//       url
+//       altText
+//       width
+//       height
+//     }
+//     price {
+//       amount
+//       currencyCode
+//     }
+//     product {
+//       title
+//       handle
+//     }
+//     selectedOptions {
+//       name
+//       value
+//     }
+//     sku
+//     title
+//     unitPrice {
+//       amount
+//       currencyCode
+//     }
+//   }
+// `;
 
-const PRODUCT_FRAGMENT = `#graphql
-  fragment CalculadoraProduct on Product {
-    id
-    title
-    vendor
-    handle
-    descriptionHtml
-    description
-    encodedVariantExistence
-    encodedVariantAvailability
-    options {
-      name
-      optionValues {
-        name
-        firstSelectableVariant {
-          ...CalculadoraProductVariant
-        }
-        swatch {
-          color
-          image {
-            previewImage {
-              url
-            }
-          }
-        }
-      }
-    }
-    selectedOrFirstAvailableVariant(ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
-      ...CalculadoraProductVariant
-    }
-    adjacentVariants {
-      ...CalculadoraProductVariant
-    }
-    seo {
-      description
-      title
-    }
-  }
-  ${PRODUCT_VARIANT_FRAGMENT}
-`;
+// const PRODUCT_FRAGMENT = `#graphql
+//   fragment CalculadoraProduct on Product {
+//     id
+//     title
+//     vendor
+//     handle
+//     descriptionHtml
+//     description
+//     encodedVariantExistence
+//     encodedVariantAvailability
+//     options {
+//       name
+//       optionValues {
+//         name
+//         firstSelectableVariant {
+//           ...CalculadoraProductVariant
+//         }
+//         swatch {
+//           color
+//           image {
+//             previewImage {
+//               url
+//             }
+//           }
+//         }
+//       }
+//     }
+//     selectedOrFirstAvailableVariant(ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
+//       ...CalculadoraProductVariant
+//     }
+//     adjacentVariants {
+//       ...CalculadoraProductVariant
+//     }
+//     seo {
+//       description
+//       title
+//     }
+//   }
+//   ${PRODUCT_VARIANT_FRAGMENT}
+// `;
 
-const CALCULADORA_QUERY = `#graphql
-  query {
-    product(id: "gid://shopify/Product/10115186000164") {
-      ...CalculadoraProduct
-    }
-  }
-  ${PRODUCT_FRAGMENT}
-`;
+// const CALCULADORA_QUERY = `#graphql
+//   query {
+//     product(id: "gid://shopify/Product/10115186000164") {
+//       ...CalculadoraProduct
+//     }
+//   }
+//   ${PRODUCT_FRAGMENT}
+// `;
 

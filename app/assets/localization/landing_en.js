@@ -3,4 +3,5 @@ export default {
   subtitle: "Define the prices, costs, margins, profit and taxes of your products and services.",
   purchaseAccess: "Purchase access here\n$30 for 12 months",
   purchaseDetail: "$30 for 12 months",
+  launchApp: "Launch app"
 };

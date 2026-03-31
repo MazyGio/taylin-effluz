@@ -15,9 +15,7 @@ import { useLocation } from 'react-router';
  */
 export function Header({ header, isLoggedInPromise: isLoggedInPromise, cart, publicStoreDomain }) {
   const { shop, menu } = header;
-  const { language } = useLanguage();
   const location = useLocation();
-  const t = translations[language].menu;
 
   return (
     location.pathname !== "/" && <header className="header">
@@ -68,6 +66,7 @@ export function HeaderMenu({
             : item.url;
         return (
           <NavLink
+            key={item.title}
             className="header-menu-item rounded-lg px-2 py-1"
             end
             onClick={close}
@@ -86,7 +85,7 @@ export function HeaderMenu({
 /**
  * @param {Pick<HeaderProps, 'isLoggedInPromise' | 'cart'>}
  */
-function HeaderCtas({ isLoggedInPromise: isLoggedInPromise, cart }) {
+function HeaderCtas({ isLoggedInPromise: isLoggedInPromise }) {
   const { language, setLanguage } = useLanguage();
   
   return (
@@ -95,7 +94,7 @@ function HeaderCtas({ isLoggedInPromise: isLoggedInPromise, cart }) {
         <Await resolve={isLoggedInPromise}>
           {(isLoggedIn) => (
             <Link to={isLoggedIn ? "/account" : "/login"}>
-              <div className="flex flex-col items-center justify-center text-primary">
+              <div className="flex flex-col items-center justify-center mt-1 text-primary">
                 <span className="text-2xl">
                   <LuCircleUserRound />
                 </span>
@@ -119,15 +118,6 @@ function HeaderMenuMobileToggle() {
       onClick={() => open('mobile')}
     >
       <p className="text-xl font-extrabold">☰</p>
-    </button>
-  );
-}
-
-function SearchToggle() {
-  const { open } = useAside();
-  return (
-    <button className="reset" onClick={() => open('search')}>
-      Search
     </button>
   );
 }
@@ -176,48 +166,6 @@ function CartBanner() {
   const cart = useOptimisticCart(originalCart);
   return <CartBadge count={cart?.totalQuantity ?? 0} />;
 }
-
-const FALLBACK_HEADER_MENU = {
-  id: 'gid://shopify/Menu/199655587896',
-  items: [
-    {
-      id: 'gid://shopify/MenuItem/461609500728',
-      resourceId: null,
-      tags: [],
-      title: 'Collections',
-      type: 'HTTP',
-      url: '/collections',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609533496',
-      resourceId: null,
-      tags: [],
-      title: 'Blog',
-      type: 'HTTP',
-      url: '/blogs/journal',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609566264',
-      resourceId: null,
-      tags: [],
-      title: 'Policies',
-      type: 'HTTP',
-      url: '/policies',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609599032',
-      resourceId: 'gid://shopify/Page/92591030328',
-      tags: [],
-      title: 'About',
-      type: 'PAGE',
-      url: '/pages/about',
-      items: [],
-    },
-  ],
-};
 
 /**
  * @param {{
