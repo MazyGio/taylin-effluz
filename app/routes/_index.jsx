@@ -8,7 +8,7 @@ import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetai
 /**
  * @type {MetaFunction<typeof loader>}
  */
-export const meta = ({data}) => {
+export const meta = () => {
   return [{title: `Taylin Luzcando - Calculadoras`}];
 };
 
@@ -30,7 +30,7 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {LoaderFunctionArgs}
  */
-async function loadCriticalData({context, request, params}) {
+async function loadCriticalData({ context }) {
   const {customerAccount} = context;
   const isLoggedIn = await customerAccount.isLoggedIn();
   let customerDetails = null;
@@ -62,15 +62,6 @@ export default function SelectorCalculadoras() {
   const { isLoggedIn, customerDetails } = useLoaderData();
   const { language, setLanguage } = useLanguage();
 
-  // Optimistically selects a variant with given available variant information
-  // const selectedVariant = useOptimisticVariant(
-  //   product.selectedOrFirstAvailableVariant,
-  //   getAdjacentAndFirstAvailableVariants(product),
-  // );
-
-  console.log("testing now", isLoggedIn);
-  console.log("customer details", customerDetails);
-
   return (
     <div>
       <div className="fixed top-0 right-0 p-8 z-10">
@@ -81,91 +72,4 @@ export default function SelectorCalculadoras() {
     </div>
   );
 }
-
-const PRODUCT_VARIANT_FRAGMENT = `#graphql
-  fragment CalculadoraProductVariant on ProductVariant {
-    availableForSale
-    compareAtPrice {
-      amount
-      currencyCode
-    }
-    id
-    image {
-      __typename
-      id
-      url
-      altText
-      width
-      height
-    }
-    price {
-      amount
-      currencyCode
-    }
-    product {
-      title
-      handle
-    }
-    selectedOptions {
-      name
-      value
-    }
-    sku
-    title
-    unitPrice {
-      amount
-      currencyCode
-    }
-  }
-`;
-
-const PRODUCT_FRAGMENT = `#graphql
-  fragment CalculadoraProduct on Product {
-    id
-    title
-    vendor
-    handle
-    descriptionHtml
-    description
-    encodedVariantExistence
-    encodedVariantAvailability
-    options {
-      name
-      optionValues {
-        name
-        firstSelectableVariant {
-          ...CalculadoraProductVariant
-        }
-        swatch {
-          color
-          image {
-            previewImage {
-              url
-            }
-          }
-        }
-      }
-    }
-    selectedOrFirstAvailableVariant(ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
-      ...CalculadoraProductVariant
-    }
-    adjacentVariants {
-      ...CalculadoraProductVariant
-    }
-    seo {
-      description
-      title
-    }
-  }
-  ${PRODUCT_VARIANT_FRAGMENT}
-`;
-
-const CALCULADORA_QUERY = `#graphql
-  query {
-    product(id: "gid://shopify/Product/10115186000164") {
-      ...CalculadoraProduct
-    }
-  }
-  ${PRODUCT_FRAGMENT}
-`;
 

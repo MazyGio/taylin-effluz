@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
-import { Await, Link, NavLink, useAsyncValue } from 'react-router';
-import { useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
+import { Await, Link, NavLink } from 'react-router';
 import { useAside } from '~/components/Aside';
 import { customMenu } from '~/custom-data/calculadoraMenu';
 import { LanguageSelector } from './LanguageSelector';
@@ -14,12 +13,12 @@ import { useLocation } from 'react-router';
  * @param {HeaderProps}
  */
 export function Header({ header, isLoggedInPromise: isLoggedInPromise, cart, publicStoreDomain }) {
-  const { shop, menu } = header;
+  // const { shop, menu } = header;
   const location = useLocation();
 
   return (
     location.pathname !== "/" && <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
+      <NavLink prefetch="intent" to="/calculadoras" style={activeLinkStyle} end>
         <CalculadorasHomeButton />
       </NavLink>
       <HeaderMenu
@@ -50,7 +49,7 @@ export function HeaderMenu({
   const className = `header-menu-${viewport}`;
   const { close } = useAside();
   const { language } = useLanguage();
-  const t = translations[language].menu;
+  const t = translations[language];
 
   return (
     <nav className={className} role="navigation">
@@ -74,7 +73,7 @@ export function HeaderMenu({
             style={activeLinkStyle}
             to={url}
           >
-            {t.menuItems[item.title] || item.title}
+            {t.menu.menuItems[item.title] || item.title}
           </NavLink>
         );
       })}
@@ -125,47 +124,47 @@ function HeaderMenuMobileToggle() {
 /**
  * @param {{count: number | null}}
  */
-function CartBadge({ count }) {
-  const { open } = useAside();
-  const { publish, shop, cart, prevCart } = useAnalytics();
+// function CartBadge({ count }) {
+//   const { open } = useAside();
+//   const { publish, shop, cart, prevCart } = useAnalytics();
 
-  return (
-    <a
-      href="/cart"
-      onClick={(e) => {
-        e.preventDefault();
-        open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        });
-      }}
-    >
-      Cart {count === null ? <span>&nbsp;</span> : count}
-    </a>
-  );
-}
+//   return (
+//     <a
+//       href="/cart"
+//       onClick={(e) => {
+//         e.preventDefault();
+//         open('cart');
+//         publish('cart_viewed', {
+//           cart,
+//           prevCart,
+//           shop,
+//           url: window.location.href || '',
+//         });
+//       }}
+//     >
+//       Cart {count === null ? <span>&nbsp;</span> : count}
+//     </a>
+//   );
+// }
 
 /**
  * @param {Pick<HeaderProps, 'cart'>}
  */
-function CartToggle({ cart }) {
-  return (
-    <Suspense fallback={<CartBadge count={null} />}>
-      <Await resolve={cart}>
-        <CartBanner />
-      </Await>
-    </Suspense>
-  );
-}
+// function CartToggle({ cart }) {
+//   return (
+//     <Suspense fallback={<CartBadge count={null} />}>
+//       <Await resolve={cart}>
+//         <CartBanner />
+//       </Await>
+//     </Suspense>
+//   );
+// }
 
-function CartBanner() {
-  const originalCart = useAsyncValue();
-  const cart = useOptimisticCart(originalCart);
-  return <CartBadge count={cart?.totalQuantity ?? 0} />;
-}
+// function CartBanner() {
+//   const originalCart = useAsyncValue();
+//   const cart = useOptimisticCart(originalCart);
+//   return <CartBadge count={cart?.totalQuantity ?? 0} />;
+// }
 
 /**
  * @param {{

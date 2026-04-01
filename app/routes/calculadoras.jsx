@@ -1,12 +1,10 @@
 import SelectorDeCalculadoras from '~/components/SelectorDeCalculadoras';
 import {useLoaderData} from 'react-router';
-import {useOptimisticVariant} from '@shopify/hydrogen';
-import {getAdjacentAndFirstAvailableVariants} from '@shopify/hydrogen';
 
 /**
  * @type {MetaFunction<typeof loader>}
  */
-export const meta = ({data}) => {
+export const meta = () => {
   return [{title: `Taylin Luzcando - Calculadoras`}];
 };
 
@@ -28,7 +26,7 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {LoaderFunctionArgs}
  */
-async function loadCriticalData({context, request, params}) {
+async function loadCriticalData() {
   // const {storefront} = context;
   // const productId = "gid://shopify/Product/10115186000164";
 

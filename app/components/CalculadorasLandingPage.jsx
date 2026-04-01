@@ -17,27 +17,54 @@ export default function CalculadorasLandingPage({ isLoggedIn, customerDetails })
 
     const customer = isLoggedIn ? customerDetails.data.customer : null;
     let hasAccess = false;
+    let to = "";
+    let label = "";
+    let detail = "";
 
     if (customer && customer.tags.some(tag => calculadoraTags.includes(tag))) {
         hasAccess = true;
     }
 
-    const ButtonPurchaseAccess = () => (
-        <ButtonLinkWithDetail 
-            to="/cart/50805268709668:1" 
-            label={t.landing.purchaseAccess} 
-            // detail={t.landing.purchaseDetail} 
-            className="text-left text-2xl bg-blue2 text-white py-1 px-4 w-full" 
-        /> 
-    );
+    if (!isLoggedIn) {
+        to = "/login";
+        label = t.landing.purchaseAccess;
+        detail = t.landing.purchaseDetail;
+    } else if (!hasAccess) {
+        to = "/cart/50805268709668:1";
+        label = t.landing.purchaseAccess;
+        detail = t.landing.purchaseDetail;
+    } else {
+        to = "/calculadoras";
+        label = t.landing.launchApp;
+    }
+
+    const buttonStyles = "text-left text-2xl bg-blue2 text-white py-1 px-4 w-full";
 
     const ButtonLaunchApp = () => (
         <ButtonLinkWithDetail
-            to="/calculadoras"
-            label={t.landing.launchApp}
-            className="text-left text-2xl bg-blue2 text-white py-1 px-4 w-full"
+            to={to}
+            label={label}
+            detail={detail}
+            className={buttonStyles}
         />
-    )
+    );
+
+    // const ButtonPurchaseAccess = () => (
+    //     <ButtonLinkWithDetail 
+    //         to="/cart/50805268709668:1" 
+    //         label={t.landing.purchaseAccess} 
+    //         detail={t.landing.purchaseDetail} 
+    //         className="text-left text-2xl bg-blue2 text-white py-1 px-4 w-full" 
+    //     /> 
+    // );
+
+    // const ButtonLaunchApp = () => (
+    //     <ButtonLinkWithDetail
+    //         to="/calculadoras"
+    //         label={t.landing.launchApp}
+    //         className="text-left text-2xl bg-blue2 text-white py-1 px-4 w-full"
+    //     />
+    // )
 
     return (
         <div>
@@ -64,14 +91,9 @@ export default function CalculadorasLandingPage({ isLoggedIn, customerDetails })
                         <div className="flex flex-5 justify-center px-6 block sm:hidden">
                             <Image src="/app/assets/effluz-demo-image-mobile.jpg" alt="Demo Calculadoras Effluz" width={320} className="min-w-[20rem]" />
                         </div>
+                        <div className="hidden text-sm text-xs text-md"></div>
                         <div className="flex justify-normal sm:ml-4 sm:mb-4">
-                            {/* TODO: Add check for user tags and check if user has access to calculators */}
-                            {
-                                hasAccess ?
-                                    <ButtonLaunchApp />
-                                : 
-                                    <ButtonPurchaseAccess />
-                            }
+                            <ButtonLaunchApp />
                         </div>
                     </div>
                     <div className="flex flex-6 flex-col justify-center sm:justify-end items-center sm:items-end h-full p-2 gap-y-2">

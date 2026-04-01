@@ -16,7 +16,7 @@ export default function SelectorDeCalculadoras({isLoggedInPromise}) {
     // console.log(language);
 
     return (
-        <div className="min-h-screen bg-lightGray2">
+        <div className="h-dvh bg-lightGray2">
             <div className="text-center p-12">
                 <h1
                     className="text-4xl sm:text-5xl font-extrabold mb-2 text-primary"

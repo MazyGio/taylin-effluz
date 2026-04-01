@@ -1,6 +1,6 @@
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../assets/localization/translations';
-import { Image } from "@shopify/hydrogen";
+import { Image, Video } from "@shopify/hydrogen";
 import CalculadoraDemoCard from './CalculadoraDemoCard';
 
 // ====================================================================================
@@ -31,21 +31,30 @@ export default function CalculadorasDemoPage() {
                             subtitle={t.demo.calculadoraNegociosSubtitle}
                             headerClassName="bg-primary"
                         >
-                            <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" />
+                            <video controls loop width="300" className="max-w-[300px] w-full h-full">
+                                <source src="/app/assets/calc-demo-video-negocios.mp4" type="video/mp4" />
+                            </video>
+                            {/* <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" /> */}
                         </CalculadoraDemoCard>
                         <CalculadoraDemoCard
                             title={t.demo.calculadoraServiciosTitle}
                             subtitle={t.demo.calculadoraServiciosSubtitle}
                             headerClassName="bg-blue2"
                         >
-                            <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" />
+                            <video controls loop width="300" className="max-w-[300px] w-full h-full">
+                                <source src="/app/assets/calc-demo-video-servicios.mp4" type="video/mp4" />
+                            </video>
+                            {/* <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" /> */}
                         </CalculadoraDemoCard>
                         <CalculadoraDemoCard
                             title={t.demo.calculadoraUtilidadTitle}
                             subtitle={t.demo.calculadoraUtilidadSubtitle}
                             headerClassName="bg-darkGreen"
                         >
-                            <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" />
+                            <video controls loop width="300" className="max-w-[300px] w-full h-full">
+                                <source src="/app/assets/calc-demo-video-utilidad.mp4" type="video/mp4" />
+                            </video>
+                            {/* <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" /> */}
                         </CalculadoraDemoCard>
                     </div>
                     <div id="demo-disclaimer" className="mt-4 sm:mt-0">

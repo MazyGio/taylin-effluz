@@ -6,7 +6,7 @@ import { RestrictedContentByTags } from '~/components/RestrictedContentByTags';
 /**
  * @type {MetaFunction<typeof loader>}
  */
-export const meta = ({ data }) => {
+export const meta = () => {
   return [{ title: `Calculadora de Servicios` }];
 };
 
@@ -28,11 +28,11 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {LoaderFunctionArgs}
  */
-async function loadCriticalData({ context, request, params }) {
+async function loadCriticalData({ context }) {
   if (!import.meta.env.DEV) {
     // if the user doesn't exist or isn't logged in, this query
     // will redirect them to the login page
-    const { data, errors } = await context.customerAccount.query(
+    const { data } = await context.customerAccount.query(
       CUSTOMER_DETAILS_QUERY,
     );
     return { data }
