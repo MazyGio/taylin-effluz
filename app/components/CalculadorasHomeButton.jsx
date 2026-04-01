@@ -8,8 +8,8 @@ export function CalculadorasHomeButton() {
     return (
         <div className="flex items-center rounded-sm p-1 text-4xl text-primary">
             {location.pathname !== '/calculadoras' && <span className="m-[-12px]"><LuChevronLeft /></span>}
-            <Image src="/app/assets/logo-effluz.png" alt="Effluz Logo" width={64} height={64} />
-            <Image src="/app/assets/sello-taylin.png" alt="Taylin Logo" width={64} height={64} />
+            <Image src="/public/images/logo-effluz.png" alt="Effluz Logo" width={64} height={64} />
+            <Image src="/public/images/sello-taylin.png" alt="Taylin Logo" width={64} height={64} />
         </div>
     );
 };
