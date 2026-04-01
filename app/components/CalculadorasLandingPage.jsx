@@ -73,15 +73,15 @@ export default function CalculadorasLandingPage({ isLoggedIn, customerDetails })
             </div>
             <div className="relative sm:h-[34rem] lg:h-[40rem] bg-lightGray2">
                 <div className="sm:absolute right-0 hidden sm:block h-full">
-                    <Image src="/public/images/effluz-hero-image.jpg" alt="Calculadoras Effluz" className="h-full" sizes="(max-width: 640px)" />
+                    <Image src="/images/effluz-hero-image.jpg" alt="Calculadoras Effluz" className="h-full" sizes="(max-width: 640px)" />
                 </div>
 
                 <div className="sm:absolute flex flex-col sm:flex-row pl-4 pr-4 w-full h-full">
                     <div className="flex flex-4 flex-col p-4 gap-y-8">
                         <div id="logo-container" className="flex-row flex-3 pt-2">
                             <div className="flex justify-start max-h-[6rem] sm:justify-normal sm:max-h-[8rem]">
-                                <Image src="/public/images/logo-effluz.png" alt="Effluz Logo" className="max-w-[6rem] sm:max-w-[8rem]" sizes="(max-width: 160px) 4rem, 6rem" />
-                                <Image src="/public/images/sello-taylin.png" alt="Taylin Logo" className="max-w-[6rem] sm:max-w-[8rem]" sizes="(max-width: 160px) 4rem, 6rem" />
+                                <Image src="/images/logo-effluz.png" alt="Effluz Logo" className="max-w-[6rem] sm:max-w-[8rem]" sizes="(max-width: 160px) 4rem, 6rem" />
+                                <Image src="/images/sello-taylin.png" alt="Taylin Logo" className="max-w-[6rem] sm:max-w-[8rem]" sizes="(max-width: 160px) 4rem, 6rem" />
                             </div>
                         </div>
                         <div id="title-container" className="flex-col flex-5 pl-6">
@@ -89,7 +89,7 @@ export default function CalculadorasLandingPage({ isLoggedIn, customerDetails })
                             <p className="flex text-base lg:text-lg">{t.landing.subtitle}</p>
                         </div>
                         <div className="flex flex-5 justify-center px-6 block sm:hidden">
-                            <Image src="/public/images/effluz-demo-image-mobile.jpg" alt="Demo Calculadoras Effluz" width={320} className="min-w-[20rem]" />
+                            <Image src="/images/effluz-demo-image-mobile.jpg" alt="Demo Calculadoras Effluz" width={320} className="min-w-[20rem]" />
                         </div>
                         <div className="hidden text-sm text-xs text-md"></div>
                         <div className="flex justify-normal sm:ml-4 sm:mb-4">

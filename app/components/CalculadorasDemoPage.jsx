@@ -17,7 +17,7 @@ export default function CalculadorasDemoPage() {
                 <div className="flex flex-col p-4 items-center">
                     <div id="demo-title" className="flex flex-row items-center sm:self-start sm:pl-4 mt-6">
                         <div className="h-[4rem] sm:h-[6rem] px-2">
-                            <Image src="/public/images/calc-demo-icon.jpg" alt="Calculadoras Demo" className="max-w-[8rem]" sizes="(max-width: 160px) 4rem, 6rem" />
+                            <Image src="/images/calc-demo-icon.jpg" alt="Calculadoras Demo" className="max-w-[8rem]" sizes="(max-width: 160px) 4rem, 6rem" />
                         </div>
                         <div className="px-2">
                             <h1 className="text-3xl text-white font-extrabold">
@@ -32,7 +32,7 @@ export default function CalculadorasDemoPage() {
                             headerClassName="bg-primary"
                         >
                             <video controls loop width="300" className="max-w-[300px] w-full h-full">
-                                <source src="/public/videos/calc-demo-video-negocios.mp4" type="video/mp4" />
+                                <source src="/videos/calc-demo-video-negocios.mp4" type="video/mp4" />
                             </video>
                             {/* <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" /> */}
                         </CalculadoraDemoCard>
@@ -42,7 +42,7 @@ export default function CalculadorasDemoPage() {
                             headerClassName="bg-blue2"
                         >
                             <video controls loop width="300" className="max-w-[300px] w-full h-full">
-                                <source src="/public/videos/calc-demo-video-servicios.mp4" type="video/mp4" />
+                                <source src="/videos/calc-demo-video-servicios.mp4" type="video/mp4" />
                             </video>
                             {/* <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" /> */}
                         </CalculadoraDemoCard>
@@ -52,7 +52,7 @@ export default function CalculadorasDemoPage() {
                             headerClassName="bg-darkGreen"
                         >
                             <video controls loop width="300" className="max-w-[300px] w-full h-full">
-                                <source src="/public/videos/calc-demo-video-utilidad.mp4" type="video/mp4" />
+                                <source src="/videos/calc-demo-video-utilidad.mp4" type="video/mp4" />
                             </video>
                             {/* <Image src="/app/assets/calc-demo-image-placeholder.jpg" alt="Calculadora Demo Placehodler" className="w-full h-full" sizes="(max-width: 300px)" /> */}
                         </CalculadoraDemoCard>
