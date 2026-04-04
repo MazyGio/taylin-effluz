@@ -1,6 +1,6 @@
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../assets/localization/translations';
-import { Image, Video } from "@shopify/hydrogen";
+import { Image } from "@shopify/hydrogen";
 import CalculadoraDemoCard from './CalculadoraDemoCard';
 
 // ====================================================================================

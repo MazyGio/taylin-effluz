@@ -26,7 +26,7 @@ export default function CalculadorasLandingPage({ isLoggedIn, customerDetails })
     }
 
     if (!isLoggedIn) {
-        to = "/login";
+        to = "/account/login";
         label = t.landing.purchaseAccess;
         detail = t.landing.purchaseDetail;
     } else if (!hasAccess) {

@@ -1,7 +1,7 @@
 export default {
   home: "Home",
   menuItems: {
-    "Precios": "Prices",
+    "Precios": "Prices and Costs",
     "Servicios": "Services",
     "Utilidad": "Profits"
   }
