@@ -1,19 +1,59 @@
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../assets/localization/translations';
-import { ButtonComprarAcceso } from './ButtonComprarAcceso';
-import { ButtonCalculadoraDePrecios } from './ButtonCalculadoraDePrecios';
-import { ButtonCalculadoraDeServicios } from './ButtonCalculadoraDeServicios';
-import { ButtonCalculadoraDeUtilidad } from './ButtonCalculadoraDeUtilidad';
-import { Await } from 'react-router';
+import { ButtonLinkWithDetail } from './ButtonLinkWithDetail';
+import { calculadoraTags } from '~/custom-data/calculadoraTags';
 
 // ====================================================================================
 // SHARED CONFIGURATION AND HELPERS
 // ====================================================================================
 
-export default function SelectorDeCalculadoras({isLoggedInPromise}) {
+export default function SelectorDeCalculadoras({isLoggedIn, customerDetails}) {
     const { language } = useLanguage();
     const t = translations[language];
     // console.log(language);
+
+    const customer = isLoggedIn ? customerDetails.data.customer : null;
+    let hasAccess = false;
+
+    if (customer && customer.tags.some(tag => calculadoraTags.includes(tag))) {
+        hasAccess = true;
+    }
+
+    const ButtonCalculadoraDePrecios = () => (
+        <ButtonLinkWithDetail
+            to="/calculadora-precios"
+            label={t.precios.title}
+            detail={t.precios.summary}
+            className="text-center text-2xl text-white p-4 w-full bg-primary"
+        />
+    );
+
+    const ButtonCalculadoraDeServicios = () => (
+        <ButtonLinkWithDetail
+            to="/calculadora-servicios"
+            label={t.consultoria.title}
+            detail={t.consultoria.summary}
+            className="text-center text-2xl text-white p-4 w-full bg-blue2"
+        />
+    );
+
+    const ButtonCalculadoraDeUtilidad = () => (
+        <ButtonLinkWithDetail
+            to="/calculadora-utilidad"
+            label={t.utilidad.title}
+            detail={t.utilidad.summary}
+            className="text-center text-2xl text-white p-4 w-full bg-green2"
+        />
+    );
+
+    const ButtonComprarAcceso = () => (
+        <ButtonLinkWithDetail
+            to={ isLoggedIn ? "/cart/50805268709668:1" : "/account/login" }
+            label={t.common.purchaseAccess}
+            detail={t.common.purchaseDetail}
+            className="text-center text-2xl text-white p-4 w-full bg-primary"
+        />
+    );
 
     return (
         <div className="h-dvh bg-lightGray2">
@@ -33,18 +73,16 @@ export default function SelectorDeCalculadoras({isLoggedInPromise}) {
                 className="flex flex-col items-center min-h-screen p-4"
             >
                 <div className="w-full max-w-lg flex flex-col gap-6">
-                    <Await resolve={isLoggedInPromise}>
-                        {(isLoggedIn) => (
-                            isLoggedIn ?
-                                <>
-                                    <ButtonCalculadoraDePrecios />
-                                    <ButtonCalculadoraDeServicios />
-                                    <ButtonCalculadoraDeUtilidad />
-                                </>
-                                :
-                                <ButtonComprarAcceso />
-                        )}
-                    </Await>
+                    {
+                        hasAccess ?
+                            <>
+                                <ButtonCalculadoraDePrecios />
+                                <ButtonCalculadoraDeServicios />
+                                <ButtonCalculadoraDeUtilidad />
+                            </>
+                            :
+                            <ButtonComprarAcceso />
+                    }
                 </div>
                 <div className="text-center mt-12">
                     <p className="text-xs text-darkBlue mt-4 px-2">

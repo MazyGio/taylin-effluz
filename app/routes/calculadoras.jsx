@@ -1,5 +1,6 @@
 import SelectorDeCalculadoras from '~/components/SelectorDeCalculadoras';
 import {useLoaderData} from 'react-router';
+import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -26,25 +27,21 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {LoaderFunctionArgs}
  */
-async function loadCriticalData() {
-  // const {storefront} = context;
-  // const productId = "gid://shopify/Product/10115186000164";
+async function loadCriticalData({context}) {
+  const {customerAccount} = context;
+  const isLoggedIn = await customerAccount.isLoggedIn();
+  let customerDetails = null;
 
-  // const [{product}] = await Promise.all([
-  //   storefront.query(CALCULADORA_QUERY, {
-  //     variables: {productId},
-  //   }),
-  //   // Add other queries here, so that they are loaded in parallel
-  // ]);
+  if (isLoggedIn) {
+    customerDetails = await context.customerAccount.query(
+      CUSTOMER_DETAILS_QUERY,
+    );
+  }
 
-  // if (!product?.id) {
-  //   throw new Response(null, {status: 404});
-  // }
-
-  // return {
-  //   product,
-  // };
-  return {};
+  return {
+    isLoggedIn,
+    customerDetails: customerDetails || null,
+  };
 }
 
 /**
@@ -53,15 +50,13 @@ async function loadCriticalData() {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {LoaderFunctionArgs}
  */
-function loadDeferredData({context}) {
-  const {customerAccount} = context;
-
-  return {isLoggedInPromise: customerAccount.isLoggedIn()};
+function loadDeferredData() {
+  return {}
 }
 
 export default function SelectorCalculadoras() {
   /** @type {LoaderReturnData} */
-  const {isLoggedInPromise} = useLoaderData();
+  const {isLoggedIn, customerDetails} = useLoaderData();
 
   // Optimistically selects a variant with given available variant information
   // const selectedVariant = useOptimisticVariant(
@@ -70,7 +65,7 @@ export default function SelectorCalculadoras() {
   // );
 
   return (
-    <SelectorDeCalculadoras isLoggedInPromise={isLoggedInPromise}/>
+    <SelectorDeCalculadoras isLoggedIn={isLoggedIn} customerDetails={customerDetails}/>
   );
 }
 
